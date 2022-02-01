@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "Mconf API",
     "x-logo": {
-      "url": "https://i.imgur.com/rzePmLo.png",
+      "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d78c2efe-0fdb-41ce-8b6c-9db63048856e/Mconf_Logo_Fundo_Azul.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220201%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220201T175649Z&X-Amz-Expires=86400&X-Amz-Signature=9b4a4074f53edb880a9356905f814f11415e7546ce87e39825b4ac3396519fac&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Mconf_Logo%2520Fundo%2520Azul.png%22&x-id=GetObject",
       "altText": "Mconf Logo"
     },
     "termsOfService": "http://swagger.io/terms/",
