@@ -1,0 +1,13 @@
+version: "3"
+services:
+    mconf-api-docs:
+        image: mconf/api-docs:latest
+        ports:
+            - "3000:3000"
+        networks:
+            - mconf-net-dev
+        volumes:
+        - .:/app
+
+networks:
+    mconf-net-dev:
