@@ -8,7 +8,7 @@ info:
   version: 1.0.0
   title: Mconf API
   x-logo:
-    url: https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d78c2efe-0fdb-41ce-8b6c-9db63048856e/Mconf_Logo_Fundo_Azul.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220201%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220201T175649Z&X-Amz-Expires=86400&X-Amz-Signature=9b4a4074f53edb880a9356905f814f11415e7546ce87e39825b4ac3396519fac&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Mconf_Logo%2520Fundo%2520Azul.png%22&x-id=GetObject
+    url: 'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d78c2efe-0fdb-41ce-8b6c-9db63048856e/Mconf_Logo_Fundo_Azul.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220207%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220207T182411Z&X-Amz-Expires=86400&X-Amz-Signature=8bc973343c4e4ab0ca8e0188e105d7982792caae19ce8d16cf01614f754819dc&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Mconf_Logo%2520Fundo%2520Azul.png%22&x-id=GetObject'
     altText: Mconf Logo
   termsOfService: http://swagger.io/terms/
   contact:
@@ -156,57 +156,7 @@ paths:
       - mconf_auth:
         - write:mconf
         - read:mconf
-    post:
-      tags:
-      - meeting
-      summary: Returns all meetings in progress
-      description: Gets a redirect to the URL that the user must use to join the meeting.
-        It also must respond when the `bigbluebutton` protocol is used (mobile).
-      operationId: postMeetings
-      consumes:
-      - application/json
-      - application/xml
-      produces:
-      - application/xml
-      - application/json
-      parameters:
-      - name: fullName
-        in: query
-        description: Name of the user
-        required: true
-        type: string
-      - name: meetingID
-        in: query
-        description: ID of the meeting to be joined
-        required: true
-        type: string
-      - name: password
-        in: query
-        description: Meeting password to join as Atendee or Moderator
-        required: true
-        type: string
-      - name: redirect
-        in: query
-        description: Variable that defines if user will be redirected
-        required: true
-        type: boolean
-        default: true
-      - name: checksum
-        in: query
-        description: SHA-1 value calculated for validation in the API
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Successful operation, User redirected to meeting URL
-        '400':
-          description: Invalid checksum
-          schema:
-            "$ref": "#/definitions/Checksum"
-      security:
-      - mconf_auth:
-        - write:mconf
-        - read:mconf
+
   "/join?fullName={fullName}&meetingID={meetingID}&password={password}&redirect={redirect}&checksum={checksum}":
     get:
       tags:
@@ -343,10 +293,71 @@ paths:
       responses:
         '200':
           description: Successful operation, User redirected to meeting URL
+          examples:
+            application/xml: |-
+              |<response>
+               <returncode>SUCCESS</returncode>
+               <nextpage>false</nextpage>
+               <recordings>
+                 <recording>
+                   <recordID>123456789randomvalues123456789-123456789</recordID>
+                   <meetingID>123456789randomvalues123456789-123456789</meetingID>
+                   <internalMeetingID>123456789randomvalues123456789-123456789</internalMeetingID>
+                   <name>Cool Name</name>
+                   <isBreakout>false</isBreakout>
+                   <published>true</published>
+                   <state>published</state>
+                   <startTime>1643201046673</startTime>
+                   <endTime>1643206124251</endTime>
+                   <size>76302108</size>
+                   <rawSize>0</rawSize>
+                   <participants>4</participants>
+                   <metadata>
+                     <mconfweb-institution-subscription-type>premium</mconfweb-institution-subscription-type>
+                     <mconf-shared-secret-guid>random-123</mconf-shared-secret-guid>
+                     <bbbrails-user-id>149</bbbrails-user-id>
+                     <mconfweb-external-subscriber>true</mconfweb-external-subscriber>
+                     <mconfweb-institution-name>user@mconf.com</mconfweb-institution-name>
+                     <mconfweb-room-type>User</mconfweb-room-type>
+                     <mconf-institution-name>Mconf</mconf-institution-name>
+                     <mconfweb-subscription-type>premium</mconfweb-subscription-type>
+                     <invitation-url>https://h.elos.dev/username</invitation-url>
+                     <bbbrails-user-name>Username</bbbrails-user-name>
+                     <mconflb-guid>randomvalues==-randomnumbers</mconflb-guid>
+                     <mconfweb-url>https://h.elos.dev/</mconfweb-url>
+                     <mconf-subnet>Global</mconf-subnet>
+                     <mconf-secret-name>h.elos.dev</mconf-secret-name>
+                     <mconfweb-institution-guid>01234567-abcde-fghi-jklm-0123456789ab</mconfweb-institution-guid>
+                     <mconf-institution-guid>01234567-abcde-fghi-jklm-0123456789ab</mconf-institution-guid>
+                   </metadata>
+                   <playback>
+                     <format>
+                       <type>presentation</type>
+                       <url>https://rec.h.elos.dev/playback/presentation/2.3/thereisacodehere123456789-randomnumber</url>
+                       <processingTime>0</processingTime>
+                       <length>56</length>
+                       <size>52363189</size>
+                       <preview>
+                         <images>
+                           <image>https://rec.h.elos.dev/presentation/imageurl/thumbnails/coolImage.png</image>
+                         </images>
+                       </preview>
+                     </format>
+                   </playback>
+                 </recording>
+               </recordings>
+              </response>
           schema:
             "$ref": "#/definitions/Recording"
         '400':
           description: Invalid checksum
+          examples:
+           application/xml: |-
+            |<response>
+             <returncode>FAILED</returncode>
+             <messageKey>checksumError</messageKey>
+             <message>You did not pass the checksum security check</message>
+            </response>
           schema:
             "$ref": "#/definitions/Checksum"
       security:
@@ -385,6 +396,60 @@ paths:
       responses:
         '200':
           description: Successful operation, User redirected to meeting URL
+          examples:
+            application/xml: |-
+             |<response>
+               <returncode>SUCCESS</returncode>
+               <nextpage>false</nextpage>
+               <recordings>
+                 <recording>
+                   <recordID>123456789randomvalues123456789-123456789</recordID>
+                   <meetingID>123456789randomvalues123456789-123456789</meetingID>
+                   <internalMeetingID>123456789randomvalues123456789-123456789</internalMeetingID>
+                   <name>Cool Name</name>
+                   <isBreakout>false</isBreakout>
+                   <published>true</published>
+                   <state>published</state>
+                   <startTime>1643201046673</startTime>
+                   <endTime>1643206124251</endTime>
+                   <size>76302108</size>
+                   <rawSize>0</rawSize>
+                   <participants>4</participants>
+                   <metadata>
+                     <mconfweb-institution-subscription-type>premium</mconfweb-institution-subscription-type>
+                     <mconf-shared-secret-guid>random-123</mconf-shared-secret-guid>
+                     <bbbrails-user-id>149</bbbrails-user-id>
+                     <mconfweb-external-subscriber>true</mconfweb-external-subscriber>
+                     <mconfweb-institution-name>user@mconf.com</mconfweb-institution-name>
+                     <mconfweb-room-type>User</mconfweb-room-type>
+                     <mconf-institution-name>Mconf</mconf-institution-name>
+                     <mconfweb-subscription-type>premium</mconfweb-subscription-type>
+                     <invitation-url>https://h.elos.dev/username</invitation-url>
+                     <bbbrails-user-name>Username</bbbrails-user-name>
+                     <mconflb-guid>randomvalues==-randomnumbers</mconflb-guid>
+                     <mconfweb-url>https://h.elos.dev/</mconfweb-url>
+                     <mconf-subnet>Global</mconf-subnet>
+                     <mconf-secret-name>h.elos.dev</mconf-secret-name>
+                     <mconfweb-institution-guid>01234567-abcde-fghi-jklm-0123456789ab</mconfweb-institution-guid>
+                     <mconf-institution-guid>01234567-abcde-fghi-jklm-0123456789ab</mconf-institution-guid>
+                   </metadata>
+                   <playback>
+                     <format>
+                       <type>presentation</type>
+                       <url>https://rec.h.elos.dev/playback/presentation/2.3/thereisacodehere123456789-randomnumber</url>
+                       <processingTime>0</processingTime>
+                       <length>56</length>
+                       <size>52363189</size>
+                       <preview>
+                         <images>
+                           <image>https://rec.h.elos.dev/presentation/imageurl/thumbnails/coolImage.png</image>
+                         </images>
+                       </preview>
+                     </format>
+                   </playback>
+                 </recording>
+               </recordings>
+             </response>
           schema:
             "$ref": "#/definitions/Recording"
         '400':
