@@ -4,6 +4,8 @@ const swaggerUi = require('swagger-ui-express')
 const path = require('path')
 
 const app = express()
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./openapi.yaml');
 
 app.use(bodyParser.json())
 
@@ -12,7 +14,7 @@ const swaggerFile = require('../openapi.json')
 // Documentation
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
-  res.send(swaggerFile)
+  res.send(swaggerDocument)
 })
 
 // ReDoc
@@ -21,7 +23,7 @@ app.get('/docs', (req, res) => {
 })
 
 // SwaggerUi
-app.use('/docs2', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/docs2', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.listen(3000, () => {
   console.log('Server started at port 3000')

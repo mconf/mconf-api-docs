@@ -109,6 +109,9 @@
         "responses": {
           "200": {
             "description": "Successful operation",
+            "examples": {
+              "application/xml": "|<response>\n     <returncode>SUCCESS</returncode>\n</response>"
+            },
             "schema": {
               "$ref": "#/definitions/Meeting"
             }
