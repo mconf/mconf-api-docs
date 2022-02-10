@@ -1829,6 +1829,119 @@ paths:
             schema:
               "$ref": "#/definitions/Checksum"
 
+  "/getRecordingTextTracks?recordID={recordID}&checksum={checksum}":
+    get:
+      tags:
+      - recording
+      summary: Returns a list of caption/subtitle files for a recording.
+      description: Returns a list of caption/subtitle files available for recording.
+        It includes information about captions, and a download link. Could be useful to retrieve automatic subtitles for manual editing.
+      operationId: getTextTracks
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: recordID
+        in: query
+        description: ID of the recording in question
+        required: true
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>SUCCESS</returncode>
+                 <tracks>
+                   <track>
+                     <href>https://captions.example.com/textTrack/downloadID.vtt</href>
+                     <kind>subtitles</kind>
+                     <label>English</label>
+                     <lang>en-US</lang>
+                     <source>upload</source>
+                   </track>
+                   <track>
+                   ...
+                   </track>
+                 </tracks>
+                </response>
+          '400':
+            description: Invalid checksum
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+            schema:
+              "$ref": "#/definitions/Checksum"
+
+    post:
+      tags:
+      - recording
+      summary: Returns a list of caption/subtitle files for a recording.
+      description: Returns a list of caption/subtitle files available for recording.
+        It includes information about captions, and a download link. Could be useful to retrieve automatic subtitles for manual editing.
+      operationId: postTextTracks
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: recordID
+        in: query
+        description: ID of the recording to be updated
+        required: true
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>SUCCESS</returncode>
+                 <tracks>
+                   <track>
+                     <href>https://captions.example.com/textTrack/downloadID.vtt</href>
+                     <kind>subtitles</kind>
+                     <label>English</label>
+                     <lang>en-US</lang>
+                     <source>upload</source>
+                   </track>
+                   <track>
+                   ...
+                   </track>
+                 </tracks>
+                </response>
+          '400':
+            description: Invalid checksum
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+            schema:
+              "$ref": "#/definitions/Checksum"
+
 
 
 securityDefinitions:
