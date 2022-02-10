@@ -3,3 +3,6 @@ docker-build:
 
 up:
 	docker-compose -f development.yml up
+
+html:
+	npx redoc-cli bundle openapi.yaml
