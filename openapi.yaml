@@ -1650,6 +1650,185 @@ paths:
             schema:
               "$ref": "#/definitions/Checksum"
 
+  "/deleteRecordings?recordID={recordID}&checksum={checksum}":
+    get:
+      tags:
+      - recording
+      summary: Deletes recording
+      description: Deletes specified recording(s) from the database.
+      operationId: getDelete
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: recordID
+        in: query
+        description: ID of the recording to be deleted
+        required: true
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>SUCCESS</returncode>
+                 <published>true</version>
+                </response>
+          '400':
+            description: Invalid checksum
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+            schema:
+              "$ref": "#/definitions/Checksum"
+
+    post:
+      tags:
+      - recording
+      summary: Deletes recording
+      description: Deletes specified recording(s) from the database.
+      operationId: postDelete
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: recordID
+        in: query
+        description: ID of the recording to be deleted
+        required: true
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>SUCCESS</returncode>
+                 <published>true</version>
+                </response>
+          '400':
+            description: Invalid checksum
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+            schema:
+              "$ref": "#/definitions/Checksum"
+
+
+  "/updateRecordings?recordID={recordID}&checksum={checksum}":
+    get:
+      tags:
+      - recording
+      summary: Modifies recording information
+      description: Modifies one or more metadata values of one or more recordings given a recordID or (or set of record IDs). The metadata fields are given in the request by prefixing with meta_ followed by the field name and value like `meta_field=value`.
+      operationId: getUpdate
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: recordID
+        in: query
+        description: ID of the recording to be updated
+        required: true
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>SUCCESS</returncode>
+                 <published>true</version>
+                </response>
+          '400':
+            description: Invalid checksum
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+            schema:
+              "$ref": "#/definitions/Checksum"
+
+    post:
+      tags:
+      - recording
+      summary: Modifies recording information
+      description: Modifies one or more metadata values of one or more recordings given a recordID or (or set of record IDs). The metadata fields are given in the request by prefixing with meta_ followed by the field name and value like `meta_field=value`.
+      operationId: postUpdate
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: recordID
+        in: query
+        description: ID of the recording to be updated
+        required: true
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>SUCCESS</returncode>
+                 <published>true</version>
+                </response>
+          '400':
+            description: Invalid checksum
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+            schema:
+              "$ref": "#/definitions/Checksum"
+
 
 
 securityDefinitions:
