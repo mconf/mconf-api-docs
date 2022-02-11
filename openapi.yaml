@@ -37,12 +37,12 @@ tags:
     description: Find out more
     url: http://swagger.io
 - name: monitoring
-  description: User related operations
+  description: Monitoring centered requests
   externalDocs:
     description: Find out more
     url: http://swagger.io
 - name: administration
-  description: User related operations
+  description: Administrative centered requests
   externalDocs:
     description: Find out more
     url: http://swagger.io
@@ -56,12 +56,14 @@ paths:
       summary: Returns current API version
       description: Returns the API version currently being used by the Elos application in the selected enviroment.
       operationId: getAPI
+      tags:
+      - monitoring
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: checksum
         in: query
@@ -77,114 +79,19 @@ paths:
                   <returncode>SUCCESS</returncode>
                   <version>1.0</version>
                   </response>
-          '400':
-            description: Invalid checksum
-            examples:
-              application/xml: |-
-                |<response>
-                  <returncode>FAILED</returncode>
-                  <messageKey>checksumError</messageKey>
-                  <message>You did not pass the checksum security check</message>
-                  </response>
             schema:
               "$ref": "#/definitions/Checksum"
-
-
-  "/getDefaultConfigXML?checksum={checksum}":
-    get:
-      tags:
-      - administration
-      summary: Retrieves default `config.xml` file
-      description: Retrieves the default `config.xml` file so it can be edited and set through the `setConfigXML` call.
-      operationId: getXML
-      consumes:
-      - application/json
-      - application/xml
-      produces:
-      - application/xml
-      - application/json
-      parameters:
-      - name: checksum
-        in: query
-        description: SHA-1 value calculated for validation in the API
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Successful operation
-          examples:
-            application/xml: |-
-              |[returns config.xml file]
-        '400':
-          description: Invalid checksum
-          examples:
-            application/xml: |-
-             |<response>
-               <returncode>FAILED</returncode>
-               <messageKey>checksumError</messageKey>
-               <message>You did not pass the checksum security check</message>
-              </response>
-          schema:
-            "$ref": "#/definitions/Checksum"
-      security:
-      - mconf_auth:
-        - write:mconf
-        - read:mconf
-
-  "/setConfigXML?checksum={checksum}":
-    post:
-      tags:
-      - administration
-      summary: Sets a custom `config.xml` file
-      description: Sets a custom `config.xml` file for a meeting.
-      operationId: postXML
-      consumes:
-      - application/json
-      - application/xml
-      produces:
-      - application/xml
-      - application/json
-      parameters:
-      - name: checksum
-        in: query
-        description: SHA-1 value calculated for validation in the API
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Successful operation
-          examples:
-            application/xml: |-
-              |<response>
-               <returncode>SUCCESS</returncode>
-               <token>random-123</token>
-              </response>
-        '400':
-          description: Invalid checksum
-          examples:
-            application/xml: |-
-             |<response>
-               <returncode>FAILED</returncode>
-               <messageKey>checksumError</messageKey>
-               <message>You did not pass the checksum security check</message>
-              </response>
-          schema:
-            "$ref": "#/definitions/Checksum"
-      security:
-      - mconf_auth:
-        - write:mconf
-        - read:mconf
 
   "/getMeetings?checksum={checksum}":
     get:
       tags:
-      - monitoring
+      - meeting
       summary: Returns all meetings in progress
       description: Returns a XML with information about every meeting that is currently running.
       operationId: getMeetings
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -261,13 +168,27 @@ paths:
           schema:
             "$ref": "#/definitions/Meeting"
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
                <returncode>FAILED</returncode>
                <messageKey>checksumError</messageKey>
                <message>You did not pass the checksum security check</message>
+              </response>
+
+
+              <response>
+               <returncode>FAILED</returncode>
+               <messageKey>internalError</messageKey>
+               <message>Unable to access the database</message>
+              </response>
+
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>unable to get meetings info</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -281,13 +202,13 @@ paths:
   "/getAllMeetings?includeRecordings={includeRecordings}&checksum={checksum}":
     get:
       tags:
-      - monitoring
+      - meeting
       summary: Returns information about every meeting
       description: Returns a XML containing information about every meeting in the database, aswell as it's recordings.
       operationId: getAllMeetings
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -420,13 +341,25 @@ paths:
                  </meetings>                  
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
                <returncode>FAILED</returncode>
                <messageKey>checksumError</messageKey>
                <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to access the database</message>
+              </response>
+              
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>unable to get meetings info</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -437,13 +370,13 @@ paths:
 
     post:
       tags:
-      - monitoring
+      - meeting
       summary: Returns information about every meeting
       description: Returns a XML containing information about every meeting in the database, aswell as it's recordings.
       operationId: postAllMeetings
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -576,12 +509,25 @@ paths:
                  </meetings>                  
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
-                 <returncode>SUCCESS</returncode>
-                 <meetings>true</meetings>                   
+               <returncode>FAILED</returncode>
+               <messageKey>checksumError</messageKey>
+               <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to access the database</message>
+              </response>
+              
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>unable to get meetings info</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -596,13 +542,13 @@ paths:
   "/isMeetingRunning?meetingID={metingID}&checksum={checksum}":
     get:
       tags:
-      - monitoring
+      - meeting
       summary: Returns boolean value of a meeting's running status
       description: Returns a XML containing the boolean value of a specific meeting's 'running' row from the 'meetings' table in the database.
       operationId: getMeetingRunning
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -627,13 +573,25 @@ paths:
                  <meetings>true</meetings>                   
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
-               <returncode>FAILED</returncode>
-               <messageKey>checksumError</messageKey>
-               <message>You did not pass the checksum security check</message>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>missingParamMeetingID</messageKey>
+                <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to access the database</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -644,13 +602,13 @@ paths:
 
     post:
       tags:
-      - monitoring
+      - meeting
       summary: Returns information about a single meeting
       description: Returns a XML with information about a specific meeting.
       operationId: postMeetingRunning
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -675,12 +633,25 @@ paths:
                  <meetings>true</meetings>                   
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
-                 <returncode>SUCCESS</returncode>
-                 <meetings>true</meetings>                   
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>missingParamMeetingID</messageKey>
+                <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to access the database</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -692,14 +663,14 @@ paths:
   "/create?allowStartStopRecording={allowStartStopRecording}&name={name}&attendeePW={attendeePW}&record={record}&voiceBridge={voiceBridge}&welcome={welcome}&autoStartRecording={autoStartRecording}&meetingID={meetingID}&moderatorPW={moderatorPW}&checksum={checksum}":
     get:
       tags:
-      - administration
+      - meeting
       summary: Creates a meeting on the Elos platform
       description: One of, if not the most complex request, it must select a server in the cloud and create a meeting in that server with the infomration provided.
         It also uses the setConfigXML, which can be edited, to customize aspects of the meeting, as well of the request. 
       operationId: getCreate
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -785,14 +756,40 @@ paths:
                  <message/>
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
-               <returncode>FAILED</returncode>
-               <messageKey>checksumError</messageKey>
-               <message>You did not pass the checksum security check</message>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
               </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>idNotUnique</messageKey>
+                <message>A meeting already exists with that meeting ID.  Please use a different meeting ID.</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Load balancer failed. Is it running?</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to find secret for the server</message>
+              </response>
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <errors>
+                   <error key='invalidFormat' message='Meeting id contains invalid characters.'/>
+                 </errors>
+              </response>
+
           schema:
             "$ref": "#/definitions/Checksum"
       security:
@@ -802,14 +799,14 @@ paths:
 
     post:
       tags:
-      - administration
+      - meeting
       summary: Creates a meeting on the Elos platform
       description: One of, if not the most complex request, it must select a server in the cloud and create a meeting in that server with the infomration provided.
         It also uses the setConfigXML, which can be edited, to customize aspects of the meeting, as well of the request. 
       operationId: postEnd
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -896,13 +893,40 @@ paths:
                  <message/>
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
-                 <returncode>SUCCESS</returncode>
-                 <meetings>true</meetings>                   
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
               </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>idNotUnique</messageKey>
+                <message>A meeting already exists with that meeting ID.  Please use a different meeting ID.</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Load balancer failed. Is it running?</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to find secret for the server</message>
+              </response>
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <errors>
+                   <error key='invalidFormat' message='Meeting id contains invalid characters.'/>
+                 </errors>
+              </response>
+
           schema:
             "$ref": "#/definitions/Checksum"
       security:
@@ -921,8 +945,8 @@ paths:
       description: Sends an end meeting event and returns a XML containing information if the request was successful or not.
       operationId: getEnd
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -953,13 +977,47 @@ paths:
                  <message>A request to end the meeting was sent.  Please wait a few seconds, and then use the getMeetingInfo or isMeetingRunning API calls to verify that it was ended.</message>                   
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
-               <returncode>FAILED</returncode>
-               <messageKey>checksumError</messageKey>
-               <message>You did not pass the checksum security check</message>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>notFound</messageKey>
+                 <message>We could not find a meeting with that meeting ID - perhaps the meeting is not yet running?</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>missingParamMeetingID</messageKey>
+                 <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>invalidPassword</messageKey>
+                 <message>You must supply the moderator password for this call.</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>Unable to access the database</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>unable to find server's secret</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -975,8 +1033,8 @@ paths:
       description: Returns a XML with information about a specific meeting.
       operationId: postEnd
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -1007,12 +1065,47 @@ paths:
                  <message>A request to end the meeting was sent.  Please wait a few seconds, and then use the getMeetingInfo or isMeetingRunning API calls to verify that it was ended.</message>                   
               </response>
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
-                 <returncode>SUCCESS</returncode>
-                 <meetings>true</meetings>                   
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>notFound</messageKey>
+                 <message>We could not find a meeting with that meeting ID - perhaps the meeting is not yet running?</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>missingParamMeetingID</messageKey>
+                 <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>invalidPassword</messageKey>
+                 <message>You must supply the moderator password for this call.</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>Unable to access the database</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>unable to find server's secret</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -1021,31 +1114,16 @@ paths:
         - write:mconf
         - read:mconf
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   "/getMeetingInfo?meetingID={metingID}&password={password}&checksum={checksum}":
     get:
       tags:
-      - monitoring
+      - meeting
       summary: Returns information about a single meeting
       description: Returns a XML with information about a specific meeting.
       operationId: getMeetingInfo
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -1126,13 +1204,31 @@ paths:
           schema:
             "$ref": "#/definitions/Meeting"
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
                <returncode>FAILED</returncode>
                <messageKey>checksumError</messageKey>
                <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>notFound</messageKey>
+                <message>We could not find a meeting with that meeting ID - perhaps the meeting is not yet running?</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>missingParamMeetingID</messageKey>
+                <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to access the database</message>
               </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -1143,13 +1239,13 @@ paths:
 
     post:
       tags:
-      - monitoring
+      - meeting
       summary: Returns information about a single meeting
       description: Returns a XML with information about a specific meeting.
       operationId: postMeetingInfo
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -1230,7 +1326,7 @@ paths:
           schema:
             "$ref": "#/definitions/Meeting"
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
             application/xml: |-
              |<response>
@@ -1238,6 +1334,25 @@ paths:
                <messageKey>checksumError</messageKey>
                <message>You did not pass the checksum security check</message>
               </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>notFound</messageKey>
+                <message>We could not find a meeting with that meeting ID - perhaps the meeting is not yet running?</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>missingParamMeetingID</messageKey>
+                <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+              <response>
+                <returncode>FAILED</returncode>
+                <messageKey>internalError</messageKey>
+                <message>Unable to access the database</message>
+              </response>
+
           schema:
             "$ref": "#/definitions/Checksum"
       security:
@@ -1248,14 +1363,14 @@ paths:
   "/join?fullName={fullName}&meetingID={meetingID}&password={password}&redirect={redirect}&checksum={checksum}":
     get:
       tags:
-      - administration
+      - user
       summary: Join a meeting as an atendee or as a moderator
       description: Gets a redirect to the URL that the user must use to join the meeting.
         It also must respond when the `bigbluebutton` protocol is used (mobile).
       operationId: getJoin
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -1290,7 +1405,34 @@ paths:
         '200':
           description: Successful operation, User redirected to meeting URL
         '400':
-          description: Invalid checksum
+          description: Possible errors
+          examples:
+            application/xml: |-
+             |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>invalidMeetingIdentifier</messageKey>
+                 <message>The meeting ID that you supplied did not match any existing meetings</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>missingParamMeetingID</messageKey>
+                 <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>Unable to access the database</message>
+              </response>
           schema:
             "$ref": "#/definitions/Checksum"
       security:
@@ -1299,14 +1441,14 @@ paths:
         - read:mconf
     post:
       tags:
-      - administration
+      - user
       summary: Join a meeting as an atendee or as a moderator
       description: Gets a redirect to the URL that the user must use to join the meeting.
         It also must respond when the `bigbluebutton` protocol is used (mobile).
       operationId: postJoin
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -1341,7 +1483,35 @@ paths:
         '200':
           description: Successful operation, User redirected to meeting URL
         '400':
-          description: Invalid checksum
+          description: Possible errors
+          examples:
+            application/xml: |-
+             |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+              </response>
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>invalidMeetingIdentifier</messageKey>
+                 <message>The meeting ID that you supplied did not match any existing meetings</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>missingParamMeetingID</messageKey>
+                 <message>You must specify a meeting ID for the meeting</message>
+              </response>
+
+
+              <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>Unable to access the database</message>
+              </response>
+          
           schema:
             "$ref": "#/definitions/Checksum"
       security:
@@ -1357,8 +1527,8 @@ paths:
       description: Returns an XML with information of the specified recording(s)
       operationId: getRecording
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -1438,13 +1608,27 @@ paths:
           schema:
             "$ref": "#/definitions/Recording"
         '400':
-          description: Invalid checksum
+          description: Possible errors
           examples:
            application/xml: |-
             |<response>
              <returncode>FAILED</returncode>
              <messageKey>checksumError</messageKey>
              <message>You did not pass the checksum security check</message>
+            </response>
+
+
+            <response>
+               <returncode>FAILED</returncode>
+               <messageKey>internalError</messageKey>
+               <message>Unable to access the database</message>
+            </response>
+
+
+            <response>
+               <returncode>FAILED</returncode>
+               <messageKey>noRecordings</messageKey>
+               <message>There are no recordings for the meeting(s)</message>
             </response>
           schema:
             "$ref": "#/definitions/Checksum"
@@ -1460,8 +1644,8 @@ paths:
         It also must respond when the `bigbluebutton` protocol is used (mobile).
       operationId: postRecording
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
       - application/xml
       - application/json
@@ -1541,7 +1725,28 @@ paths:
           schema:
             "$ref": "#/definitions/Recording"
         '400':
-          description: Invalid checksum
+          description: Possible errors
+          examples:
+           application/xml: |-
+            |<response>
+             <returncode>FAILED</returncode>
+             <messageKey>checksumError</messageKey>
+             <message>You did not pass the checksum security check</message>
+            </response>
+
+
+            <response>
+               <returncode>FAILED</returncode>
+               <messageKey>internalError</messageKey>
+               <message>Unable to access the database</message>
+            </response>
+
+
+            <response>
+               <returncode>FAILED</returncode>
+               <messageKey>noRecordings</messageKey>
+               <message>There are no recordings for the meeting(s)</message>
+            </response>
           schema:
             "$ref": "#/definitions/Checksum"
       security:
@@ -1557,11 +1762,11 @@ paths:
       description: Modifies boolean value of the `publish` row in the `recordings` table to the one specified in the query.
       operationId: getPublish
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: publish
         in: query
@@ -1589,7 +1794,7 @@ paths:
                  <published>true</version>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
@@ -1597,6 +1802,30 @@ paths:
                  <messageKey>checksumError</messageKey>
                  <message>You did not pass the checksum security check</message>
                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>notFound</messageKey>
+                   <message>We could not find recordings</message>
+                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>missingParamRecordID</messageKey>
+                   <message>You must specify a recordID</message>
+                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>missingParamPublish</messageKey>
+                   <message>You must specify a publish value true or false</message>
+                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>Unable to access the database</message>
+                 </response>
             schema:
               "$ref": "#/definitions/Checksum"
 
@@ -1607,11 +1836,11 @@ paths:
       description: Modifies boolean value of the `publish` row in the `recordings` table to the one specified in the query.
       operationId: getPublish
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: publish
         in: query
@@ -1639,7 +1868,7 @@ paths:
                  <published>true</version>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
@@ -1647,6 +1876,30 @@ paths:
                  <messageKey>checksumError</messageKey>
                  <message>You did not pass the checksum security check</message>
                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>notFound</messageKey>
+                   <message>We could not find recordings</message>
+                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>missingParamRecordID</messageKey>
+                   <message>You must specify a recordID</message>
+                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>missingParamPublish</messageKey>
+                   <message>You must specify a publish value true or false</message>
+                 </response>
+
+                 <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>Unable to access the database</message>
+                 </response>
             schema:
               "$ref": "#/definitions/Checksum"
 
@@ -1658,11 +1911,11 @@ paths:
       description: Deletes specified recording(s) from the database.
       operationId: getDelete
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: recordID
         in: query
@@ -1684,13 +1937,32 @@ paths:
                  <published>true</version>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
                  <returncode>FAILED</returncode>
                  <messageKey>checksumError</messageKey>
                  <message>You did not pass the checksum security check</message>
+                </response>
+
+                <response>
+                     <returncode>FAILED</returncode>
+                     <messageKey>notFound</messageKey>
+                     <message>We could not find recordings</message>
+                </response>
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>Unable to access the database</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>temporaryError</messageKey>
+                   <message>Some of the recordIDs failed to be deleted</message>
                 </response>
             schema:
               "$ref": "#/definitions/Checksum"
@@ -1702,11 +1974,11 @@ paths:
       description: Deletes specified recording(s) from the database.
       operationId: postDelete
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: recordID
         in: query
@@ -1728,13 +2000,32 @@ paths:
                  <published>true</version>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
                  <returncode>FAILED</returncode>
                  <messageKey>checksumError</messageKey>
                  <message>You did not pass the checksum security check</message>
+                </response>
+
+                <response>
+                     <returncode>FAILED</returncode>
+                     <messageKey>notFound</messageKey>
+                     <message>We could not find recordings</message>
+                </response>
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>Unable to access the database</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>temporaryError</messageKey>
+                   <message>Some of the recordIDs failed to be deleted</message>
                 </response>
             schema:
               "$ref": "#/definitions/Checksum"
@@ -1748,11 +2039,11 @@ paths:
       description: Modifies one or more metadata values of one or more recordings given a recordID or (or set of record IDs). The metadata fields are given in the request by prefixing with meta_ followed by the field name and value like `meta_field=value`.
       operationId: getUpdate
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: recordID
         in: query
@@ -1774,7 +2065,7 @@ paths:
                  <published>true</version>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
@@ -1782,6 +2073,28 @@ paths:
                  <messageKey>checksumError</messageKey>
                  <message>You did not pass the checksum security check</message>
                 </response>
+
+                <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>missingParamRecordID</messageKey>
+                 <message>You must specify a recordID</message>
+                </response>
+
+
+                <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+
+
+                <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>Unable to access the database</message>
+                </response>
+
+
             schema:
               "$ref": "#/definitions/Checksum"
 
@@ -1792,11 +2105,11 @@ paths:
       description: Modifies one or more metadata values of one or more recordings given a recordID or (or set of record IDs). The metadata fields are given in the request by prefixing with meta_ followed by the field name and value like `meta_field=value`.
       operationId: postUpdate
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: recordID
         in: query
@@ -1818,7 +2131,7 @@ paths:
                  <published>true</version>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
@@ -1826,8 +2139,243 @@ paths:
                  <messageKey>checksumError</messageKey>
                  <message>You did not pass the checksum security check</message>
                 </response>
+
+                <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>missingParamRecordID</messageKey>
+                 <message>You must specify a recordID</message>
+                </response>
+
+
+                <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+
+
+                <response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>internalError</messageKey>
+                 <message>Unable to access the database</message>
+                </response>
+
+
             schema:
               "$ref": "#/definitions/Checksum"
+
+
+
+  "/getRecordingToken?meetingID={meetingID}&action={action}&authUser={recordID}&checksum={checksum}":
+    get:
+      tags:
+      - recording
+      summary: Returns a `JWT` for authentication.
+      description: Returns a JWT to auth the connection to mconf-rec.
+        This request needs the record id (meetingID field) and the user which will be authenticate (authUser field).
+        Optionally, it can receive an action when editing captions (action field).
+      operationId: getToken
+      consumes:
+      - application/xml
+      - application/json
+      produces:
+      - application/xml
+      - application/json
+      parameters:
+      - name: authUser
+        in: query
+        description: User in question
+        type: string
+      - name: meetingID
+        in: query
+        description: ID of the meeting
+        required: true
+        type: string
+      - name: action
+        in: query
+        description: String with the action in question (Ex. edit)
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                   <returncode>SUCCESS</returncode>
+                   <token>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX21lZXRpbmdfaWQiOiJteXJlY29yZDEiLCJleHAiOjE2MjM5NTA2NDgsImlhdCI6MTYyMzk1MDY0OCwic3ViIjoidGVzdCJ9.ULOTnwoRoEE2SV2cHWCJxuB2cKd9NsRICYILXb9_qQo</token>
+                </response>
+          '400':
+            description: Possible errors
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+
+
+                <response>
+                  <returncode>FAILED</returncode>
+                  <messageKey>missingParamRecordID</messageKey>
+                  <message>You must specify a recordID</message>
+                </response>
+
+
+                <response>
+                  <returncode>FAILED</returncode>
+                  <messageKey>missingParamAuthUser</messageKey>
+                  <message>You must specify an authUser</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>notFound</messageKey>
+                   <message>We could not find recordings</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>The recording myrecord1 is duplicated in the database</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>Unable to sign the generated token</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>unable to find server secret</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>unable to get server response</message>
+                </response>
+
+            schema:
+              "$ref": "#/definitions/Checksum"
+
+    post:
+      tags:
+      - recording
+      summary: Returns a `JWT` for authentication.
+      description: Returns a JWT to auth the connection to mconf-rec.
+        This request needs the record id (meetingID field) and the user which will be authenticate (authUser field).
+        Optionally, it can receive an action when editing captions (action field).
+      operationId: postToken
+      consumes:
+      - application/xml
+      - application/json
+      produces:
+      - application/xml
+      - application/json
+      parameters:
+      - name: authUser
+        in: query
+        description: User in question
+        type: string
+      - name: meetingID
+        in: query
+        description: ID of the meeting
+        required: true
+        type: string
+      - name: action
+        in: query
+        description: String with the action in question (Ex. edit)
+        type: string
+      - name: checksum
+        in: query
+        description: SHA-1 value calculated for validation in the API
+        required: true
+        type: string
+      responses:
+          '200':
+            description: Successful operation
+            examples:
+              application/xml: |-
+                |<response>
+                   <returncode>SUCCESS</returncode>
+                   <token>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX21lZXRpbmdfaWQiOiJteXJlY29yZDEiLCJleHAiOjE2MjM5NTA2NDgsImlhdCI6MTYyMzk1MDY0OCwic3ViIjoidGVzdCJ9.ULOTnwoRoEE2SV2cHWCJxuB2cKd9NsRICYILXb9_qQo</token>
+                </response>
+          '400':
+            description: Possible errors
+            examples:
+              application/xml: |-
+                |<response>
+                 <returncode>FAILED</returncode>
+                 <messageKey>checksumError</messageKey>
+                 <message>You did not pass the checksum security check</message>
+                </response>
+
+
+                <response>
+                  <returncode>FAILED</returncode>
+                  <messageKey>missingParamRecordID</messageKey>
+                  <message>You must specify a recordID</message>
+                </response>
+
+
+                <response>
+                  <returncode>FAILED</returncode>
+                  <messageKey>missingParamAuthUser</messageKey>
+                  <message>You must specify an authUser</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>notFound</messageKey>
+                   <message>We could not find recordings</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>The recording myrecord1 is duplicated in the database</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>Unable to sign the generated token</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>unable to find server secret</message>
+                </response>
+
+
+                <response>
+                   <returncode>FAILED</returncode>
+                   <messageKey>internalError</messageKey>
+                   <message>unable to get server response</message>
+                </response>
+
+            schema:
+              "$ref": "#/definitions/Checksum"
+
+  
 
   "/getRecordingTextTracks?recordID={recordID}&checksum={checksum}":
     get:
@@ -1838,11 +2386,11 @@ paths:
         It includes information about captions, and a download link. Could be useful to retrieve automatic subtitles for manual editing.
       operationId: getTextTracks
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: recordID
         in: query
@@ -1875,7 +2423,7 @@ paths:
                  </tracks>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
@@ -1894,11 +2442,11 @@ paths:
         It includes information about captions, and a download link. Could be useful to retrieve automatic subtitles for manual editing.
       operationId: postTextTracks
       consumes:
-      - application/json
       - application/xml
+      - application/json
       produces:
-      - application/json
       - application/xml
+      - application/json
       parameters:
       - name: recordID
         in: query
@@ -1931,7 +2479,7 @@ paths:
                  </tracks>
                 </response>
           '400':
-            description: Invalid checksum
+            description: Possible errors
             examples:
               application/xml: |-
                 |<response>
