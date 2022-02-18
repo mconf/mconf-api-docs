@@ -1,0 +1,27 @@
+fail:
+  value: |-
+    <response>
+       <returncode>FAILED</returncode>
+       <messageKey>checksumError</messageKey>
+       <message>You did not pass the checksum security check</message>
+    </response>
+
+    <response>
+       <returncode>FAILED</returncode>
+       <messageKey>invalidMeetingIdentifier</messageKey>
+       <message>The meeting ID that you supplied did not match any existing meetings</message>
+    </response>
+
+
+    <response>
+       <returncode>FAILED</returncode>
+       <messageKey>missingParamMeetingID</messageKey>
+       <message>You must specify a meeting ID for the meeting</message>
+    </response>
+
+
+    <response>
+       <returncode>FAILED</returncode>
+       <messageKey>internalError</messageKey>
+       <message>Unable to access the database</message>
+    </response>

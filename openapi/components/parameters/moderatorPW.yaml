@@ -1,0 +1,5 @@
+name: moderatorPW
+in: query
+description: The password that will [join](#operation/join) URL can later provide as its password parameter to indicate the user will as a moderator. If no `moderatorPW` is provided, create will return a randomly generated `moderatorPW` password for the meeting. 
+schema:
+  type: string

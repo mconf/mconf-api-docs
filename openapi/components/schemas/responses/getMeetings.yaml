@@ -1,0 +1,17 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - meetings
+    properties:
+      returncode:
+        type: string
+      meetings:
+        type: array
+        items:
+          type: object
+          $ref: '../meeting.yaml'

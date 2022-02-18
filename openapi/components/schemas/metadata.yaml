@@ -1,0 +1,53 @@
+type: object
+properties:
+  mconfweb-institution-subscription-type:
+    type: string
+    example: premium
+  mconf-shared-secret-guid:
+    type: string
+    example: random-123
+  bbbrails-user-id:
+    type: integer
+    format: int64
+    example: 149
+  mconfweb-external-subscriber:
+    type: boolean
+    example: true
+  mconfweb-institution-name:
+    type: string
+    example: user@mconf.com
+  mconfweb-room-type:
+    type: string
+    example: User
+  mconf-institution-name:
+    type: string
+    example: Mconf
+  mconfweb-subscription-type:
+    type: string
+    example: premium
+  invitation-url:
+    type: string
+    example: https://h.elos.dev/username
+  bbbrails-user-name:
+    type: string
+    example: Username
+  mconflb-guid:
+    type: string
+    example: randomvalues==-randomnumbers
+  mconfweb-url:
+    type: string
+    example: https://h.elos.dev/
+  mconf-subnet:
+    type: string
+    example: Global
+  mconf-secret-name:
+    type: string
+    example: h.elos.dev
+  mconfweb-institution-guid:
+    type: string
+    example: 01234567-abcde-fghi-jklm-0123456789ab
+  mconf-institution-guid:
+    type: string
+    example: 01234567-abcde-fghi-jklm-0123456789ab
+xml:
+  name: metadata

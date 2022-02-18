@@ -1,0 +1,5 @@
+name: freeJoin
+in: query
+description: If set to true, the client will give the user the choice to choose the breakout rooms he wants to join.
+schema:
+  type: boolean

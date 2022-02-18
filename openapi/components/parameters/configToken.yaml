@@ -1,0 +1,6 @@
+name: configToken
+in: query
+description: The token returned by a setConfigXML API call.
+deprecated: true
+schema:
+  type: string

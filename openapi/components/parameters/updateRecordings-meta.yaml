@@ -1,0 +1,6 @@
+name: meta
+in: query
+description:
+  $ref: '../../../docs/updateRecordings/param-meta.md'
+schema:
+  type: string

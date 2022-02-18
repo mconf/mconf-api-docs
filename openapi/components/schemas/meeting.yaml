@@ -1,0 +1,91 @@
+type: object
+required:
+  - meetingName
+  - meetingID
+  - internalMeetingID
+  - createTime
+  - createDate
+  - voiceBridge
+  - dialNumber
+  - attendeePW
+  - moderatorPW
+  - running
+  - duration
+  - hasUserJoined
+  - recording
+  - hasBeenForciblyEnded
+  - startTime
+  - endTime
+  - participantCount
+  - listenerCount
+  - voiceParticipantCount
+  - videoCount
+  - maxUsers
+  - moderatorCount
+  - attendees
+  - metadata
+  - isBreakout
+properties:
+  meetingName:
+    type: string
+  meetingID:
+    type: string
+  internalMeetingID:
+    type: string
+  createTime:
+    type: string
+  createDate:
+    type: string
+    format: date-time
+  voiceBridge:
+    type: string
+  dialNumber:
+    type: string
+  attendeePW:
+    type: string
+  moderatorPW:
+    type: string
+  running:
+    type: boolean
+  duration:
+    type: integer
+    format: int32
+  hasUserJoined:
+    type: boolean
+  recording:
+    type: boolean
+  hasBeenForciblyEnded:
+    type: boolean
+  startTime:
+    type: string
+  endTime:
+    type: string
+  participantCount:
+    type: integer
+    format: int32
+  listenerCount:
+    type: integer
+    format: int32
+  voiceParticipantCount:
+    type: integer
+    format: int32
+  videoCount:
+    type: integer
+    format: int32
+  maxUsers:
+    type: integer
+    format: int32
+  moderatorCount:
+    type: integer
+    format: int32
+  atendees:
+    $ref: "./atendees.yaml"
+  metaData:
+    type: object
+  isBreakout:
+    type: boolean
+  transfer:
+    type: boolean
+  transferCount:
+    type: integer
+    format: int32

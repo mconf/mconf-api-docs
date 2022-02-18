@@ -1,0 +1,14 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - deleted
+    properties:
+      returncode:
+        type: string
+      deleted:
+        type: boolean

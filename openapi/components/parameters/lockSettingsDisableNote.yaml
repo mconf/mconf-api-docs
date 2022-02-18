@@ -1,0 +1,6 @@
+name: lockSettingsDisableNote
+in: query
+description: Setting to `true` will disable notes in the meeting.
+schema:
+    type: boolean
+    default: false

@@ -1,0 +1,5 @@
+name: avatarURL
+in: query
+description: The link for the user's avatar to be displayed.
+schema:
+  type: string

@@ -1,0 +1,7 @@
+name: duration
+in: query
+description: 
+  $ref: '../../../docs/params/duration.md'
+schema:
+  type: integer
+  default: 0

@@ -1,0 +1,17 @@
+get:
+  summary: API Version
+  description: Returns the API version
+  operationId: /
+  tags:
+  - monitoring
+  parameters:
+  - $ref: '../components/parameters/checksum.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml: 
+          examples:
+            $ref: '../components/examples/version-success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/version.yaml'

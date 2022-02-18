@@ -1,0 +1,5 @@
+name: excludeFromDashboard
+in: query
+description: If the parameter is passed on JOIN with value `true`, the user will be omitted from being displayed in the Learning Dashboard.
+schema:
+  type: boolean

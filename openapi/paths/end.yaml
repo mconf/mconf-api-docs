@@ -1,0 +1,21 @@
+get:
+  operationId: end
+  description: Use this to forcibly end a meeting and kick all participants out of the meeting.
+  tags:
+  - meeting
+  parameters:
+    - $ref: '../components/parameters/meetingID.yaml'
+      required: true
+    - $ref: '../components/parameters/password.yaml'
+      required: true
+    - $ref: '../components/parameters/checksum.yaml'
+
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/end/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/end.yaml'

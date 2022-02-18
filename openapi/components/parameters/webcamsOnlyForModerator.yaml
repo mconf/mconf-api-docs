@@ -1,0 +1,6 @@
+name: webcamsOnlyForModerator
+in: query
+description: Setting to `true` will cause all webcams shared by viewers during this meeting to only appear for moderators.
+schema:
+    type: boolean
+    default: false

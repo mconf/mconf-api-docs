@@ -1,0 +1,41 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - messageKey
+      - message
+      - meeting_id
+      - user_id
+      - auth_token
+      - session_token
+      - url
+    properties:
+      returncode:
+        type: string
+      messageKey:
+        type: string
+        enum:
+          - successfullyJoined
+      message:
+        type: string
+      meeting_id:
+        type: string
+      user_id:
+        type: string
+      auth_token:
+        type: string
+      session_token:
+        type: string
+      guestStatus:
+        description: Only when `guest` parameter is set to `true`.
+        type: string
+        enum:
+          - ALLOW
+          - WAIT
+          - DENY
+      url: 
+        type: string

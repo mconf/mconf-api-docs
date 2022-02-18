@@ -1,0 +1,6 @@
+success:
+  value: |-
+    <response>
+      <returncode>SUCCESS<returncode>
+      <token>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX21lZXRpbmdfaWQiOiJteXJlY29yZDEiLCJleHAiOjE2NDUxOTk4NDcsImlhdCI6MTY0NTE5OTg0Nywic3ViIjoidGVzdCJ9.2beKKCM36mGKBLWqQASyyiKA2YuCWKREUqyHz8NjF2E</token>
+    </response>

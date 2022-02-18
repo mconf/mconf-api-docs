@@ -1,0 +1,1 @@
+Associate a custom `config.xml` file with the current session. This call returns a token that can later be passed as a parameter to a join URL. When passed as a parameter, the BigBlueButton client will use the associated `config.xml` for the user instead of using the default `config.xml`. This enables 3rd party applications to provide user-specific `config.xml` files.

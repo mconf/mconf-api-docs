@@ -1,0 +1,103 @@
+get:
+  operationId: create
+  description:
+    $ref: '../../docs/create/description.md'
+  tags:
+  - meeting
+  parameters:
+    $ref: '#/components/parameters'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/create/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/create.yaml'
+post:
+  operationId: create
+  description:
+    $ref: '../../docs/create/description.md'
+  tags:
+  - meeting
+  parameters:
+    $ref: '#/components/parameters'
+  requestBody:
+    description: 
+      $ref: '../../docs/create/body-description.md'
+    content:
+      'application/xml':
+        schema:
+          type: object
+          properties:
+            modules:
+              type: array
+              items:
+                type: object
+                properties:
+                  module: 
+                    type: object
+                    properties:
+                      document:
+                        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/create/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/create.yaml'
+components:
+  parameters:
+    - $ref: '../components/parameters/name.yaml'
+      required: true
+    - $ref: '../components/parameters/meetingID.yaml'
+      required: true
+    - $ref: '../components/parameters/attendeePW.yaml'
+    - $ref: '../components/parameters/moderatorPW.yaml'
+    - $ref: '../components/parameters/welcome.yaml'
+    - $ref: '../components/parameters/dialNumber.yaml'
+    - $ref: '../components/parameters/voiceBridge.yaml'
+    - $ref: '../components/parameters/maxParticipants.yaml'
+    - $ref: '../components/parameters/logoutURL.yaml'
+    - $ref: '../components/parameters/record.yaml'
+    - $ref: '../components/parameters/duration.yaml'
+    - $ref: '../components/parameters/isBreakout.yaml'
+    - $ref: '../components/parameters/parentMeetingID.yaml'
+    - $ref: '../components/parameters/sequence.yaml'
+    - $ref: '../components/parameters/freeJoin.yaml'
+    - $ref: '../components/parameters/breakoutRoomsEnabled.yaml'
+    - $ref: '../components/parameters/breakoutRoomsPrivateChatEnabled.yaml'
+    - $ref: '../components/parameters/breakoutRoomsRecord.yaml'
+    - $ref: '../components/parameters/meta.yaml'
+    - $ref: '../components/parameters/moderatorOnlyMessage.yaml'
+    - $ref: '../components/parameters/autoStartRecording.yaml'
+    - $ref: '../components/parameters/allowStartStopRecording.yaml'
+    - $ref: '../components/parameters/webcamsOnlyForModerator.yaml'
+    - $ref: '../components/parameters/bannerText.yaml'
+    - $ref: '../components/parameters/bannerColor.yaml'
+    - $ref: '../components/parameters/muteOnStart.yaml'
+    - $ref: '../components/parameters/allowModsToUnmuteUsers.yaml'
+    - $ref: '../components/parameters/lockSettingsDisableCam.yaml'
+    - $ref: '../components/parameters/lockSettingsDisableMic.yaml'
+    - $ref: '../components/parameters/lockSettingsDisablePrivateChat.yaml'
+    - $ref: '../components/parameters/lockSettingsDisablePublicChat.yaml'
+    - $ref: '../components/parameters/lockSettingsDisableNote.yaml'
+    - $ref: '../components/parameters/lockSettingsLockedLayout.yaml'
+    - $ref: '../components/parameters/lockSettingsLockOnJoin.yaml'
+    - $ref: '../components/parameters/lockSettingsLockOnJoinConfigurable.yaml'
+    - $ref: '../components/parameters/guestPolicy.yaml'
+    - $ref: '../components/parameters/keepEvents.yaml'
+    - $ref: '../components/parameters/meetingKeepEvents.yaml'
+    - $ref: '../components/parameters/endWhenNoModerator.yaml'
+    - $ref: '../components/parameters/endWhenNoModeratorDelayInMinutes.yaml'
+    - $ref: '../components/parameters/meetingLayout.yaml'
+    - $ref: '../components/parameters/learningDashboardEnabled.yaml'
+    - $ref: '../components/parameters/learningDashboardCleanupDelayInMinutes.yaml'
+    - $ref: '../components/parameters/allowModsToEjectCameras.yaml'
+    - $ref: '../components/parameters/allowRequestsWithoutSession.yaml'
+    - $ref: '../components/parameters/virtualBackgroundDisabled.yaml'
+    - $ref: '../components/parameters/checksum.yaml'

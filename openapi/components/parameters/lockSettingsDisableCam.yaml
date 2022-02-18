@@ -1,0 +1,6 @@
+name: lockSettingsDisableCam
+in: query
+description: Setting `true` will prevent users from sharing their camera in the meeting.
+schema:
+    type: boolean
+    default: false

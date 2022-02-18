@@ -1,0 +1,5 @@
+name: authUser
+in: query
+description: The name of the user which is requesting access of the recording file.
+schema:
+  type: string

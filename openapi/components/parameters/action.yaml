@@ -1,0 +1,5 @@
+name: action
+in: query
+description: The reason to access the recording.
+schema:
+  type: string

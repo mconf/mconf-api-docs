@@ -1,0 +1,17 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+    properties:
+      returncode:
+        type: string
+      messageKey:
+        type: string
+        enum:
+          - sentEndMeetingRequest
+      message:
+        type: string
