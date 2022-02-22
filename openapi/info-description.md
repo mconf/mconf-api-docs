@@ -24,3 +24,20 @@ To use the security model, you must be able to create an SHA-1 checksum out of t
     * Above example becomes: name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444&checksum=1fcbb0c4fc1f039f73aa6d697d2db9ba7f803f17
 
 You MUST send this checksum with EVERY API call. Since end users do not know your shared secret, they can not fake calls to the server, and they can not modify any API calls since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.
+
+
+# Secret Scope
+
+It is interesting to note that the scope of a shared secret is **vitally** important to the operation
+of the request in which it was used. If the *scope* of the secret isnt high enough, the operation will **NOT** go through.
+
+The possible *scopes* are as follows:
+
+* **global**:
+    * Has what can be essentially described as admin access, being able to perform any operation
+    it is used in.
+* **shared**:
+    * Is essentially a *user level* secret, being able to perform operations but not as freely,
+    having its fair share of restrictions.
+* **restricted**:
+    * As the title implies, the most restricted scope available for a secret, can only be used for certain specific operations.

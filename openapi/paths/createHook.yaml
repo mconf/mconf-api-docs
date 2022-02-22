@@ -1,0 +1,22 @@
+get:
+  operationId: createHook
+  description: Create a Hook to receive events from api-webhooks
+  tags:
+  - hooks
+  parameters:
+    - $ref: '../components/parameters/callbackURL.yaml'
+      required: true
+    - $ref: '../components/parameters/meetingID.yaml'
+      required: true
+    - $ref: '../components/parameters/enabled.yaml'
+    - $ref: '../components/parameters/checksum.yaml'
+
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/createHook/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/createHook.yaml'

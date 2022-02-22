@@ -1,0 +1,15 @@
+success:
+  value: |-
+    <response>
+      <returncode>SUCCESS</returncode>
+      <hooks>
+       <hook>
+         <hookID>1</hookID>
+         <hookGUID>f4fd4b8a-5c8e-4930-8f33-4f133d5d9b57</hookGUID>
+         <authToken>e74963291b18e915d9470585ffd33b87d69f1cd6</authToken>
+         <callbackURL><![CDATA[https://url-here.com]]></callbackURL>
+         <sharedSecretGUID>ed3cef25-9376-4efb-be8b-d5914524e1b9</sharedSecretGUID>
+         <enabled>true</enabled>
+       </hook>
+      </hooks>
+    </response>

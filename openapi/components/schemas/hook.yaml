@@ -1,0 +1,21 @@
+type: object
+required:
+  - hookID
+  - hookGUID
+  - authToken
+  - callbackURL
+  - sharedSecretGUID
+  - enabled
+properties:
+  hookID:
+    type: string
+  hookGUID:
+    type: string
+  authToken:
+    type: string
+  callbackURL:
+    type: string
+  sharedSecretGUID:
+    type: string
+  enabled:
+    type: boolean

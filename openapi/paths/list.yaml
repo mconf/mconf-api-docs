@@ -1,0 +1,18 @@
+get:
+  operationId: list
+  description: List all the hooks based on the secret scope. If the secret is global, 
+    then it'll list all the hooks. Else, only the hooks created with this secret;
+  tags:
+  - hooks
+  parameters:
+    - $ref: '../components/parameters/checksum.yaml'
+
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/list/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/list.yaml'

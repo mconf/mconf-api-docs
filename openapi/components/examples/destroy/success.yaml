@@ -1,0 +1,6 @@
+success:
+  value: |-
+    <response>
+      <returncode>SUCCESS</returncode>
+      <removed>true</removed>
+    </response>

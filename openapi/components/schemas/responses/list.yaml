@@ -1,0 +1,17 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - hooks
+    properties:
+      returncode:
+        type: string
+      hooks:
+        type: array
+        items:
+          type: object
+          $ref: '../hooks.yaml'

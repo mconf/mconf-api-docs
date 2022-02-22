@@ -22,6 +22,8 @@ tags:
   description: Access Recording information
 - name: monitoring
   description: Monitoring centered requests
+- name: hooks
+  description: Everything about your Hooks
 schemes:
 - https
 paths:
@@ -51,6 +53,13 @@ paths:
     $ref: './paths/updateRecordings.yaml'
   /getRecordingToken:
     $ref: './paths/getRecordingToken.yaml'
+
+  /hooks/create:
+    $ref: './paths/createHook.yaml'
+  /hooks/list:
+    $ref: './paths/list.yaml'
+  /hooks/destroy:
+    $ref: './paths/destroy.yaml'
 
   /getDefaultConfigXML:
     $ref: './paths/getDefaultConfigXML.yaml'
