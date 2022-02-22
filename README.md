@@ -16,5 +16,5 @@ $ npm start
 Just use the commands bellow to export a static HTML file for the documentation:
 
 ```bash
-$ make hmtl
+$ make html
 ```
