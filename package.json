@@ -1,0 +1,30 @@
+{
+  "name": "mconf-api-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "@redocly/openapi-cli": "^1.0.0-beta.83"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.26"
+  },
+  "scripts": {
+    "start": "openapi preview-docs",
+    "build": "openapi bundle -o dist",
+    "test": "openapi lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mconf/mconf-api-docs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mconf/mconf-api-docs/issues"
+  },
+  "homepage": "https://github.com/mconf/mconf-api-docs#readme"
+}
