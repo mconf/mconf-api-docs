@@ -1,0 +1,5 @@
+name: includeRecordings
+in: query
+description: defines if the recordings must be included in the response
+schema:
+  type: boolean

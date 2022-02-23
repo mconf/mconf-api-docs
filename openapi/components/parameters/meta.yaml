@@ -1,0 +1,6 @@
+name: meta
+in: query
+description:
+  $ref: '../../../docs/params/meta.md'
+schema:
+  type: string

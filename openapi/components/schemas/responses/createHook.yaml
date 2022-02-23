@@ -1,0 +1,23 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - hookID
+      - hookGUID
+      - authToken
+      - sharedSecretGUID
+    properties:
+      returncode:
+        type: string
+      hookID:
+        type: string
+      hookGUID:
+        type: string
+      authToken:
+        type: string
+      sharedSecretGUID:
+        type: string

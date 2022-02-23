@@ -1,0 +1,8 @@
+type: object
+required:
+  - meeting
+properties:
+  meeting:
+    $ref: './meeting.yaml'
+  recording:
+    $ref: './recording.yaml'

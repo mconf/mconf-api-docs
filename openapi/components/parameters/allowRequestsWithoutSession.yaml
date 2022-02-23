@@ -1,0 +1,6 @@
+name: allowRequestsWithoutSession
+in: query
+description: Setting to `true` will allow users to join meetings without session cookie's validation.
+schema:
+    type: boolean
+    default: false

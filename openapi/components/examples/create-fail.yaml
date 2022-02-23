@@ -1,0 +1,32 @@
+fail:
+  value: |-
+    <response>
+       <returncode>FAILED</returncode>
+       <messageKey>checksumError</messageKey>
+       <message>You did not pass the checksum security check</message>
+    </response>
+
+    <response>
+      <returncode>FAILED</returncode>
+      <messageKey>idNotUnique</messageKey>
+      <message>A meeting already exists with that meeting ID.  Please use a different meeting ID.</message>
+    </response>
+
+    <response>
+      <returncode>FAILED</returncode>
+      <messageKey>internalError</messageKey>
+      <message>Load balancer failed. Is it running?</message>
+    </response>
+
+    <response>
+      <returncode>FAILED</returncode>
+      <messageKey>internalError</messageKey>
+      <message>Unable to find secret for the server</message>
+    </response>
+
+    <response>
+        <returncode>FAILED</returncode>
+        <errors>
+          <error key='invalidFormat' message='Meeting id contains invalid characters.'/>
+        </errors>
+    </response>

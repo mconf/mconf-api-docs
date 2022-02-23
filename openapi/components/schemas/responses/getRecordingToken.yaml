@@ -1,0 +1,15 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - token
+    properties:
+      returncode:
+        type: string
+      token:
+        type: string
+        format: JWT

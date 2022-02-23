@@ -1,0 +1,6 @@
+name: breakoutRoomsRecord
+in: query
+description: If set to false, breakout rooms will not be recorded. 
+schema:
+  type: boolean
+  default: true

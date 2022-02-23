@@ -1,0 +1,6 @@
+name: lockSettingsLockedLayout
+in: query
+description: Setting to true will lock the layout in the meeting.
+schema:
+    type: boolean
+    default: false

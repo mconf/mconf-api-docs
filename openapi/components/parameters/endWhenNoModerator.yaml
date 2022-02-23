@@ -1,0 +1,6 @@
+name: endWhenNoModerator
+in: query
+description: If `endWhenNoModerator` is `true` the meeting will end automatically after a delay.
+schema:
+    type: boolean
+    default: false

@@ -1,0 +1,18 @@
+get:
+  summary: getDefaultConfigXML
+  operationId: getDefaultConfigXML
+  description: Retrieve the default `config.xml`. 
+  deprecated: true
+  tags:
+    - meeting
+  parameters:
+    - $ref: '../components/parameters/checksum.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml: 
+          examples:
+            $ref: '../components/examples/getDefaultConfigXML/success.yaml'
+          schema:
+            $ref: '../components/schemas/configXML.yaml'

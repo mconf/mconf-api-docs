@@ -1,0 +1,30 @@
+success:
+  value: |-
+    <response>
+      <returncode>SUCCESS</returncode>
+      <meetingName>random-9031005</meetingName>
+      <meetingID>random-9031005</meetingID>
+      <internalMeetingID>dd6dad570f6323f50a9e1e1c6e94771b844e7495-1645118562804</internalMeetingID>
+      <createTime>1645118562804</createTime>
+      <createDate>Thu Feb 17 17:22:42 UTC 2022</createDate>
+      <voiceBridge>490695878</voiceBridge>
+      <dialNumber>18632080022</dialNumber>
+      <attendeePW>ap</attendeePW>
+      <moderatorPW>mp</moderatorPW>
+      <running>false</running>
+      <duration>540</duration>
+      <hasUserJoined>false</hasUserJoined>
+      <recording>false</recording>
+      <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+      <startTime>1645118562816</startTime>
+      <endTime>0</endTime>
+      <participantCount>0</participantCount>
+      <listenerCount>0</listenerCount>
+      <voiceParticipantCount>0</voiceParticipantCount>
+      <videoCount>0</videoCount>
+      <maxUsers>0</maxUsers>
+      <moderatorCount>0</moderatorCount>
+      <attendees/>
+      <metadata/>
+      <isBreakout>false</isBreakout>
+    </response>

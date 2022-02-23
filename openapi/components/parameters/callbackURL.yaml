@@ -1,0 +1,5 @@
+name: callbackURL
+in: query
+description: The URL which receive the events.
+schema: 
+  type: string

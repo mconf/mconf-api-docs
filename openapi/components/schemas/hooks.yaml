@@ -1,0 +1,6 @@
+type: object
+required:
+  - hook
+properties:
+  hook:
+    $ref: './hook.yaml'

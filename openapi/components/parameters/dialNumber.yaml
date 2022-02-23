@@ -1,0 +1,5 @@
+name: dialNumber
+in: query
+description: The dial access number that participants can call in using regular phone
+schema:
+  type: string

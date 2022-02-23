@@ -1,0 +1,5 @@
+name: userID
+in: query
+description: An identifier for this user that will help your application to identify which person this is. This user ID will be returned for this user in the getMeetingInfo API call so that you can check.
+schema:
+  type: string

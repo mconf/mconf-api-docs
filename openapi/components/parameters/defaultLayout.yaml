@@ -1,0 +1,5 @@
+name: defaultLayout
+in: query
+description: The layout name to be loaded first when the application is loaded.
+schema:
+  type: string

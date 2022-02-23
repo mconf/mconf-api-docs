@@ -1,0 +1,5 @@
+name: limit
+in: query
+description: defines if the returned meeting ids must start with the `meetingID` parameter
+schema: 
+  type: boolean

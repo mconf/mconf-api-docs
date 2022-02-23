@@ -1,0 +1,20 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - nextPage
+      - recordings
+    properties:
+      returncode:
+        type: string
+      nextPage:
+        type: boolean
+      recordings:
+        type: array
+        items:
+          type: object
+          $ref: '../recording.yaml'

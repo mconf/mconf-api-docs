@@ -1,0 +1,6 @@
+name: endWhenNoModeratorDelayInMinutes
+in: query
+description: If `endWhenNoModerator` is `true`, the meeting will be automatically ended after this many minutes.
+schema:
+    type: integer
+    default: 1

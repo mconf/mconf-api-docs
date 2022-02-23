@@ -1,0 +1,5 @@
+name: offset
+in: query
+description: number of rows to skip before start retrieving rows
+schema: 
+  type: integer

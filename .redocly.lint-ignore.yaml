@@ -1,0 +1,66 @@
+# This file instructs Redocly's linter to ignore the rules contained for specific parts of your API.
+# See https://redoc.ly/docs/cli/ for more information.
+openapi/openapi.yaml:
+  info-license:
+    - '#/info'
+openapi/paths/root.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/getMeetings.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/getAllMeetings.yaml:
+  operation-parameters-unique:
+    - '#/get/parameters/3'
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/isMeetingRunning.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/create.yaml:
+  spec:
+    - '#/components'
+  operation-4xx-response:
+    - '#/get/responses'
+    - '#/post/responses'
+  operation-operationId-unique:
+    - '#/post/create'
+openapi/paths/end.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/getMeetingInfo.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/join.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/getRecordings.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/publishRecordings.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/deleteRecordings.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/updateRecordings.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/getRecordingToken.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/createHook.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/list.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/destroy.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/getDefaultConfigXML.yaml:
+  operation-4xx-response:
+    - '#/get/responses'
+openapi/paths/setConfigXML.yaml:
+  operation-4xx-response:
+    - '#/post/responses'

@@ -1,0 +1,23 @@
+post:
+  summary: setConfigXML
+  operationId: setConfigXML
+  description:
+    $ref: '../../docs/setConfigXML/description.md'
+  deprecated: true
+  tags:
+    - meeting
+  parameters:
+    - $ref: '../components/parameters/meetingID.yaml'
+      required: true
+    - $ref: '../components/parameters/configXML.yaml'
+      required: true
+    - $ref: '../components/parameters/checksum.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml: 
+          examples:
+            $ref: '../components/examples/setConfigXML/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/setConfigXML.yaml'

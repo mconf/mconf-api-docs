@@ -1,37 +1,27 @@
-# Mconf-api-doc
+# Mconf-api-docs
 
-A repository with SwaggerUI and Redoc that reads the `openapi.json` file and renders a documentation UI using the OpenAPI structure.
+A repository with the Redoc configuration that reads the `openapi.yaml` file and renders a documentation UI using the OpenAPI structure.
 
 ## Code dependencies
 
-To install and run, just use the commands bellow:
+To install the dependencies, run:
 
 ```bash
 $ npm install
-$ node src/index.js
 ```
 
-## Docker
+## How to run
 
-We provide a Dockerfile to run the docs in a container:
+To run a webserver watching for changes in the OpenAPI resources, run:
 
 ```bash
-$ docker build -f Dockerfile -t mconf/api-docs:latest .
-$ docker-compose -f development.yml up
+$ npm start
 ```
 
+## How to build
 
-## Makefile
-
-Just use the commands bellow to run the documentation easily:
+To build a HTML file from the documentation, run:
 
 ```bash
-$ make docker-build
-$ make up
+$ npm run build
 ```
-
-To view the documentation with [ReDoc](https://github.com/Rebilly/ReDoc)
-Just go to [http://localhost:3000/docs](http://localhost:3000/docs)
-
-To view the documentation with [Swagger UI](https://swagger.io/tools/swagger-ui/)
-Just go to [http://localhost:3000/docs2](http://localhost:3000/docs2)

@@ -1,0 +1,11 @@
+name: meetingLayout
+in: query
+description: Will set the default layout for the meeting.
+schema:
+    type: string
+    enum:
+      - CUSTOM_LAYOUT
+      - SMART_LAYOUT
+      - PRESENTATION_FOCUS 
+      - VIDEO_FOCUS
+    default: SMART_LAYOUT

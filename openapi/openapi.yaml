@@ -1,0 +1,66 @@
+---
+openapi: 3.1.0
+info:
+  description: 
+    $ref: './info-description.md'
+  version: 1.0.0
+  title: Mconf BBB API
+  x-logo:
+    url: 'https://mconf.com/images/logo_footer.png'
+    altText: Mconf Logo
+  contact:
+    name: Mconf
+    url: https://mconf.com
+    email: contato@elos.vc
+servers:
+- url: https://api.h.elos.dev/bigbluebutton/api
+  description: The homologation API server
+tags:
+- name: meeting
+  description: Everything about your Meetings
+- name: recording
+  description: Access Recording information
+- name: monitoring
+  description: Monitoring centered requests
+- name: hooks
+  description: Everything about your Hooks
+paths:
+  /:
+    $ref: './paths/root.yaml'
+  /getMeetings:
+    $ref: './paths/getMeetings.yaml'
+  /getAllMeetings:
+    $ref: './paths/getAllMeetings.yaml'
+  /isMeetingRunning:
+    $ref: './paths/isMeetingRunning.yaml'
+  /create:
+    $ref: './paths/create.yaml'
+  /end:
+    $ref: './paths/end.yaml'
+  /getMeetingInfo:
+    $ref: './paths/getMeetingInfo.yaml'
+  /join:
+    $ref: './paths/join.yaml'
+  /getRecordings:
+    $ref: './paths/getRecordings.yaml'
+  /publishRecordings:
+    $ref: './paths/publishRecordings.yaml'
+  /deleteRecordings:
+    $ref: './paths/deleteRecordings.yaml'
+  /updateRecordings:
+    $ref: './paths/updateRecordings.yaml'
+  /getRecordingToken:
+    $ref: './paths/getRecordingToken.yaml'
+
+  /hooks/create:
+    $ref: './paths/createHook.yaml'
+  /hooks/list:
+    $ref: './paths/list.yaml'
+  /hooks/destroy:
+    $ref: './paths/destroy.yaml'
+
+  /getDefaultConfigXML:
+    $ref: './paths/getDefaultConfigXML.yaml'
+  /setConfigXML:
+    $ref: './paths/setConfigXML.yaml'
+  

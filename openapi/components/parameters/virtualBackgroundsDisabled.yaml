@@ -1,0 +1,6 @@
+name: virtualBackgroundsDisabled
+in: query
+description: Setting to `true` will disable Virtual Backgrounds for all users in the meeting.
+schema:
+    type: boolean
+    default: false

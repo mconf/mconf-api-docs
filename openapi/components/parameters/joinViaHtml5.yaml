@@ -1,0 +1,6 @@
+name: joinViaHtml5
+in: query
+description: Set to `true` to force the HTML5 client to load for the user.
+deprecated: true
+schema:
+  type: boolean

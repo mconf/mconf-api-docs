@@ -1,0 +1,54 @@
+success:
+  value: |-
+    <response>
+      <returncode>SUCCESS</returncode>
+      <nextPage>false</nextPage>
+      <meetings>
+          <meetingData>
+              <meeting>
+                  <meetingName>mymeeting</meetingName>
+                  <meetingID>extid</meetingID>
+                  <internalMeetingID>inid</internalMeetingID>
+                  <createTime>Thu Sep 18 19:17:10 UTC 2014</createTime>
+                  <createDate>Thu Sep 18 19:17:10 UTC 2014</createDate>
+                  <voiceBridge>74518</voiceBridge>
+                  <dialNumber>613-555-1234</dialNumber>
+                  <attendeePW>ap</attendeePW>
+                  <moderatorPW>mp</moderatorPW>
+                  <running>true</running>
+                  <duration>0</duration>
+                  <hasUserJoined>true</hasUserJoined>
+                  <recording>false</recording>
+                  <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+                  <startTime>1411067830029</startTime>
+                  <endTime>2131241</endTime>
+                  <participantCount>2</participantCount>
+                  <listenerCount>1</listenerCount>
+                  <voiceParticipantCount>1</voiceParticipantCount>
+                  <videoCount>1</videoCount>
+                  <maxUsers>3</maxUsers>
+                  <moderatorCount>1</moderatorCount>
+                  <attendees></attendees>
+                  <metadata></metadata>
+                  <isBreakout>false</isBreakout>
+                  <transfer>false</transfer>
+                  <transferCount>0</transferCount>
+              </meeting>
+              <recording>
+                  <recordID>recordID</recordID>
+                  <meetingID>extid</meetingID>
+                  <internalMeetingID></internalMeetingID>
+                  <name>myrecord</name>
+                  <isBreakout>false</isBreakout>
+                  <published>true</published>
+                  <state>published</state>
+                  <startTime>123123123</startTime>
+                  <endTime>124124124123123</endTime>
+                  <size>0</size>
+                  <rawSize>0</rawSize>
+                  <participants>2</participants>
+                  <metadata></metadata>
+              </recording>
+          </meetingData>
+      </meetings>
+    </response>

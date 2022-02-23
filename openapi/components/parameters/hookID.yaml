@@ -1,0 +1,5 @@
+name: hookID
+in: query
+description: The identification of the hook.
+schema: 
+  type: string

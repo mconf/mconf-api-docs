@@ -1,0 +1,29 @@
+type: object
+required:
+  - format
+properties:
+  format:
+    type: object
+    required:
+      - type
+      - url
+      - processingTime
+      - length
+      - size
+      - preview
+    properties:
+      type:
+        type: string
+        enum:
+          - presentation
+          - video
+      url:
+        type: string
+      processingTime:
+        type: integer
+      length:
+        type: integer
+      size:
+        type: integer
+      preview:
+        $ref: './preview.yaml'
