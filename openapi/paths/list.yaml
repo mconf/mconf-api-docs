@@ -1,7 +1,8 @@
 get:
-  operationId: list
+  summary: list
+  operationId: hooks-list
   description: List all the hooks based on the secret scope. If the secret is global, 
-    then it'll list all the hooks. Else, only the hooks created with this secret;
+    then it'll list all the hooks. Else, only the hooks created with this secret.
   tags:
   - hooks
   parameters:

@@ -4,7 +4,6 @@ required:
   - hookGUID
   - authToken
   - callbackURL
-  - sharedSecretGUID
   - enabled
 properties:
   hookID:
@@ -16,6 +15,8 @@ properties:
   callbackURL:
     type: string
   sharedSecretGUID:
+    type: string
+  externalMeetingID:
     type: string
   enabled:
     type: boolean

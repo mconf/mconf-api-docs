@@ -1,13 +1,13 @@
 get:
-  operationId: createHook
-  description: Create a Hook to receive events from api-webhooks
+  summary: create
+  operationId: hooks-create
+  description: Create a Hook to receive events of meetings based on scope.
   tags:
   - hooks
   parameters:
     - $ref: '../components/parameters/callbackURL.yaml'
       required: true
     - $ref: '../components/parameters/meetingID.yaml'
-      required: true
     - $ref: '../components/parameters/enabled.yaml'
     - $ref: '../components/parameters/checksum.yaml'
 

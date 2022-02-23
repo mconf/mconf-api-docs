@@ -1,4 +1,5 @@
 get:
+  summary: updateRecordings
   operationId: updateRecordings
   description: Update metadata for a given recordID (or set of record IDs).
   tags:

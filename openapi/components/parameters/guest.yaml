@@ -1,0 +1,5 @@
+name: action
+in: query
+description: Set to `true` to indicate that the user is a guest, otherwise do NOT send this parameter. 
+schema:
+  type: boolean

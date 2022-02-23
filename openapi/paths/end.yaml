@@ -1,5 +1,6 @@
 get:
-  operationId: end
+  summary: end
+  operationId: end-meeting
   description: Use this to forcibly end a meeting and kick all participants out of the meeting.
   tags:
   - meeting

@@ -1,4 +1,5 @@
 get:
+  summary: getRecordingToken
   operationId: getRecordingToken
   description: This call returns a JWT which gives access to the recording of the specified meeting.
   tags:

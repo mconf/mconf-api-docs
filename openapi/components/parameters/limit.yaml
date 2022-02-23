@@ -1,5 +1,5 @@
 name: limit
 in: query
-description: maximum number of rows to return in the response
+description: Maximum number of rows to return in the response.
 schema: 
   type: integer

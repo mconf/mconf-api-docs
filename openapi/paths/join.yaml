@@ -1,5 +1,6 @@
 get:
-  operationId: join
+  summary: join
+  operationId: join-meeting
   description: Joins a user to the meeting specified in the meetingID parameter.
   tags:
   - meeting

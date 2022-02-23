@@ -1,4 +1,5 @@
 get:
+  summary: getRecordings
   operationId: getRecordings
   description: 
     $ref: '../../docs/getRecordings/description.md'

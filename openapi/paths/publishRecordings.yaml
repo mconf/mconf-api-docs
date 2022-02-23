@@ -1,4 +1,5 @@
 get:
+  summary: publishRecordings
   operationId: publishRecordings
   description: Publish and unpublish recordings for a given recordID (or set of record IDs).
   tags:

@@ -24,8 +24,6 @@ tags:
   description: Monitoring centered requests
 - name: hooks
   description: Everything about your Hooks
-schemes:
-- https
 paths:
   /:
     $ref: './paths/root.yaml'

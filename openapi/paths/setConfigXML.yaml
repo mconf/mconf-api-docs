@@ -1,4 +1,5 @@
 post:
+  summary: setConfigXML
   operationId: setConfigXML
   description:
     $ref: '../../docs/setConfigXML/description.md'

@@ -1,6 +1,5 @@
 name: callbackURL
 in: query
-description: The URL which will be sent the events
-required: true
+description: The URL which receive the events.
 schema: 
   type: string

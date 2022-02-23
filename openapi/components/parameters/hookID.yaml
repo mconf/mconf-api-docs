@@ -1,6 +1,5 @@
 name: hookID
 in: query
-description: The identification of the hook which will be deleted.
-required: true
+description: The identification of the hook.
 schema: 
   type: string

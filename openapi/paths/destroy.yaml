@@ -1,7 +1,8 @@
 get:
-  operationId: destroy
+  summary: destroy
+  operationId: hooks-destroy
   description: Delete a specific hook based on the given hook id. 
-    Only the secret which was used in the creation of this hook is enable to do this operation.
+    Only global secrets or the secret which was used in the creation of this hook can do this operation.
   tags:
   - hooks
   parameters:

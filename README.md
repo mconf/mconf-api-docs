@@ -4,17 +4,24 @@ A repository with the Redoc configuration that reads the `openapi.yaml` file and
 
 ## Code dependencies
 
-To install and run, just use the commands bellow:
+To install the dependencies, run:
 
 ```bash
 $ npm install
+```
+
+## How to run
+
+To run a webserver watching for changes in the OpenAPI resources, run:
+
+```bash
 $ npm start
 ```
 
-## Makefile
+## How to build
 
-Just use the commands bellow to export a static HTML file for the documentation:
+To build a HTML file from the documentation, run:
 
 ```bash
-$ make html
+$ npm run build
 ```

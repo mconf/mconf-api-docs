@@ -14,8 +14,9 @@
   },
   "scripts": {
     "start": "openapi preview-docs",
-    "build": "openapi bundle -o dist",
-    "test": "openapi lint"
+    "bundle": "openapi bundle -o dist",
+    "lint": "openapi lint",
+    "build": "npx redoc-cli bundle openapi/openapi.yaml"
   },
   "repository": {
     "type": "git",

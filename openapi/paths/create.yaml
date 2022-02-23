@@ -1,5 +1,6 @@
 get:
-  operationId: create
+  summary: create
+  operationId: get-create
   description:
     $ref: '../../docs/create/description.md'
   tags:
@@ -16,7 +17,8 @@ get:
           schema:
             $ref: '../components/schemas/responses/create.yaml'
 post:
-  operationId: create
+  summary: create
+  operationId: post-create
   description:
     $ref: '../../docs/create/description.md'
   tags:
@@ -99,5 +101,5 @@ components:
     - $ref: '../components/parameters/learningDashboardCleanupDelayInMinutes.yaml'
     - $ref: '../components/parameters/allowModsToEjectCameras.yaml'
     - $ref: '../components/parameters/allowRequestsWithoutSession.yaml'
-    - $ref: '../components/parameters/virtualBackgroundDisabled.yaml'
+    - $ref: '../components/parameters/virtualBackgroundsDisabled.yaml'
     - $ref: '../components/parameters/checksum.yaml'

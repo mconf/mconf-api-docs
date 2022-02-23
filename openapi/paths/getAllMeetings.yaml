@@ -1,4 +1,5 @@
 get:
+  summary: getAllMeetings
   operationId: getAllMeetings
   description: 
     $ref: '../../docs/getAllMeetings/description.md'

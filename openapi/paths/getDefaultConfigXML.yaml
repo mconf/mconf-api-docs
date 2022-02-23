@@ -1,4 +1,5 @@
 get:
+  summary: getDefaultConfigXML
   operationId: getDefaultConfigXML
   description: Retrieve the default `config.xml`. 
   deprecated: true
