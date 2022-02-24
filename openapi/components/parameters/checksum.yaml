@@ -1,6 +1,6 @@
 name: checksum
 in: query
-description: SHA-1 value calculated for validation in the API
+description: SHA-1 value calculated for validation in the API.
 required: true
 schema: 
   type: string

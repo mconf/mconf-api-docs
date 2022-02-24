@@ -1,5 +1,5 @@
 name: meetingID
 in: query
-description: ID of the meeting
+description: ID of the meeting.
 schema: 
   type: string
