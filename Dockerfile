@@ -24,5 +24,5 @@ FROM nginx:1.21.6-alpine
 
 ARG APP_PATH_DEFAULT
 
-COPY --from=builder ${APP_PATH_DEFAULT}/redoc-static.html /usr/share/nginx/html/index.html
+COPY --from=builder ${APP_PATH_DEFAULT}/redoc-static.html /usr/share/nginx/html/docs/index.html
 COPY --from=builder ${APP_PATH_DEFAULT}/public/favicon.ico /usr/share/nginx/html/
