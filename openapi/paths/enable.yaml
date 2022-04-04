@@ -1,0 +1,20 @@
+get:
+  summary: enable
+  operationId: hooks-enable
+  description: Enables a Hook to activate functionalities from api-webhooks.
+  tags:
+  - hooks
+  parameters:
+    - $ref: '../components/parameters/hookID.yaml'
+      required: true
+    - $ref: '../components/parameters/checksum.yaml'
+
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHook.yaml'
