@@ -58,8 +58,6 @@ paths:
     $ref: './paths/list.yaml'
   /hooks/destroy:
     $ref: './paths/destroy.yaml'
-  /hooks/enable:
-    $ref: './paths/enable.yaml'
 
   /getDefaultConfigXML:
     $ref: './paths/getDefaultConfigXML.yaml'
