@@ -1,7 +1,7 @@
 get:
   summary: enable
   operationId: hooks-enable
-  description: Enables a Hook to activate functionalities from api-webhooks.
+  description: Enables a Hook to receive meetings events.
   tags:
   - hooks
   parameters:
