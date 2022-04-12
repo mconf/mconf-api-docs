@@ -7,6 +7,7 @@ get:
   parameters:
     - $ref: '../components/parameters/hookID.yaml'
       required: true
+    - $ref: '../components/parameters/sharedSecretGUID.yaml'
     - $ref: '../components/parameters/checksum.yaml'
 
   responses:
