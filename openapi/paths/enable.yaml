@@ -23,31 +23,31 @@ get:
       content:
         application/xml:
           examples:
-            $ref: '../components/examples/enableHook/enableHook-hookNotFoundError.yaml'
+            $ref: '../components/examples/enableHook/hookNotFoundError.yaml'
           schema:
             $ref: '../components/schemas/responses/enableHookError.yaml'
     '400':
-      description: Invalid Hook ID
-      content:
-        application/xml:
-          examples:
-            $ref: '../components/examples/enableHook/enableHook-invalidHookIDError.yaml'
-          schema:
-            $ref: '../components/schemas/responses/enableHookError.yaml'
-    '401':
-      description: Checksum test failed
-      content:
-        application/xml:
-          examples:
-            $ref: '../components/examples/enableHook/enableHook-fail.yaml'
-          schema:
-            $ref: '../components/schemas/responses/enableHookError.yaml'
-    '422':
       description: Missing Hook ID
       content:
         application/xml:
           examples:
-            $ref: '../components/examples/enableHook/enableHook-missingParamError.yaml'
+            $ref: '../components/examples/enableHook/missingParamError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
+    '401':
+      description: Checksum check failed
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/checksumError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
+    '422':
+      description: Invalid Hook ID
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/invalidHookIDError.yaml'
           schema:
             $ref: '../components/schemas/responses/enableHookError.yaml'
     '500':
@@ -55,6 +55,6 @@ get:
       content:
         application/xml:
           examples:
-            $ref: '../components/examples/enableHook/enableHook-enableError.yaml'
+            $ref: '../components/examples/enableHook/enableError.yaml'
           schema:
             $ref: '../components/schemas/responses/enableHookError.yaml'
