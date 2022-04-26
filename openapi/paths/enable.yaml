@@ -18,14 +18,6 @@ get:
             $ref: '../components/examples/enableHook/success.yaml'
           schema:
             $ref: '../components/schemas/responses/enableHook.yaml'
-    '204':
-      description: Hook Not Found
-      content:
-        application/xml:
-          examples:
-            $ref: '../components/examples/enableHook/hookNotFoundError.yaml'
-          schema:
-            $ref: '../components/schemas/responses/enableHookError.yaml'
     '400':
       description: Missing Hook ID
       content:
@@ -40,6 +32,14 @@ get:
         application/xml:
           examples:
             $ref: '../components/examples/enableHook/checksumError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
+    '404':
+      description: Hook Not Found
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/hookNotFoundError.yaml'
           schema:
             $ref: '../components/schemas/responses/enableHookError.yaml'
     '422':
