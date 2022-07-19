@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "@redocly/openapi-cli": "^1.0.0-beta.83",
+    "@redocly/cli": "^1.0.0-beta.104",
     "redoc-cli": "^0.13.8"
   },
   "scripts": {
