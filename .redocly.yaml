@@ -6,9 +6,3 @@ lint:
     - recommended
   rules:
     no-unused-components: warning
-referenceDocs:
-  htmlTemplate: ./public/index.html
-  theme:
-    colors:
-      primary:
-        main: "#32329f"
