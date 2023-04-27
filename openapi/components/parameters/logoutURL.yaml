@@ -1,4 +1,4 @@
-name: fullName
+name: logoutURL
 in: query
 description: The URL that the BigBlueButton client will go to after users click the OK button on the `You have been logged out message`
 schema:

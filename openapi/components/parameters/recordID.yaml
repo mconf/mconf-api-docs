@@ -1,5 +1,5 @@
 name: recordID
 in: query
-description: ID of the recording
+description: ID of the recording.
 schema: 
   type: string
