@@ -1,3 +1,7 @@
+<div style="background-color: #cff4fc; color: #033b46; padding: 20px; font-size: 18px; border-left: 0.25rem solid #9eeaf9">
+    This is a proprietary Elos call and is not supported by the BigBlueButton API
+</div>
+
 This call works as [getMeetings](#operation/getMeetings) but list all the meetings (including those which are not running). Also, it can aggregate the recording info when setting `includeRecordings` to `true`.
 
 ### Pagination
