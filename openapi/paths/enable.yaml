@@ -1,0 +1,60 @@
+get:
+  summary: enable
+  operationId: hooks-enable
+  description: Enables a Hook to receive meetings events.
+  tags:
+  - hooks
+  parameters:
+    - $ref: '../components/parameters/hookID.yaml'
+      required: true
+    - $ref: '../components/parameters/checksum.yaml'
+
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHook.yaml'
+    '400':
+      description: Missing Hook ID
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/missingParamError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
+    '401':
+      description: Checksum check failed
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/checksumError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
+    '404':
+      description: Hook Not Found
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/hookNotFoundError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
+    '422':
+      description: Invalid Hook ID
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/invalidHookIDError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
+    '500':
+      description: Couldn't enable hook
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/enableHook/enableError.yaml'
+          schema:
+            $ref: '../components/schemas/responses/enableHookError.yaml'
