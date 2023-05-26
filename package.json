@@ -1,19 +1,19 @@
 {
   "name": "mconf-api-docs",
-  "version": "1.0.0",
+  "version": "1.2.2",
   "description": "",
   "directories": {
     "doc": "docs"
   },
   "dependencies": {
-    "@redocly/openapi-cli": "^1.0.0-beta.83",
+    "@redocly/cli": "^1.0.0-beta.104",
     "redoc-cli": "^0.13.8"
   },
   "scripts": {
     "start": "openapi preview-docs",
     "bundle": "openapi bundle -o dist",
     "lint": "openapi lint",
-    "build": "npx redoc-cli bundle openapi/openapi.yaml",
+    "build": "npx redoc-cli bundle -t public/template.hbs openapi/openapi.yaml",
     "docker:build": "docker build -t mconf/api-docs:dev ."
   },
   "repository": {

@@ -1,0 +1,14 @@
+type: object
+required:
+  - response
+properties:
+  response:
+    type: object
+    required:
+      - returncode
+      - hookID
+    properties:
+      returncode:
+        type: string
+      hookID:
+        type: string

@@ -1,11 +1,12 @@
 get:
   summary: getRecordingToken
   operationId: getRecordingToken
-  description: This call returns a JWT which gives access to the recording of the specified meeting.
+  description:
+    $ref: '../../docs/getRecordingToken/description.md'
   tags:
   - recording
   parameters:
-  - $ref: '../components/parameters/meetingID.yaml'
+  - $ref: '../components/parameters/recordID.yaml'
     required: true
   - $ref: '../components/parameters/authUser.yaml'
     required: true
