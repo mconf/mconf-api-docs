@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.0
+- Update docs with new parameters
+
 ## 1.4.0
 - Update some vulnerable dependencies to newer fixed versions.
 
