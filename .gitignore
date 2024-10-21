@@ -2,3 +2,5 @@ node_modules
 .vscode
 dist.yaml
 redoc-static.html
+.DS_Store
+build/

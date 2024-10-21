@@ -1,0 +1,22 @@
+name: "mconf-api-docs"
+services:
+  dev:
+    build:
+      context: .
+      target: dev
+    image: mconf/mconf-api-docs:dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/opt/docusaurus
+    environment:
+      - NODE_ENV=development
+  prod:
+    build:
+      context: .
+      target: prod
+    image: mconf/mconf-api-docs:latest
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
