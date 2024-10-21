@@ -1,0 +1,14 @@
+{
+  "id": "guide1",
+  "title": "guide1",
+  "description": "Última atualização: October 17, 2024",
+  "source": "@site/docs/guide1.md",
+  "sourceDirName": ".",
+  "slug": "/guide1",
+  "permalink": "/docs/guide1",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

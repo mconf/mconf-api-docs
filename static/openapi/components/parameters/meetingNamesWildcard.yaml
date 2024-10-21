@@ -1,0 +1,5 @@
+name: meetingIDWildcard
+in: query
+description: Defines if the returned meeting names must start with the `meetingNames` parameter.
+schema: 
+  type: boolean

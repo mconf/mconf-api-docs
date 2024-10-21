@@ -43,12 +43,12 @@ paths:
     $ref: "./paths/getAllMeetings.yaml"
   /isMeetingRunning:
     $ref: "./paths/isMeetingRunning.yaml"
+  /getMeetingInfo:
+    $ref: "./paths/getMeetingInfo.yaml"
   /create:
     $ref: "./paths/create.yaml"
   /end:
     $ref: "./paths/end.yaml"
-  /getMeetingInfo:
-    $ref: "./paths/getMeetingInfo.yaml"
   /join:
     $ref: "./paths/join.yaml"
   /getRecordings:

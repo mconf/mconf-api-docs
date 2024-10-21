@@ -1,24 +1,60 @@
 get:
   summary: getAllMeetings
   operationId: getAllMeetings
-  description: 
-    $ref: '../../docs/getAllMeetings/description.md'
+  description:
+    $ref: "../../docs/getAllMeetings/description.md"
   tags:
-  - meeting
+    - meeting
   parameters:
-  - $ref: '../components/parameters/meetingID.yaml'
-  - $ref: '../components/parameters/meetingIDWildcard.yaml'
-  - $ref: '../components/parameters/meta.yaml'
-  - $ref: '../components/parameters/includeRecordings.yaml'
-  - $ref: '../components/parameters/limit.yaml'
-  - $ref: '../components/parameters/offset.yaml'
-  - $ref: '../components/parameters/checksum.yaml'
+    - $ref: "../components/parameters/meetingID.yaml"
+    - $ref: "../components/parameters/meetingIDWildcard.yaml"
+    - $ref: "../components/parameters/meetingNames.yaml"
+    - $ref: "../components/parameters/meetingNamesWildcard.yaml"
+    - $ref: "../components/parameters/meta.yaml"
+    - $ref: "../components/parameters/includeRecordings.yaml"
+    - $ref: "../components/parameters/limit.yaml"
+    - $ref: "../components/parameters/offset.yaml"
+    - $ref: "../components/parameters/sortBy.yaml"
+    - $ref: "../components/parameters/orderBy.yaml"
+    - $ref: "../components/parameters/startTime.yaml"
+    - $ref: "../components/parameters/endTime.yaml"
+    - $ref: "../components/parameters/checksum.yaml"
   responses:
-    '200':
+    "200":
       description: Successful operation
       content:
         application/xml:
           examples:
-            $ref: '../components/examples/getAllMeetings/success.yaml'
+            $ref: "../components/examples/getAllMeetings/success.yaml"
           schema:
-            $ref: '../components/schemas/responses/getAllMeetings.yaml'
+            $ref: "../components/schemas/responses/getAllMeetings.yaml"
+post:
+  summary: getAllMeetings
+  operationId: getAllMeetings
+  description:
+    $ref: "../../docs/getAllMeetings/description.md"
+  tags:
+    - meeting
+  parameters:
+    - $ref: "../components/parameters/meetingID.yaml"
+    - $ref: "../components/parameters/meetingIDWildcard.yaml"
+    - $ref: "../components/parameters/meetingNames.yaml"
+    - $ref: "../components/parameters/meetingNamesWildcard.yaml"
+    - $ref: "../components/parameters/meta.yaml"
+    - $ref: "../components/parameters/includeRecordings.yaml"
+    - $ref: "../components/parameters/limit.yaml"
+    - $ref: "../components/parameters/offset.yaml"
+    - $ref: "../components/parameters/sortBy.yaml"
+    - $ref: "../components/parameters/orderBy.yaml"
+    - $ref: "../components/parameters/startTime.yaml"
+    - $ref: "../components/parameters/endTime.yaml"
+    - $ref: "../components/parameters/checksum.yaml"
+  responses:
+    "200":
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: "../components/examples/getAllMeetings/success.yaml"
+          schema:
+            $ref: "../components/schemas/responses/getAllMeetings.yaml"

@@ -88,7 +88,7 @@ const config = {
         },
         items: [
           { to: "/blog", label: "What's new", position: "left" },
-          { to: "/guide", label: "Guide", position: "left" },
+          { to: "/docs/guide", label: "Guide", position: "left" },
           { to: "/api", label: "API Docs", position: "left" },
         ],
       },
