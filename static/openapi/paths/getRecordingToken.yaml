@@ -21,3 +21,26 @@ get:
             $ref: '../components/examples/getRecordingToken/success.yaml'
           schema:
             $ref: '../components/schemas/responses/getRecordingToken.yaml'
+post:
+  summary: getRecordingToken
+  operationId: getRecordingToken
+  description:
+    $ref: '../../docs/getRecordingToken/description.md'
+  tags:
+  - recording
+  parameters:
+  - $ref: '../components/parameters/recordID.yaml'
+    required: true
+  - $ref: '../components/parameters/authUser.yaml'
+    required: true
+  - $ref: '../components/parameters/action.yaml'
+  - $ref: '../components/parameters/checksum.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: '../components/examples/getRecordingToken/success.yaml'
+          schema:
+            $ref: '../components/schemas/responses/getRecordingToken.yaml'

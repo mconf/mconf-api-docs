@@ -20,6 +20,7 @@ x-tagGroups:
     tags:
       - meeting
       - recording
+      - callbacks
   - name: Other
     tags:
       - hooks
@@ -30,6 +31,8 @@ tags:
     description: Everything about your Meetings
   - name: recording
     description: Access Recording information
+  - name: callbacks
+    description: Everything about your Callbacks
   - name: monitoring
     description: Monitoring centered requests
   - name: hooks
@@ -61,6 +64,8 @@ paths:
     $ref: "./paths/updateRecordings.yaml"
   /getRecordingToken:
     $ref: "./paths/getRecordingToken.yaml"
+  /callback_events:
+    $ref: "./paths/callbackEvents.yaml"
   /hooks/create:
     $ref: "./paths/createHook.yaml"
   /hooks/list:
@@ -73,3 +78,9 @@ paths:
     $ref: "./paths/getDefaultConfigXML.yaml"
   /setConfigXML:
     $ref: "./paths/setConfigXML.yaml"
+components:
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
