@@ -9,7 +9,7 @@ FROM base AS dev
 WORKDIR /opt/docusaurus
 COPY . .
 EXPOSE 3000
-CMD ["npm", "start", "--", "--poll", "1000", "--host", "0.0.0.0"]
+CMD [ -d "node_modules" ] && npm start -- --poll 1000 --host 0.0.0.0 || npm install && npm start -- --poll 1000 --host 0.0.0.0
 
 FROM base AS builder
 
