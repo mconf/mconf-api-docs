@@ -2,6 +2,5 @@ node_modules
 .vscode
 dist.yaml
 redoc-static.html
-.docusaurus
 .DS_Store
 build/
