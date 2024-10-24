@@ -64,19 +64,19 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', '7bd'),
+    component: ComponentCreator('/docs', '921'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', 'd96'),
+        component: ComponentCreator('/docs', 'b82'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '561'),
+            component: ComponentCreator('/docs', 'a03'),
             routes: [
               {
-                path: '/docs/Guide',
-                component: ComponentCreator('/docs/Guide', '5db'),
+                path: '/docs/guide',
+                component: ComponentCreator('/docs/guide', 'd85'),
                 exact: true
               }
             ]

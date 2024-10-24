@@ -8,11 +8,11 @@
           "label": "Next",
           "isLast": true,
           "path": "/docs",
-          "mainDocId": "Guide",
+          "mainDocId": "guide",
           "docs": [
             {
-              "id": "Guide",
-              "path": "/docs/Guide"
+              "id": "guide",
+              "path": "/docs/guide"
             }
           ],
           "draftIds": [],

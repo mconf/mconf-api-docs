@@ -1,3 +1,8 @@
+---
+id: guide
+title: Guide
+---
+
 Última atualização: October 17, 2024
 
 :::note
@@ -22,7 +27,6 @@ Antes de seguir adiante com a leitura da documentação, tenha em mente que já 
 9. [Dados analíticos](#dados-analíticos)
 10. [Novidades e melhorias](#novidades-e-melhorias)
 11. [Perguntas frequentes](#perguntas-frequentes)
-
 
 ## Indicações de uso da integração via API e documentação essencial
 
