@@ -1,28 +1,30 @@
-ARG APP_PATH_DEFAULT=/usr/src/app
+ARG APP_PATH_DEFAULT=/opt/docusaurus
 
-FROM node:17.6.0-alpine3.15 AS builder
+FROM node:lts-alpine AS base
+ENV FORCE_COLOR=0
+RUN corepack enable
+WORKDIR /opt/docusaurus
 
-ARG APP_PATH_DEFAULT
+FROM base AS dev
+WORKDIR /opt/docusaurus
+COPY . .
+EXPOSE 3000
+CMD [ -d "node_modules" ] && npm start -- --poll 1000 --host 0.0.0.0 || npm install && npm start -- --poll 1000 --host 0.0.0.0
 
-ENV APP_PATH ${APP_PATH_DEFAULT}
-
-RUN mkdir -p ${APP_PATH}
+FROM base AS builder
 
 WORKDIR ${APP_PATH}
 
-COPY package* ${APP_PATH}/
-RUN npm install 
+COPY . .
 
-COPY docs ${APP_PATH}/docs
-COPY openapi ${APP_PATH}/openapi
-COPY public ${APP_PATH}/public
+RUN npm ci
 
 RUN npm run build
 
-
-FROM nginx:1.21.6-alpine
+FROM nginx:1.27.2-alpine AS prod
 
 ARG APP_PATH_DEFAULT
 
-COPY --from=builder ${APP_PATH_DEFAULT}/redoc-static.html /usr/share/nginx/html/docs/index.html
-COPY --from=builder ${APP_PATH_DEFAULT}/public/favicon.ico /usr/share/nginx/html/docs
+COPY --from=builder ${APP_PATH_DEFAULT}/build /usr/share/nginx/html
+COPY --from=builder ${APP_PATH_DEFAULT}/static/img/favicon.ico /usr/share/nginx/html/docs
+

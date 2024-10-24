@@ -1,0 +1,7 @@
+name: start_time
+in: query
+description: "Date to filter meetings (format: YYYY-MM-DD). If used alone, only meetings from that day will be retrieved."
+schema:
+  type: string
+  format: date
+  example: "2024-10-21"

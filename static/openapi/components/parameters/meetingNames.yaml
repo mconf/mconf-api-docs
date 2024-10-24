@@ -1,0 +1,5 @@
+name: meetingNames
+in: query
+description: Names of the meeting.
+schema: 
+  type: string

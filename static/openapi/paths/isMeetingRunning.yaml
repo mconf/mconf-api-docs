@@ -1,0 +1,38 @@
+get:
+  summary: isMeetingRunning
+  operationId: isMeetingRunning
+  description: This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.
+  tags:
+    - meeting
+  parameters:
+    - $ref: "../components/parameters/meetingID.yaml"
+      required: true
+    - $ref: "../components/parameters/checksum.yaml"
+  responses:
+    "200":
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: "../components/examples/isMeetingRunning/success.yaml"
+          schema:
+            $ref: "../components/schemas/responses/isMeetingRunning.yaml"
+post:
+  summary: isMeetingRunning
+  operationId: isMeetingRunning
+  description: This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.
+  tags:
+    - meeting
+  parameters:
+    - $ref: "../components/parameters/meetingID.yaml"
+      required: true
+    - $ref: "../components/parameters/checksum.yaml"
+  responses:
+    "200":
+      description: Successful operation
+      content:
+        application/xml:
+          examples:
+            $ref: "../components/examples/isMeetingRunning/success.yaml"
+          schema:
+            $ref: "../components/schemas/responses/isMeetingRunning.yaml"

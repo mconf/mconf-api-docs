@@ -1,27 +1,17 @@
-# Mconf-api-docs
+# Mconf API Docs
 
-A repository with the Redoc configuration that reads the `openapi.yaml` file and renders a documentation UI using the OpenAPI structure.
+This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
-## Code dependencies
+### Local Development
 
-To install the dependencies, run:
-
-```bash
-$ npm install
+```
+$  docker compose up dev --build
 ```
 
-## How to run
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
-To run a webserver watching for changes in the OpenAPI resources, run:
+### Build
 
-```bash
-$ npm start
 ```
-
-## How to build
-
-To build a HTML file from the documentation, run:
-
-```bash
-$ npm run build
+$  docker compose up prod --build
 ```
