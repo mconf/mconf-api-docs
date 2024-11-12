@@ -49,8 +49,16 @@ export default {
       {
         "specs": [
           {
-            "spec": "/opt/docusaurus/static/openapi/openapi.yaml",
-            "route": "/api/"
+            "spec": "/opt/docusaurus/static/proxy/openapi.yaml",
+            "route": "/api/conference/"
+          },
+          {
+            "spec": "/opt/docusaurus/static/data/openapi.yaml",
+            "route": "/api/data/"
+          },
+          {
+            "spec": "/opt/docusaurus/static/administrative/openapi.yaml",
+            "route": "/api/administrative/"
           }
         ],
         "theme": {
@@ -79,9 +87,19 @@ export default {
           "position": "left"
         },
         {
-          "to": "/api",
-          "label": "API Docs",
-          "position": "left"
+          "to": "/api/conference",
+          "label": "Conference API",
+          "position": "right"
+        },
+        {
+          "to": "/api/data",
+          "label": "Data API",
+          "position": "right"
+        },
+        {
+          "to": "/api/administrative",
+          "label": "Administrative API",
+          "position": "right"
         }
       ],
       "hideOnScroll": false

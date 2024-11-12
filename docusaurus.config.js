@@ -63,8 +63,16 @@ const config = {
           // Pass it a path to a local OpenAPI YAML file
           {
             // Redocusaurus will automatically bundle your spec into a single file during the build
-            spec: "/opt/docusaurus/static/openapi/openapi.yaml",
-            route: "/api/",
+            spec: "/opt/docusaurus/static/proxy/openapi.yaml",
+            route: "/api/conference/",
+          },
+          {
+            spec: "/opt/docusaurus/static/data/openapi.yaml",
+            route: "/api/data/",
+          },
+          {
+            spec: "/opt/docusaurus/static/administrative/openapi.yaml",
+            route: "/api/administrative/",
           },
         ],
         theme: {
@@ -89,7 +97,9 @@ const config = {
         items: [
           { to: "/blog", label: "What's new", position: "left" },
           { to: "/docs/guide", label: "Guide", position: "left" },
-          { to: "/api", label: "API Docs", position: "left" },
+          { to: "/api/conference", label: "Conference API", position: "right" },
+          { to: "/api/data", label: "Data API", position: "right" },
+          { to: "/api/administrative", label: "Administrative API", position: "right" },
         ],
       },
       footer: {
