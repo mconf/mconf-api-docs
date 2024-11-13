@@ -1,14 +1,17 @@
 {
-  "id": "Guide",
+  "id": "guide",
   "title": "Guide",
   "description": "Última atualização: October 17, 2024",
   "source": "@site/docs/Guide.md",
   "sourceDirName": ".",
-  "slug": "/Guide",
-  "permalink": "/docs/Guide",
+  "slug": "/guide",
+  "permalink": "/docs/guide",
   "draft": false,
   "unlisted": false,
   "tags": [],
   "version": "current",
-  "frontMatter": {}
+  "frontMatter": {
+    "id": "guide",
+    "title": "Guide"
+  }
 }

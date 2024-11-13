@@ -3577,6 +3577,965 @@
           }
         }
       }
+    },
+    "plugin-redoc-1": {
+      "url": "redocusaurus/plugin-redoc-1.yaml",
+      "themeId": "theme-redoc",
+      "isSpecFile": true,
+      "spec": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Mconf Data API",
+          "description": "###  Coming soon 🚨\nMconf meeting data, reports and artifacts\n",
+          "version": "2.1.0",
+          "servers": [
+            {
+              "url": "https://api.h.elos.dev/"
+            }
+          ]
+        },
+        "tags": [
+          {
+            "name": "summary"
+          },
+          {
+            "name": "artifacts"
+          }
+        ],
+        "paths": {
+          "/institutions/{institution_guid}/reports/summary/{ref_date}": {
+            "get": {
+              "tags": [
+                "summary"
+              ],
+              "summary": "summary",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "ref_date",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "Reference date in YYYY-MM-DD or YYYY-MM format"
+                },
+                {
+                  "in": "query",
+                  "name": "filter",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "daily",
+                      "monthly"
+                    ]
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "unique_users": {
+                            "type": "integer"
+                          },
+                          "meetings": {
+                            "type": "integer"
+                          },
+                          "duration_meetings_s": {
+                            "type": "integer"
+                          },
+                          "recordings": {
+                            "type": "integer"
+                          },
+                          "duration_recordings_s": {
+                            "type": "integer"
+                          },
+                          "recordings_size_bytes": {
+                            "type": "integer"
+                          },
+                          "total_accesses": {
+                            "type": "integer"
+                          },
+                          "total_rooms": {
+                            "type": "integer"
+                          },
+                          "max_simultaneous_users": {
+                            "type": "integer"
+                          },
+                          "max_simultaneous_users_at": {
+                            "type": "string"
+                          },
+                          "max_simultaneous_meetings": {
+                            "type": "integer"
+                          },
+                          "max_simultaneous_meetings_at": {
+                            "type": "string"
+                          },
+                          "max_simultaneous_meetings_with_breakouts": {
+                            "type": "integer"
+                          },
+                          "max_simultaneous_meetings_with_breakouts_at": {
+                            "type": "string"
+                          },
+                          "longest_meeting_duration_s": {
+                            "type": "integer"
+                          },
+                          "biggest_meeting_users": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/institutions/{institution_guid}/artifacts/report/{ref_month}": {
+            "get": {
+              "tags": [
+                "artifacts"
+              ],
+              "summary": "report",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "ref_month",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "Reference month in YYYY-MM format"
+                },
+                {
+                  "in": "query",
+                  "name": "language",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "pt",
+                      "en"
+                    ]
+                  }
+                },
+                {
+                  "in": "query",
+                  "name": "format",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "pdf",
+                      "csv",
+                      "xls"
+                    ]
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "link": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "File not found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/engagement_report": {
+            "get": {
+              "tags": [
+                "artifacts"
+              ],
+              "summary": "engagement_report",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "int_meeting_id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "link": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Meeting not found or file not found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/participants_list": {
+            "get": {
+              "tags": [
+                "artifacts"
+              ],
+              "summary": "participants_list",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "int_meeting_id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "link": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Meeting not found or file not found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/shared_notes": {
+            "get": {
+              "tags": [
+                "artifacts"
+              ],
+              "summary": "shared_notes",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "int_meeting_id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "link": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Meeting not found or file not found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/file={file}": {
+            "get": {
+              "tags": [
+                "artifacts"
+              ],
+              "summary": "file",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "int_meeting_id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "file",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "link": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Meeting not found or file not found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/list_objects": {
+            "get": {
+              "tags": [
+                "artifacts"
+              ],
+              "summary": "list_objects",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "int_meeting_id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "objects": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "file_name": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Meeting not found or file not found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "components": {}
+      }
+    },
+    "plugin-redoc-2": {
+      "url": "redocusaurus/plugin-redoc-2.yaml",
+      "themeId": "theme-redoc",
+      "isSpecFile": true,
+      "spec": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Mconf Administrative API",
+          "description": "###  Coming soon 🚨\nAdministrative API for managing Mconf institutions and users\n",
+          "version": "0.5.0",
+          "servers": [
+            {
+              "url": "https://api.h.elos.dev/"
+            }
+          ]
+        },
+        "paths": {
+          "/institution/{guid}": {
+            "get": {
+              "summary": "institution",
+              "parameters": [
+                {
+                  "name": "guid",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Institution details",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Institution"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Institution not found"
+                },
+                "500": {
+                  "description": "Internal server error"
+                }
+              }
+            },
+            "put": {
+              "summary": "institution",
+              "parameters": [
+                {
+                  "name": "guid",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              ],
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/UpdateInstitution"
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Institution updated"
+                },
+                "400": {
+                  "description": "Invalid request body"
+                },
+                "404": {
+                  "description": "Institution not found"
+                },
+                "409": {
+                  "description": "Name already exists"
+                },
+                "500": {
+                  "description": "Internal server error"
+                }
+              }
+            }
+          },
+          "/institution/": {
+            "post": {
+              "summary": "institution",
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/CreateInstitution"
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "201": {
+                  "description": "Institution created",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Institution"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Invalid request body"
+                },
+                "409": {
+                  "description": "Institution name already exists"
+                },
+                "500": {
+                  "description": "Internal server error"
+                }
+              }
+            }
+          },
+          "/institution/{guid}/meeting_settings": {
+            "get": {
+              "summary": "institution/meeting_settings",
+              "parameters": [
+                {
+                  "name": "guid",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Meeting settings",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/MeetingSettings"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Institution not found"
+                },
+                "500": {
+                  "description": "Internal server error"
+                }
+              }
+            }
+          },
+          "/institution/{guid}/unsubscription": {
+            "post": {
+              "summary": "institution/unsubscription",
+              "parameters": [
+                {
+                  "name": "guid",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Institution unsubscribed",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/UnsubscribeResponse"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Institution not found"
+                },
+                "500": {
+                  "description": "Internal server error"
+                }
+              }
+            }
+          },
+          "/institution/{guid}/reactivation": {
+            "post": {
+              "summary": "institution/reactivation",
+              "parameters": [
+                {
+                  "name": "guid",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Institution reactivated",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/ReactivateResponse"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Institution not found"
+                },
+                "500": {
+                  "description": "Internal server error"
+                }
+              }
+            }
+          },
+          "/user/{external_user_id}": {
+            "delete": {
+              "summary": "user",
+              "parameters": [
+                {
+                  "name": "external_user_id",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "User data removed",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/RemoveUserResponse"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "User not found"
+                },
+                "500": {
+                  "description": "Internal server error"
+                }
+              }
+            }
+          }
+        },
+        "components": {
+          "schemas": {
+            "Institution": {
+              "type": "object",
+              "properties": {
+                "guid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "shared_secrets": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SharedSecret"
+                  }
+                }
+              }
+            },
+            "SharedSecret": {
+              "type": "object",
+              "properties": {
+                "guid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "secret": {
+                  "type": "string"
+                }
+              }
+            },
+            "CreateInstitution": {
+              "type": "object",
+              "required": [
+                "name",
+                "secret_name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "secret_name": {
+                  "type": "string"
+                }
+              }
+            },
+            "UpdateInstitution": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "participants_limit": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "retention_days": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "meeting_limit": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "MeetingSettings": {
+              "type": "object",
+              "properties": {
+                "institution_guid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "settings": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MeetingSetting"
+                  }
+                }
+              }
+            },
+            "MeetingSetting": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "UnsubscribeResponse": {
+              "type": "object",
+              "properties": {
+                "guid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "unsubscription_timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "total_expired_secrets": {
+                  "type": "integer"
+                },
+                "expired_secrets": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SharedSecret"
+                  }
+                }
+              }
+            },
+            "ReactivateResponse": {
+              "type": "object",
+              "properties": {
+                "guid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "total_enabled_secrets": {
+                  "type": "integer"
+                },
+                "enabled_secrets": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SharedSecret"
+                  }
+                }
+              }
+            },
+            "RemoveUserResponse": {
+              "type": "object",
+              "properties": {
+                "external_user_id": {
+                  "type": "string"
+                },
+                "total_anonymized_records": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "docusaurus-theme-redoc": {

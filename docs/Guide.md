@@ -21,12 +21,14 @@ Antes de seguir adiante com a leitura da documentação, tenha em mente que já 
 3. [Armazenamento de dados](#armazenamento-de-dados)
 4. [Customizações definidas a partir de regras de negócio](#customizações-definidas-a-partir-de-regras-de-negócio)
 5. [Permissões e abertura da sala](#permissões-e-abertura-da-sala)
-6. [Gravações](#gravações)
-7. [Uso incorporado em iframe](#uso-incorporado-em-iframe)
-8. [Webhooks](#webhooks)
-9. [Dados analíticos](#dados-analíticos)
-10. [Novidades e melhorias](#novidades-e-melhorias)
-11. [Perguntas frequentes](#perguntas-frequentes)
+6. [Personalizações úteis via API](#personalizações-úteis-via-api)
+7. [Encerramento da sessão](#encerramento-da-sessão)
+8. [Gravações](#gravações)
+9. [Uso incorporado em iframe](#uso-incorporado-em-iframe)
+10. [Webhooks](#webhooks)
+11. [Dados analíticos](#dados-analíticos)
+12. [Novidades e melhorias](#novidades-e-melhorias)
+13. [Perguntas frequentes](#perguntas-frequentes)
 
 ## Indicações de uso da integração via API e documentação essencial
 
@@ -111,6 +113,22 @@ Estes valores servem para identificar os usuários que vão conectar na sala e a
 Outra informação importante em relação à API é que quando a sessão for criada podem ser passados metadados para esta sessão, que são dados da reunião ou aula que você deseja que estejam disponíveis posteriormente, também na gravação. Por exemplo: em uma integração que é usada por usuários com o papel “funcionários”, toda vez que determinada sala é aberta são passados os metadados de que a sessão é administrativa e então, posteriormente, esse metadado estará vinculado à gravação. Com isso, pode-se gerar analytics para saber, por exemplo, os setores que mais estão gravando e também gerenciar as gravações por setor. Não há limite de metadados, e sugerimos que sempre sejam passados, no mínimo, o endereço do site e a versão da integração, podendo estender-se a todas as informações que possam ser úteis para que essa sessão e/ou gravação possam ser indexadas posteriormente.
 
 ## Personalizações úteis via API
+
+### Padronização de nomes
+
+- Usar sempre letras minúsculas.
+- Usar apenas letras, números e os caracteres `-` ou `_`.
+- Não usar acentos.
+- Como separador entre palavras, dar preferência para `-`, mas existem exceções:
+    - O BigBlueButton padronizou o uso de `userdata-nome_da_variavel` para parâmetros do usuário no `join`. O `userdata-` é um prefixo sempre igual e no restante deve ser usado `_`. Então o Live faz o mesmo. Ver [este link](https://github.com/bigbluebutton/bigbluebutton/blob/74d446dd08a22257c51f35ac40deec46a838a94c/bigbluebutton-html5/imports/api/users-settings/server/methods/addUserSettings.js#L31-L71).
+        
+        Usar `userdata-nome-da-variavel` **não funciona**!  (pode ter efeitos inesperados)
+        
+    - O BigBlueButton padronizou o uso de `meta_` como prefixo para parâmetros no `create`, então o `_` precisa ser usado ali. No restante do nome, usar `-`, como, por exemplo, `meta_nome-da-variavel`.
+        
+        Usar `meta_nome_da_variavel` **não funciona**! (pode ter efeitos inesperados)
+
+---
 
 Parâmetros interessantes para serem utilizados no `create`:
 

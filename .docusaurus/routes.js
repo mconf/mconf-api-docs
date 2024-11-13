@@ -38,8 +38,18 @@ export default [
     exact: true
   },
   {
-    path: '/api/',
-    component: ComponentCreator('/api/', '41d'),
+    path: '/api/administrative/',
+    component: ComponentCreator('/api/administrative/', 'fa7'),
+    exact: true
+  },
+  {
+    path: '/api/conference/',
+    component: ComponentCreator('/api/conference/', 'e56'),
+    exact: true
+  },
+  {
+    path: '/api/data/',
+    component: ComponentCreator('/api/data/', '10c'),
     exact: true
   },
   {
@@ -64,19 +74,19 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', '921'),
+    component: ComponentCreator('/docs', '862'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', 'b82'),
+        component: ComponentCreator('/docs', 'bef'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', 'a03'),
+            component: ComponentCreator('/docs', '986'),
             routes: [
               {
                 path: '/docs/guide',
-                component: ComponentCreator('/docs/guide', 'd85'),
+                component: ComponentCreator('/docs/guide', '519'),
                 exact: true
               }
             ]

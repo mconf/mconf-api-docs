@@ -1,0 +1,14 @@
+{
+  "id": "conventions",
+  "title": "API",
+  "description": "Informações sobre a API do Live (e BigBlueButton).",
+  "source": "@site/docs/conventions.md",
+  "sourceDirName": ".",
+  "slug": "/conventions",
+  "permalink": "/docs/conventions",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}
