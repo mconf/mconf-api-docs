@@ -1,18 +1,18 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/docs",
+      "path": "/docs/docs",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/docs",
+          "path": "/docs/docs",
           "mainDocId": "guide",
           "docs": [
             {
               "id": "guide",
-              "path": "/docs/guide"
+              "path": "/docs/docs/guide"
             }
           ],
           "draftIds": [],

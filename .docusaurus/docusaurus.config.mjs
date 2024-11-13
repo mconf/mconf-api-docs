@@ -8,7 +8,7 @@ export default {
   "tagline": "API Documentation",
   "favicon": "img/favicon.ico",
   "url": "https://api.h.elos.dev",
-  "baseUrl": "/",
+  "baseUrl": "/docs/",
   "onBrokenLinks": "throw",
   "onBrokenMarkdownLinks": "warn",
   "i18n": {
@@ -79,11 +79,6 @@ export default {
         {
           "to": "/blog",
           "label": "What's new",
-          "position": "left"
-        },
-        {
-          "to": "/docs/guide",
-          "label": "Guide",
           "position": "left"
         },
         {

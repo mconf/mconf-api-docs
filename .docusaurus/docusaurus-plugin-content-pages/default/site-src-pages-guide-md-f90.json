@@ -1,0 +1,12 @@
+{
+  "type": "mdx",
+  "permalink": "/docs/Guide",
+  "source": "@site/src/pages/Guide.md",
+  "title": "Guide",
+  "description": "Última atualização: October 17, 2024",
+  "frontMatter": {
+    "id": "guide",
+    "title": "Guide"
+  },
+  "unlisted": false
+}

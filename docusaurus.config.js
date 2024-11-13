@@ -18,7 +18,7 @@ const config = {
   url: "https://api.h.elos.dev",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: "/docs/",
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -38,6 +38,8 @@ const config = {
       ({
         docs: {
           sidebarPath: "./sidebars.js",
+          path: "pages",
+          routeBasePath: "pages",
         },
         blog: {
           showReadingTime: true,
@@ -96,10 +98,14 @@ const config = {
         },
         items: [
           { to: "/blog", label: "What's new", position: "left" },
-          { to: "/docs/guide", label: "Guide", position: "left" },
+          { to: "/pages/guide", label: "Guide", position: "left" },
           { to: "/api/conference", label: "Conference API", position: "right" },
           { to: "/api/data", label: "Data API", position: "right" },
-          { to: "/api/administrative", label: "Administrative API", position: "right" },
+          {
+            to: "/api/administrative",
+            label: "Administrative API",
+            position: "right",
+          },
         ],
       },
       footer: {
