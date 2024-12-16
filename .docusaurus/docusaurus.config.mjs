@@ -4,9 +4,8 @@
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 export default {
-  "title": "Mconf",
-  "tagline": "API Documentation",
-  "favicon": "img/favicon.ico",
+  "title": "Elos API Documentation",
+  "favicon": "img/favicon.svg",
   "url": "https://api.h.elos.dev",
   "baseUrl": "/docs/",
   "onBrokenLinks": "throw",
@@ -24,7 +23,9 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "./sidebars.js"
+          "sidebarPath": "./sidebars.js",
+          "path": "pages",
+          "routeBasePath": "pages"
         },
         "blog": {
           "showReadingTime": true,
@@ -68,17 +69,21 @@ export default {
     ]
   ],
   "themeConfig": {
-    "image": "img/docusaurus-social-card.jpg",
+    "image": "img/logo.svg",
     "navbar": {
-      "title": "Mconf",
       "logo": {
-        "alt": "Mconf Logo",
+        "alt": "Elos Logo",
         "src": "img/logo.svg"
       },
       "items": [
         {
           "to": "/blog",
           "label": "What's new",
+          "position": "left"
+        },
+        {
+          "to": "/pages/guide",
+          "label": "Guide",
           "position": "left"
         },
         {
@@ -107,15 +112,11 @@ export default {
           "items": [
             {
               "label": "LinkedIn",
-              "href": "https://www.linkedin.com/company/mconf"
-            },
-            {
-              "label": "X",
-              "href": "https://x.com/mconfoficial"
+              "href": "https://www.linkedin.com/company/elosvc"
             },
             {
               "label": "Facebook",
-              "href": "https://www.facebook.com/mconfoficial/"
+              "href": "https://www.facebook.com/elos.vc/"
             }
           ]
         },
@@ -125,11 +126,15 @@ export default {
             {
               "label": "GitHub",
               "href": "https://github.com/mconf"
+            },
+            {
+              "label": "About Mconf",
+              "href": "https://elos.vc/site/sobre-a-mconf/"
             }
           ]
         }
       ],
-      "copyright": "Copyright © 2024 Mconf, Inc. Built with Docusaurus."
+      "copyright": "Copyright © 2024 Elos "
     },
     "prism": {
       "theme": {
@@ -378,6 +383,7 @@ export default {
   "headTags": [],
   "stylesheets": [],
   "clientModules": [],
+  "tagline": "",
   "titleDelimiter": "|",
   "noIndex": false,
   "markdown": {

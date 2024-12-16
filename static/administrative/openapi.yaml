@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
-  title: Mconf Administrative API
+  title: Elos Administrative API
   description: |
     ###  Coming soon 🚨
-    Administrative API for managing Mconf institutions and users
+    Administrative API for managing Elos institutions and users
   version: 0.5.0
   servers:
     - url: https://api.h.elos.dev/

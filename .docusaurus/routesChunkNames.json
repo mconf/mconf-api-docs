@@ -108,34 +108,31 @@
     "sidebar": "sidebar---docs-blog-814-2a0",
     "__props": "__props---docs-blog-authors-479-c13"
   },
-  "/docs/Guide-579": {
-    "__comp": "__comp---theme-mdx-page-1-f-3-b90",
-    "__context": {
-      "plugin": "plugin---docs-guidea-74-f8f"
-    },
-    "content": "content---docs-guidef-90-f2c"
-  },
-  "/docs/docs-248": {
+  "/docs/pages-077": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
-      "plugin": "plugin---docs-docsaba-31e"
+      "plugin": "plugin---docs-pagesaba-311"
     }
   },
-  "/docs/docs-805": {
+  "/docs/pages-ef4": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---docs-docsa-20-f19"
+    "__props": "__props---docs-pages-0-b-5-e72"
   },
-  "/docs/docs-98a": {
+  "/docs/pages-291": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/docs/docs/guide-5cb": {
+  "/docs/pages/guide-53e": {
     "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-docs-guideefa-023"
+    "content": "content---docs-pages-guide-506-ed9"
+  },
+  "/docs/pages/guide-pt-f66": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-pages-guide-ptd-35-916"
   },
   "/docs/-6fa": {
     "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
     "__context": {
-      "plugin": "plugin---docs-guidea-74-f8f"
+      "plugin": "plugin---docs-a-74-f09"
     },
     "config": "config---docs-5-e-9-4ea"
   }

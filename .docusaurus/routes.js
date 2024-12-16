@@ -73,25 +73,25 @@ export default [
     exact: true
   },
   {
-    path: '/docs/Guide',
-    component: ComponentCreator('/docs/Guide', '579'),
-    exact: true
-  },
-  {
-    path: '/docs/docs',
-    component: ComponentCreator('/docs/docs', '248'),
+    path: '/docs/pages',
+    component: ComponentCreator('/docs/pages', '077'),
     routes: [
       {
-        path: '/docs/docs',
-        component: ComponentCreator('/docs/docs', '805'),
+        path: '/docs/pages',
+        component: ComponentCreator('/docs/pages', 'ef4'),
         routes: [
           {
-            path: '/docs/docs',
-            component: ComponentCreator('/docs/docs', '98a'),
+            path: '/docs/pages',
+            component: ComponentCreator('/docs/pages', '291'),
             routes: [
               {
-                path: '/docs/docs/guide',
-                component: ComponentCreator('/docs/docs/guide', '5cb'),
+                path: '/docs/pages/guide',
+                component: ComponentCreator('/docs/pages/guide', '53e'),
+                exact: true
+              },
+              {
+                path: '/docs/pages/guide-pt',
+                component: ComponentCreator('/docs/pages/guide-pt', 'f66'),
                 exact: true
               }
             ]

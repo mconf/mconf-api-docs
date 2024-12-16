@@ -1,4 +1,4 @@
-This is [Mconf's](https://mconf.com/) official API documentation, built using the OpenAPI specification with Redoc!
+This is [Elos's](https://elos.vc/) official API documentation, built using the OpenAPI specification with Redoc!
 
 # Authentication
 
