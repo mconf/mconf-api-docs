@@ -1,7 +1,9 @@
 ---
-id: guide
-title: Guide
+id: guide-pt
+title: Guia
 ---
+
+### [English 🇺🇸](guide) [Portuguese 🇧🇷](guide-pt)
 
 Última atualização: October 17, 2024
 
@@ -120,13 +122,10 @@ Outra informação importante em relação à API é que quando a sessão for cr
 - Usar apenas letras, números e os caracteres `-` ou `_`.
 - Não usar acentos.
 - Como separador entre palavras, dar preferência para `-`, mas existem exceções:
-    - O BigBlueButton padronizou o uso de `userdata-nome_da_variavel` para parâmetros do usuário no `join`. O `userdata-` é um prefixo sempre igual e no restante deve ser usado `_`. Então o Live faz o mesmo. Ver [este link](https://github.com/bigbluebutton/bigbluebutton/blob/74d446dd08a22257c51f35ac40deec46a838a94c/bigbluebutton-html5/imports/api/users-settings/server/methods/addUserSettings.js#L31-L71).
-        
-        Usar `userdata-nome-da-variavel` **não funciona**!  (pode ter efeitos inesperados)
-        
-    - O BigBlueButton padronizou o uso de `meta_` como prefixo para parâmetros no `create`, então o `_` precisa ser usado ali. No restante do nome, usar `-`, como, por exemplo, `meta_nome-da-variavel`.
-        
-        Usar `meta_nome_da_variavel` **não funciona**! (pode ter efeitos inesperados)
+  - O BigBlueButton padronizou o uso de `userdata-nome_da_variavel` para parâmetros do usuário no `join`. O `userdata-` é um prefixo sempre igual e no restante deve ser usado `_`. Então o Live faz o mesmo. Ver [este link](https://github.com/bigbluebutton/bigbluebutton/blob/74d446dd08a22257c51f35ac40deec46a838a94c/bigbluebutton-html5/imports/api/users-settings/server/methods/addUserSettings.js#L31-L71).
+    Usar `userdata-nome-da-variavel` **não funciona**! (pode ter efeitos inesperados)
+  - O BigBlueButton padronizou o uso de `meta_` como prefixo para parâmetros no `create`, então o `_` precisa ser usado ali. No restante do nome, usar `-`, como, por exemplo, `meta_nome-da-variavel`.
+    Usar `meta_nome_da_variavel` **não funciona**! (pode ter efeitos inesperados)
 
 ---
 

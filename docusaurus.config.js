@@ -10,9 +10,9 @@ import { themes as prismThemes } from "prism-react-renderer";
 // Read the OpenAPI spec from a local file
 
 const config = {
-  title: "Mconf",
-  tagline: "API Documentation",
-  favicon: "img/favicon.ico",
+title: "Elos API Documentation",
+  // tagline: "API Documentation",
+  favicon: "img/favicon.svg",
 
   // Set the production url of your site here
   url: "https://api.h.elos.dev",
@@ -89,11 +89,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: "img/docusaurus-social-card.jpg",
+      image: "img/logo.svg",
       navbar: {
-        title: "Mconf",
+        // title: "Elos",
         logo: {
-          alt: "Mconf Logo",
+          alt: "Elos Logo",
           src: "img/logo.svg",
         },
         items: [
@@ -116,15 +116,11 @@ const config = {
             items: [
               {
                 label: "LinkedIn",
-                href: "https://www.linkedin.com/company/mconf",
-              },
-              {
-                label: "X",
-                href: "https://x.com/mconfoficial",
+                href: "https://www.linkedin.com/company/elosvc",
               },
               {
                 label: "Facebook",
-                href: "https://www.facebook.com/mconfoficial/",
+                href: "https://www.facebook.com/elos.vc/",
               },
             ],
           },
@@ -135,10 +131,14 @@ const config = {
                 label: "GitHub",
                 href: "https://github.com/mconf",
               },
+              {
+                label: "About Mconf",
+                href: "https://elos.vc/site/sobre-a-mconf/",
+              },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Mconf, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Elos `,
       },
       prism: {
         theme: prismThemes.github,

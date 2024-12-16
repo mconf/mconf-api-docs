@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
-  title: Mconf Data API
+  title: Elos Data API
   description: |
     ###  Coming soon 🚨
-    Mconf meeting data, reports and artifacts
+    Elos meeting data, reports and artifacts
   version: 2.1.0
   servers:
     - url: https://api.h.elos.dev/

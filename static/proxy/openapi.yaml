@@ -3,13 +3,10 @@ info:
   description:
     $ref: "./info-description.md"
   version: 1.0.0
-  title: Mconf BBB API
-  x-logo:
-    url: https://mconf.com/images/logo_footer.png
-    altText: Mconf Logo
+  title: Elos BBB API
   contact:
-    name: Mconf
-    url: https://mconf.com
+    name: Email
+    url: https://elos.vc
     email: contato@elos.vc
 servers:
   - url: https://api.h.elos.dev/bigbluebutton/api
