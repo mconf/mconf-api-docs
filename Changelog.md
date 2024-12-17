@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+- Replace references to Mconf with references to Elos
+
+## 2.0.1
+- Fix Nginx path
+
 ## 2.0.0
 - New version with Docusaurus
 - Add Data and Administrative API
