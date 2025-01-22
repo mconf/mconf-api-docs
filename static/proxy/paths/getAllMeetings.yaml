@@ -8,8 +8,8 @@ get:
   parameters:
     - $ref: "../components/parameters/meetingID.yaml"
     - $ref: "../components/parameters/meetingIDWildcard.yaml"
-    - $ref: "../components/parameters/meetingNames.yaml"
-    - $ref: "../components/parameters/meetingNamesWildcard.yaml"
+    - $ref: "../components/parameters/meetingName.yaml"
+    - $ref: "../components/parameters/meetingNameWildcard.yaml"
     - $ref: "../components/parameters/meta.yaml"
     - $ref: "../components/parameters/includeRecordings.yaml"
     - $ref: "../components/parameters/limit.yaml"
@@ -38,8 +38,8 @@ post:
   parameters:
     - $ref: "../components/parameters/meetingID.yaml"
     - $ref: "../components/parameters/meetingIDWildcard.yaml"
-    - $ref: "../components/parameters/meetingNames.yaml"
-    - $ref: "../components/parameters/meetingNamesWildcard.yaml"
+    - $ref: "../components/parameters/meetingName.yaml"
+    - $ref: "../components/parameters/meetingNameWildcard.yaml"
     - $ref: "../components/parameters/meta.yaml"
     - $ref: "../components/parameters/includeRecordings.yaml"
     - $ref: "../components/parameters/limit.yaml"
