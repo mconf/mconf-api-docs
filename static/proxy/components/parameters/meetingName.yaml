@@ -1,5 +1,5 @@
 name: meetingName
 in: query
-description: Name of the meeting.
-schema: 
+description: Name(s) of the meeting. Multiple names can be provided, separated by commas.
+schema:
   type: string
