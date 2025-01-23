@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.1
+- Fix /getAllMeetings parameters
+
 ## 2.1.0
 - Replace references to Mconf with references to Elos
 
