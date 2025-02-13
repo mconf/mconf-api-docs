@@ -232,10 +232,10 @@
                   "$ref": "#/components/parameters/meetingIDWildcard"
                 },
                 {
-                  "$ref": "#/components/parameters/meetingNames"
+                  "$ref": "#/components/parameters/meetingName"
                 },
                 {
-                  "$ref": "#/components/parameters/meetingNamesWildcard"
+                  "$ref": "#/components/parameters/meetingNameWildcard"
                 },
                 {
                   "$ref": "#/components/parameters/meta"
@@ -298,10 +298,10 @@
                   "$ref": "#/components/parameters/meetingIDWildcard"
                 },
                 {
-                  "$ref": "#/components/parameters/meetingNames"
+                  "$ref": "#/components/parameters/meetingName"
                 },
                 {
-                  "$ref": "#/components/parameters/meetingNamesWildcard"
+                  "$ref": "#/components/parameters/meetingNameWildcard"
                 },
                 {
                   "$ref": "#/components/parameters/meta"
@@ -1250,8 +1250,7 @@
               "parameters": [
                 {
                   "description": "A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas.",
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
                   "$ref": "#/components/parameters/publish",
@@ -1289,8 +1288,7 @@
               "parameters": [
                 {
                   "description": "A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas.",
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
                   "$ref": "#/components/parameters/publish",
@@ -1330,8 +1328,7 @@
               "parameters": [
                 {
                   "description": "A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas.",
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
                   "$ref": "#/components/parameters/checksum"
@@ -1365,8 +1362,7 @@
               "parameters": [
                 {
                   "description": "A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas.",
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
                   "$ref": "#/components/parameters/checksum"
@@ -1401,9 +1397,10 @@
               ],
               "parameters": [
                 {
-                  "description": "A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas.",
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "description": "A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas."
+                },
+                {
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
                   "$ref": "#/components/parameters/updateRecordings-meta",
@@ -1441,8 +1438,7 @@
               "parameters": [
                 {
                   "description": "A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas.",
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
                   "$ref": "#/components/parameters/updateRecordings-meta",
@@ -1481,12 +1477,10 @@
               ],
               "parameters": [
                 {
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
-                  "$ref": "#/components/parameters/authUser",
-                  "required": true
+                  "$ref": "#/components/parameters/authUser"
                 },
                 {
                   "$ref": "#/components/parameters/action"
@@ -1522,12 +1516,10 @@
               ],
               "parameters": [
                 {
-                  "$ref": "#/components/parameters/recordID",
-                  "required": true
+                  "$ref": "#/components/parameters/recordID-required"
                 },
                 {
-                  "$ref": "#/components/parameters/authUser",
-                  "required": true
+                  "$ref": "#/components/parameters/authUser"
                 },
                 {
                   "$ref": "#/components/parameters/action"
@@ -2868,7 +2860,7 @@
             "meetingID": {
               "name": "meetingID",
               "in": "query",
-              "description": "ID of the meeting.",
+              "description": "ID(s) of the meeting. Multiple IDs can be provided, separated by commas.",
               "schema": {
                 "type": "string"
               }
@@ -2881,18 +2873,18 @@
                 "type": "boolean"
               }
             },
-            "meetingNames": {
-              "name": "meetingNames",
+            "meetingName": {
+              "name": "meetingName",
               "in": "query",
-              "description": "Names of the meeting.",
+              "description": "Name(s) of the meeting. Multiple names can be provided, separated by commas.",
               "schema": {
                 "type": "string"
               }
             },
-            "meetingNamesWildcard": {
-              "name": "meetingIDWildcard",
+            "meetingNameWildcard": {
+              "name": "meetingNameWildcard",
               "in": "query",
-              "description": "Defines if the returned meeting names must start with the `meetingNames` parameter.",
+              "description": "Defines if the returned meeting name must start with the `meetingName` parameter.",
               "schema": {
                 "type": "boolean"
               }
@@ -3509,6 +3501,15 @@
                 "default": "published,unpublished"
               }
             },
+            "recordID-required": {
+              "name": "recordID",
+              "in": "query",
+              "description": "ID of the recording.",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
             "publish": {
               "name": "publish",
               "in": "query",
@@ -3529,6 +3530,7 @@
               "name": "authUser",
               "in": "query",
               "description": "The name of the user which is requesting access of the recording file.",
+              "required": true,
               "schema": {
                 "type": "string"
               }

@@ -6,10 +6,8 @@ get:
   tags:
   - recording
   parameters:
-  - $ref: '../components/parameters/recordID.yaml'
-    required: true
+  - $ref: '../components/parameters/recordID-required.yaml'
   - $ref: '../components/parameters/authUser.yaml'
-    required: true
   - $ref: '../components/parameters/action.yaml'
   - $ref: '../components/parameters/checksum.yaml'
   responses:
@@ -29,10 +27,8 @@ post:
   tags:
   - recording
   parameters:
-  - $ref: '../components/parameters/recordID.yaml'
-    required: true
+  - $ref: '../components/parameters/recordID-required.yaml'
   - $ref: '../components/parameters/authUser.yaml'
-    required: true
   - $ref: '../components/parameters/action.yaml'
   - $ref: '../components/parameters/checksum.yaml'
   responses:

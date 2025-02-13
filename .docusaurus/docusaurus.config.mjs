@@ -134,7 +134,7 @@ export default {
           ]
         }
       ],
-      "copyright": "Copyright © 2024 Elos "
+      "copyright": "Copyright © 2025 Elos "
     },
     "prism": {
       "theme": {
