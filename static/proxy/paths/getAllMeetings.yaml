@@ -42,6 +42,7 @@ post:
     - $ref: "../components/parameters/meetingNameWildcard.yaml"
     - $ref: "../components/parameters/meta.yaml"
     - $ref: "../components/parameters/includeRecordings.yaml"
+    - $ref: "../components/parameters/onlyRecorded.yaml"
     - $ref: "../components/parameters/limit.yaml"
     - $ref: "../components/parameters/offset.yaml"
     - $ref: "../components/parameters/sortBy.yaml"
