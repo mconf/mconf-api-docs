@@ -359,6 +359,13 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: filter
+          description: Comma-separated list of artifact types. If specified, only included artifacts are returned. 
+          required: false
+          schema:
+            type: string
+            enum: [shared_notes, participants_list, engagement_report]
       responses:
         "200":
           description: Successful response
@@ -372,10 +379,15 @@ paths:
                     items:
                       type: object
                       properties:
+                        file_type:
+                          type: string
                         file_name:
                           type: string
                         link:
                           type: string
+                      required:
+                        - file_name
+                        - link
 
         "404":
           description: Meeting not found or file not found
