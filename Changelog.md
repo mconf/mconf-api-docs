@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.0
+- Update docs with new parameters
+
 ## 2.1.1
 - Fix /getAllMeetings parameters
 
