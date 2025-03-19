@@ -5,7 +5,30 @@
  */
 
 /* You can override the default Infima variables here. */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+/*---------------------------------------------------------
+  Root Variables: Base Typography and Colors
+---------------------------------------------------------*/
 :root {
+  /* Base font families */
+  --ifm-font-family-base: 'Nunito Sans', sans-serif;
+  --ifm-heading-font-family: 'Nunito Sans', sans-serif;
+  
+  /* Base sizes and line-height */
+  --ifm-font-size-base: 16px;
+  --ifm-line-height: 1.6;
+  
+  /* Heading sizes */
+  --ifm-h1-font-size: 2.75rem;
+  --ifm-h2-font-size: 2.25rem;
+  --ifm-h3-font-size: 1.75rem;
+  --ifm-h4-font-size: 1.5rem;
+  --ifm-h5-font-size: 1.25rem;
+  --ifm-h6-font-size: 1rem;
+  
+  /* Primary Colors */
   --ifm-color-primary: #64C9D1;
   --ifm-color-primary-dark: #404040;
   --ifm-color-primary-darker: #277148;
@@ -13,11 +36,15 @@
   --ifm-color-primary-light: #33925d;
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
+  
+  /* Code and Highlighting */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/*---------------------------------------------------------
+  Dark Mode Variables
+---------------------------------------------------------*/
 [data-theme='dark'] {
   --ifm-color-primary: #64C9D1;
   --ifm-color-primary-dark: #404040;
@@ -27,4 +54,202 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/*---------------------------------------------------------
+  Dark Mode Overrides for Enhanced Readability & Modern Look
+---------------------------------------------------------*/
+[data-theme='dark'] body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4,
+[data-theme='dark'] h5,
+[data-theme='dark'] h6 {
+  color: #ffffff;
+}
+
+[data-theme='dark'] p {
+  color: #d0d0d0;
+}
+
+[data-theme='dark'] a {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] code {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] pre {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] blockquote {
+  border-left: 4px solid #444;
+  color: #cccccc;
+}
+
+/*---------------------------------------------------------
+  Base Body Styles
+---------------------------------------------------------*/
+body {
+  font-family: var(--ifm-font-family-base);
+  font-size: var(--ifm-font-size-base);
+  line-height: var(--ifm-line-height);
+  color: #333;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/*---------------------------------------------------------
+  Heading Styles
+---------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ifm-heading-font-family);
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  color: #222;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: var(--ifm-h1-font-size);
+  border-bottom: 2px solid #eaeaea;
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  font-size: var(--ifm-h2-font-size);
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 0.25em;
+}
+
+h3 {
+  font-size: var(--ifm-h3-font-size);
+}
+
+h4 {
+  font-size: var(--ifm-h4-font-size);
+  font-weight: 600;
+}
+
+h5 {
+  font-size: var(--ifm-h5-font-size);
+  font-style: italic;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: var(--ifm-h6-font-size);
+  font-style: italic;
+  font-weight: 600;
+}
+
+/*---------------------------------------------------------
+  Paragraph & Link Styles
+---------------------------------------------------------*/
+p {
+  margin-bottom: 1em;
+  font-size: 1rem;
+}
+
+a {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*---------------------------------------------------------
+  Code and Preformatted Text Styles
+---------------------------------------------------------*/
+/* Inline code styling */
+code {
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.95em;
+  background-color: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+/* Block code styling */
+pre {
+  font-family: var(--ifm-font-family-base);
+  background-color: #f0f0f0;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
+
+/*---------------------------------------------------------
+  Blockquotes
+---------------------------------------------------------*/
+blockquote {
+  font-style: italic;
+  border-left: 4px solid #eaeaea;
+  margin: 1.5em 0;
+  padding-left: 1em;
+  color: #555;
+}
+
+/*---------------------------------------------------------
+  Redocusaurus (API Docs) Adjustments
+---------------------------------------------------------*/
+.redocusaurus .redoc-wrap {
+  font-family: var(--ifm-font-family-base) !important;
+  font-size: 1rem !important;
+}
+
+/*---------------------------------------------------------
+  Navbar & Footer Customization
+---------------------------------------------------------*/
+.navbar__title,
+.navbar__logo {
+  font-family: var(--ifm-heading-font-family);
+}
+
+.footer {
+  font-family: var(--ifm-font-family-base);
+}
+
+/*---------------------------------------------------------
+  Utility Classes for Modern Text Variations
+---------------------------------------------------------*/
+.bold {
+  font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.light {
+  font-weight: 300;
+}
+
+/*---------------------------------------------------------
+  Responsive Adjustments for Headings
+---------------------------------------------------------*/
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
 }
