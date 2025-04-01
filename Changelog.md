@@ -1,7 +1,11 @@
 # Changelog
 
+## 2.3.0
+- Improve font styling
+- Redirect 404 requests to home page
+
 ## 2.2.0
-- Update docs with new parameters
+- Update API docs with new parameters
 
 ## 2.1.1
 - Fix /getAllMeetings parameters
