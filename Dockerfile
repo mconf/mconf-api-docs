@@ -25,5 +25,7 @@ FROM nginx:1.27.2-alpine AS prod
 
 ARG APP_PATH_DEFAULT
 
+COPY --from=builder ${APP_PATH_DEFAULT}/nginx.conf /etc/nginx/conf.d/default.conf
+
 COPY --from=builder ${APP_PATH_DEFAULT}/build /usr/share/nginx/html/docs
 COPY --from=builder ${APP_PATH_DEFAULT}/static/img/favicon.svg /usr/share/nginx/html/docs
