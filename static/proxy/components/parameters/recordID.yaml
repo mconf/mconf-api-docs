@@ -1,5 +1,5 @@
 name: recordID
 in: query
-description: ID of the recording.
-schema: 
+description: 	A record ID for get the recordings. It can be a set of record IDs separate by commas. If the record ID is not specified, it will use `meetingID` as the main criteria. If neither is specified, it will return all the recordings. The record ID can also be used as a wildcard by including only the first characters in the string.
+schema:
   type: string

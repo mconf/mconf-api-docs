@@ -1,5 +1,5 @@
 name: createTime
 in: query
-description: Third-party apps using the API can now pass createTime parameter (which was created in the create call), BigBlueButton will ensure it matches the ‘createTime’ for the session. If they differ, BigBlueButton will not proceed with the join request. This prevents a user from reusing their join URL for a subsequent session with the same meetingID. 
+description: Set this to the `createTime` returned by the `create` API call when the meeting was created. The server will ensure it matches the `createTime` for the session. If they differ, the `join` request will fail. This prevents a user from reusing their join URL for a subsequent session with the same `meetingID`.
 schema:
   type: string

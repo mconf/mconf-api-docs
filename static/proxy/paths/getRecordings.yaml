@@ -6,8 +6,7 @@ get:
   tags:
     - recording
   parameters:
-    - description: A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings. If a recordID is specified, the meetingID is ignored.
-      $ref: "../components/parameters/meetingID.yaml"
+    - $ref: "../components/parameters/meetingID-getRecordings.yaml"
     - $ref: "../components/parameters/meetingIDWildcard.yaml"
     - description: A record ID for get the recordings. It can be a set of recordIDs separate by commas. If the record ID is not specified, it will use meeting ID as the main criteria. If neither the meeting ID is specified, it will get ALL the recordings. The recordID can also be used as a wildcard by including only the first characters in the string.
       $ref: "../components/parameters/recordID.yaml"
@@ -33,8 +32,7 @@ post:
   tags:
     - recording
   parameters:
-    - description: A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings. If a recordID is specified, the meetingID is ignored.
-      $ref: "../components/parameters/meetingID.yaml"
+    - $ref: "../components/parameters/meetingID-getRecordings.yaml"
     - $ref: "../components/parameters/meetingIDWildcard.yaml"
     - description: A record ID for get the recordings. It can be a set of recordIDs separate by commas. If the record ID is not specified, it will use meeting ID as the main criteria. If neither the meeting ID is specified, it will get ALL the recordings. The recordID can also be used as a wildcard by including only the first characters in the string.
       $ref: "../components/parameters/recordID.yaml"

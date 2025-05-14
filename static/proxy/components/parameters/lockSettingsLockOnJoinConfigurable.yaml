@@ -1,6 +1,6 @@
 name: lockSettingsLockOnJoinConfigurable
 in: query
-description: Setting to `lockSettingsLockOnJoinConfigurable=true` will allow applying of `lockSettingsLockOnJoin`.
+description: Setting to `true` will allow applying of `lockSettingsLockOnJoin`.
 schema:
     type: boolean
     default: false

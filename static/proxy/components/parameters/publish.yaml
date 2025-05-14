@@ -1,5 +1,5 @@
 name: publish
 in: query
-description: The value for publish or unpublish the recording(s).
+description: Either true to publish the recording(s), or false to unpublish the recording(s).
 schema:
   type: boolean

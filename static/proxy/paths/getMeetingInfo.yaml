@@ -1,7 +1,7 @@
 get:
   summary: getMeetingInfo
   operationId: getMeetingInfo
-  description: Returns information about a meeting
+  description: Returns information about a meeting that is currently created on the servers (won't returned meetings that already ended).
   tags:
     - meeting
   parameters:
@@ -20,7 +20,7 @@ get:
 post:
   summary: getMeetingInfo
   operationId: getMeetingInfo
-  description: Returns information about a meeting
+  description: Returns information about a meeting that is currently created on the servers (won't returned meetings that already ended).
   tags:
     - meeting
   parameters:

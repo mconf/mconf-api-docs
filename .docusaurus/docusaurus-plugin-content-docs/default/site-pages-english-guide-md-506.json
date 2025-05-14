@@ -1,7 +1,7 @@
 {
   "id": "guide",
   "title": "Guide",
-  "description": "English 🇺🇸 Portuguese 🇧🇷",
+  "description": "🇧🇷 Versão em Português | 🇺🇸 English version",
   "source": "@site/pages/EnglishGuide.md",
   "sourceDirName": ".",
   "slug": "/guide",

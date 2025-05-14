@@ -3,7 +3,7 @@ info:
   description:
     $ref: "./info-description.md"
   version: 1.0.0
-  title: Elos BBB API
+  title: Elos Conference API
   contact:
     name: Email
     url: https://elos.vc
@@ -25,15 +25,15 @@ x-tagGroups:
 
 tags:
   - name: meeting
-    description: Everything about your Meetings
+    description: Create, join, end and get information about your meetings
   - name: recording
-    description: Access Recording information
+    description: Fetch and manage your recordings
   - name: callbacks
     description: Everything about your Callbacks
   - name: monitoring
     description: Monitoring centered requests
   - name: hooks
-    description: Everything about your Hooks
+    description: Create and manage webhooks, endpoints used to receive events from your meetings and recordings
 paths:
   /:
     $ref: "./paths/root.yaml"
