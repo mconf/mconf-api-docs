@@ -1,5 +1,5 @@
 name: hookID
 in: query
-description: The identification of the hook.
+description: The identifier for the target hook.
 schema: 
   type: string

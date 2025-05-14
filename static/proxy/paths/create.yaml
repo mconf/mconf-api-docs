@@ -56,7 +56,7 @@ components:
   parameters:
     - $ref: '../components/parameters/name.yaml'
       required: true
-    - $ref: '../components/parameters/meetingID.yaml'
+    - $ref: '../components/parameters/meetingID-create.yaml'
       required: true
     - $ref: '../components/parameters/attendeePW.yaml'
     - $ref: '../components/parameters/moderatorPW.yaml'

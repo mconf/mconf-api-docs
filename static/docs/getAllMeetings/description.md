@@ -8,7 +8,7 @@
     This is a custom Elos call, which means it is not supported by the standard BigBlueButton API
 </div>
 
-This call works as [getMeetings](#operation/getMeetings) but list all the meetings (including those which are not running). Also, it can aggregate the recording info when setting `includeRecordings` to `true`.
+This call works as [getMeetings](#operation/getMeetings) but will also return meetings that already ended. Also, it can aggregate the recording info when setting `includeRecordings` to `true`. This is the standard call used to list a history of meetings (including or not their recordings).
 
 ### Pagination
 This call can be paginated using the `limit` and `offset` parameters.

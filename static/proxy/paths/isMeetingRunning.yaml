@@ -1,7 +1,7 @@
 get:
   summary: isMeetingRunning
   operationId: isMeetingRunning
-  description: This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.
+  description: This call allows you to check whether a meeting is running or not by looking it up using a meetingID.
   tags:
     - meeting
   parameters:
@@ -20,7 +20,7 @@ get:
 post:
   summary: isMeetingRunning
   operationId: isMeetingRunning
-  description: This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.
+  description: This call allows you to check whether a meeting is running or not by looking it up using a meetingID.
   tags:
     - meeting
   parameters:

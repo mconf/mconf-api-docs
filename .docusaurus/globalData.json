@@ -34,9 +34,9 @@
       "spec": {
         "openapi": "3.0.3",
         "info": {
-          "description": "This is [Elos's](https://elos.vc/) official API documentation, built using the OpenAPI specification with Redoc!\n\n# Authentication\n\nTo verify if an API call is valid, the BBB API uses a checksum system. \n\nFor each incoming API request, the controller computes a checksum out of the combination of the entire HTTPS query string and the server’s shared secret. It then matches the incoming checksum against the computed checksum. If they match, the controller accepts the incoming request.\n\nTo use the security model, you must be able to create an SHA-1 checksum out of the call name plus the query string plus the shared secret that you configured on your server. To do so, follow these steps:\n\n1. Create the entire query string for your API call without the checksum parameter.\n    * Example for create meeting API call: **name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444**\n2. Prepend the API call name to your string\n    * Example for above query string:\n        * API call name is create\n        * String becomes: **create**name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444\n3. Now, append the shared secret to your string\n    * Example for above query string:\n        * shared secret is **639259d4-9dd8-4b25-bf01-95f9567eaf4b**\n        * String becomes: createname=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444**639259d4-9dd8-4b25-bf01-95f9567eaf4b**\n4. Now, find the SHA-1 sum for that string (implementation varies based on programming language).\n    * the SHA-1 sum for the above string is: **1fcbb0c4fc1f039f73aa6d697d2db9ba7f803f17**\n5. Add a checksum parameter to your query string that contains this checksum.\n    * Above example becomes: name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444&**checksum=1fcbb0c4fc1f039f73aa6d697d2db9ba7f803f17**\n\nYou MUST send this checksum with EVERY API call. Since end users do not know your shared secret, they can not fake calls to the server, and they can not modify any API calls since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.\n\n\n# Secret Scope\n\nIt is interesting to note that the scope of a shared secret is **vitally** important to the operation\nof the request in which it was used. If the *scope* of the secret isnt high enough, the operation will **NOT** go through.\n\nThe possible *scopes* are as follows:\n\n* **global**:\n    * Has what can be essentially described as admin access, being able to perform any operation\n    it is used in.\n* **shared**:\n    * Is essentially a *user level* secret, being able to perform operations but not as freely,\n    having its fair share of restrictions.\n* **restricted**:\n    * As the title implies, the most restricted scope available for a secret, can only be used for certain specific operations.\n",
+          "description": "This is [Elos](https://elos.vc/) official API documentation, built using the OpenAPI specification with Redoc.\n\n# Intro\n\nThe Elos API is compatible with the [BigBlueButton (BBB) API](https://docs.bigbluebutton.org/development/api/), so if your product already integrates with BBB, you can use the same API to integrate with Elos. Most of the API calls described here are either identical or very similar to what is offered by BigBlueButton. Some API calls, however, are unique to Elos.\n\n# Authentication\n\nTo verify if an API call is valid, the API uses a checksum system.\n\nIn this system, every API call should include a `checksum` parameter. The value passed in this parameter is calculated from a combination of the API call method name plus the query string plus your shared secret to access the API. For each incoming request the servers will verify the checksum and see if they match with the shared secret stored on the server. If they match, the controller accepts the incoming request.\n\nTo calculate the checksum, follow these steps:\n\n1. Create the entire query string for your API call without the checksum parameter. Example for the `create` API call:\n    ```plaintext\n    name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444\n    ```\n2. Prepend the API call name (`create` in this example) to your string:\n    ```plaintext\n    createname=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444\n    ```\n3. Now, append the shared secret to your string. Using `639259d4-9dd8-4b25-bf01-95f9567eaf4b` as the shared secret in this example (the example shows multiple lines for clarity, but it's all a single string):\n    ```plaintext\n    createname=Test+Meeting&meetingID=abc123&attendeePW=111222&\n    moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b\n    ```\n4. Now, find the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash for that string. The implementation varies based on programming language, for example:\n    * Ruby\n        ```ruby\n        require 'digest'\n        string = \"createname=Test+Meeting&meetingID=abc123&attendeePW=111222&\" \\\n                 \"moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b\"\n        Digest::SHA256.hexdigest(string)\n        # da9185f7f333cfdfcd6eeac32dca3777510c4c436020d8b887ba5515bd1d189e\n        ```\n    * PHP\n        ```php\n        <?php\n        $string = \"createname=Test+Meeting&meetingID=abc123&attendeePW=111222&\" .\n                  \"moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b\";\n        $sha256_hash = hash('sha256', $string);\n        echo $sha256_hash;\n        ?>\n        ```\n    * The resulting checksum is: `da9185f7f333cfdfcd6eeac32dca3777510c4c436020d8b887ba5515bd1d189e`\n5. Add a checksum parameter to your query string:\n    ```plaintext\n    name=Test+Meeting&meetingID=abc123&attendeePW=111222&\n    moderatorPW=333444&checksum=da9185f7f333cfdfcd6eeac32dca3777510c4c436020d8b887ba5515bd1d189e\n    ```\n\nYou **must** send this checksum with **every** API call. Since end users do not know your shared secret, they can not fake calls to the service, and they cannot modify any API calls since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.\n\n\n# Secret Scope\n\nIt is interesting to note that the scope of a shared secret is **vitally** important to the operation\nof the request in which it was used. If the *scope* of the secret isnt high enough, the operation will **NOT** go through.\n\nThe possible *scopes* are as follows:\n\n* **global**:\n    * Has what can be essentially described as admin access, being able to perform any operation\n    it is used in.\n* **shared**:\n    * Is essentially a *user level* secret, being able to perform operations but not as freely,\n    having its fair share of restrictions.\n* **restricted**:\n    * As the title implies, the most restricted scope available for a secret, can only be used for certain specific operations.\n",
           "version": "1.0.0",
-          "title": "Elos BBB API",
+          "title": "Elos Conference API",
           "contact": {
             "name": "Email",
             "url": "https://elos.vc",
@@ -69,11 +69,11 @@
         "tags": [
           {
             "name": "meeting",
-            "description": "Everything about your Meetings"
+            "description": "Create, join, end and get information about your meetings"
           },
           {
             "name": "recording",
-            "description": "Access Recording information"
+            "description": "Fetch and manage your recordings"
           },
           {
             "name": "callbacks",
@@ -85,7 +85,7 @@
           },
           {
             "name": "hooks",
-            "description": "Everything about your Hooks"
+            "description": "Create and manage webhooks, endpoints used to receive events from your meetings and recordings"
           }
         ],
         "paths": {
@@ -158,7 +158,7 @@
             "get": {
               "summary": "getMeetings",
               "operationId": "getMeetings",
-              "description": "This call will return a list of all the meetings found on the servers based on the scope of the secret.",
+              "description": "This call will return a list of all the meetings found on the servers that you have access to. It returns only meetings that are created on a server, it won't include past meetings that already ended.",
               "tags": [
                 "meeting"
               ],
@@ -188,7 +188,7 @@
             "post": {
               "summary": "getMeetings",
               "operationId": "getMeetings",
-              "description": "This call will return a list of all the meetings found on the servers based on the scope of the secret.",
+              "description": "This call will return a list of all the meetings found on the servers that you have access to. It returns only meetings that are created on a server, it won't include past meetings that already ended.",
               "tags": [
                 "meeting"
               ],
@@ -220,7 +220,7 @@
             "get": {
               "summary": "getAllMeetings",
               "operationId": "getAllMeetings",
-              "description": "<div style=\"\n    background-color: #cff4fc;\n    color: #033b46;\n    padding: 20px;\n    font-size: 16px;\n    border-left: 0.25rem solid #9eeaf9\n    \">\n    This is a custom Elos call, which means it is not supported by the standard BigBlueButton API\n</div>\n\nThis call works as [getMeetings](#operation/getMeetings) but list all the meetings (including those which are not running). Also, it can aggregate the recording info when setting `includeRecordings` to `true`.\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.",
+              "description": "<div style=\"\n    background-color: #cff4fc;\n    color: #033b46;\n    padding: 20px;\n    font-size: 16px;\n    border-left: 0.25rem solid #9eeaf9\n    \">\n    This is a custom Elos call, which means it is not supported by the standard BigBlueButton API\n</div>\n\nThis call works as [getMeetings](#operation/getMeetings) but will also return meetings that already ended. Also, it can aggregate the recording info when setting `includeRecordings` to `true`. This is the standard call used to list a history of meetings (including or not their recordings).\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.\n",
               "tags": [
                 "meeting"
               ],
@@ -286,7 +286,7 @@
             "post": {
               "summary": "getAllMeetings",
               "operationId": "getAllMeetings",
-              "description": "<div style=\"\n    background-color: #cff4fc;\n    color: #033b46;\n    padding: 20px;\n    font-size: 16px;\n    border-left: 0.25rem solid #9eeaf9\n    \">\n    This is a custom Elos call, which means it is not supported by the standard BigBlueButton API\n</div>\n\nThis call works as [getMeetings](#operation/getMeetings) but list all the meetings (including those which are not running). Also, it can aggregate the recording info when setting `includeRecordings` to `true`.\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.",
+              "description": "<div style=\"\n    background-color: #cff4fc;\n    color: #033b46;\n    padding: 20px;\n    font-size: 16px;\n    border-left: 0.25rem solid #9eeaf9\n    \">\n    This is a custom Elos call, which means it is not supported by the standard BigBlueButton API\n</div>\n\nThis call works as [getMeetings](#operation/getMeetings) but will also return meetings that already ended. Also, it can aggregate the recording info when setting `includeRecordings` to `true`. This is the standard call used to list a history of meetings (including or not their recordings).\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.\n",
               "tags": [
                 "meeting"
               ],
@@ -308,6 +308,9 @@
                 },
                 {
                   "$ref": "#/components/parameters/includeRecordings"
+                },
+                {
+                  "$ref": "#/components/parameters/onlyRecorded"
                 },
                 {
                   "$ref": "#/components/parameters/limit"
@@ -354,7 +357,7 @@
             "get": {
               "summary": "isMeetingRunning",
               "operationId": "isMeetingRunning",
-              "description": "This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.",
+              "description": "This call allows you to check whether a meeting is running or not by looking it up using a meetingID.",
               "tags": [
                 "meeting"
               ],
@@ -388,7 +391,7 @@
             "post": {
               "summary": "isMeetingRunning",
               "operationId": "isMeetingRunning",
-              "description": "This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.",
+              "description": "This call allows you to check whether a meeting is running or not by looking it up using a meetingID.",
               "tags": [
                 "meeting"
               ],
@@ -424,7 +427,7 @@
             "get": {
               "summary": "getMeetingInfo",
               "operationId": "getMeetingInfo",
-              "description": "Returns information about a meeting",
+              "description": "Returns information about a meeting that is currently created on the servers (won't returned meetings that already ended).",
               "tags": [
                 "meeting"
               ],
@@ -458,7 +461,7 @@
             "post": {
               "summary": "getMeetingInfo",
               "operationId": "getMeetingInfo",
-              "description": "Returns information about a meeting",
+              "description": "Returns information about a meeting that is currently created on the servers (won't returned meetings that already ended).",
               "tags": [
                 "meeting"
               ],
@@ -494,7 +497,7 @@
             "get": {
               "summary": "create",
               "operationId": "get-create",
-              "description": "Creates a BigBlueButton meeting.\n\nThe create call is idempotent: you can call it multiple times with the same parameters without side effects. This simplifies the logic for joining a user into a session as your application can always call create before returning the join URL to the user. This way, regardless of the order in which users join, the meeting will always exist when the user tries to join (the first `create` call actually creates the meeting; subsequent calls to `create` simply return `SUCCESS`).\n\nThe BigBlueButton server will automatically remove empty meetings that were created but have never had any users after an arbitrary number of minutes.",
+              "description": "Creates a meeting. This is the API call that receives all configurations for a meeting, some that can't be changed later on. Only after creating a meeting the users are allowed to join it.\n\nIt is recommended to call `create` always before joining a user into a session. The create call is idempotent: you can call it multiple times with the same parameters without side effects. This simplifies the logic for joining a user into a session as your application can always call `create` before returning the join URL to the user. This way, regardless of the order in which users join, the meeting will always exist when the user tries to join (the first `create` call actually creates the meeting; subsequent calls to `create` simply return `SUCCESS` and and indication that the meeting is already running).\n\nIf you create a meeting but no user joins it, it will be automatically finished after a few minutes.\n",
               "tags": [
                 "meeting"
               ],
@@ -504,7 +507,7 @@
                   "required": true
                 },
                 {
-                  "$ref": "#/components/parameters/meetingID",
+                  "$ref": "#/components/parameters/meetingID-create",
                   "required": true
                 },
                 {
@@ -664,7 +667,7 @@
             "post": {
               "summary": "create",
               "operationId": "post-create",
-              "description": "Creates a BigBlueButton meeting.\n\nThe create call is idempotent: you can call it multiple times with the same parameters without side effects. This simplifies the logic for joining a user into a session as your application can always call create before returning the join URL to the user. This way, regardless of the order in which users join, the meeting will always exist when the user tries to join (the first `create` call actually creates the meeting; subsequent calls to `create` simply return `SUCCESS`).\n\nThe BigBlueButton server will automatically remove empty meetings that were created but have never had any users after an arbitrary number of minutes.",
+              "description": "Creates a meeting. This is the API call that receives all configurations for a meeting, some that can't be changed later on. Only after creating a meeting the users are allowed to join it.\n\nIt is recommended to call `create` always before joining a user into a session. The create call is idempotent: you can call it multiple times with the same parameters without side effects. This simplifies the logic for joining a user into a session as your application can always call `create` before returning the join URL to the user. This way, regardless of the order in which users join, the meeting will always exist when the user tries to join (the first `create` call actually creates the meeting; subsequent calls to `create` simply return `SUCCESS` and and indication that the meeting is already running).\n\nIf you create a meeting but no user joins it, it will be automatically finished after a few minutes.\n",
               "tags": [
                 "meeting"
               ],
@@ -674,7 +677,7 @@
                   "required": true
                 },
                 {
-                  "$ref": "#/components/parameters/meetingID",
+                  "$ref": "#/components/parameters/meetingID-create",
                   "required": true
                 },
                 {
@@ -866,7 +869,7 @@
                   "required": true
                 },
                 {
-                  "$ref": "#/components/parameters/meetingID",
+                  "$ref": "#/components/parameters/meetingID-create",
                   "required": true
                 },
                 {
@@ -1135,14 +1138,13 @@
             "get": {
               "summary": "getRecordings",
               "operationId": "getRecordings",
-              "description": "Retrieves the recordings that are available for playback for a given meetingID (or set of meeting IDs).\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.",
+              "description": "Retrieves the recordings that are available for playback for a given `meetingID` (or set of `meetingID`s).\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.\n",
               "tags": [
                 "recording"
               ],
               "parameters": [
                 {
-                  "description": "A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings. If a recordID is specified, the meetingID is ignored.",
-                  "$ref": "#/components/parameters/meetingID"
+                  "$ref": "#/components/parameters/meetingID-getRecordings"
                 },
                 {
                   "$ref": "#/components/parameters/meetingIDWildcard"
@@ -1188,14 +1190,13 @@
             "post": {
               "summary": "getRecordings",
               "operationId": "getRecordings",
-              "description": "Retrieves the recordings that are available for playback for a given meetingID (or set of meeting IDs).\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.",
+              "description": "Retrieves the recordings that are available for playback for a given `meetingID` (or set of `meetingID`s).\n\n### Pagination\nThis call can be paginated using the `limit` and `offset` parameters.\n",
               "tags": [
                 "recording"
               ],
               "parameters": [
                 {
-                  "description": "A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings. If a recordID is specified, the meetingID is ignored.",
-                  "$ref": "#/components/parameters/meetingID"
+                  "$ref": "#/components/parameters/meetingID-getRecordings"
                 },
                 {
                   "$ref": "#/components/parameters/meetingIDWildcard"
@@ -1627,7 +1628,7 @@
             "get": {
               "summary": "list",
               "operationId": "hooks-list",
-              "description": "List all the hooks based on the secret scope. If the secret is global, then it'll list all the hooks. Else, only the hooks created with this secret.",
+              "description": "List all the hooks your credentials have access to.",
               "tags": [
                 "hooks"
               ],
@@ -1659,7 +1660,7 @@
             "get": {
               "summary": "destroy",
               "operationId": "hooks-destroy",
-              "description": "Delete a specific hook based on the given hook id. Only global secrets or the secret which was used in the creation of this hook can do this operation.",
+              "description": "Delete a specific hook based on the given hook ID.",
               "tags": [
                 "hooks"
               ],
@@ -2868,7 +2869,7 @@
             "meetingIDWildcard": {
               "name": "meetingIDWildcard",
               "in": "query",
-              "description": "Defines if the returned meeting ids must start with the `meetingID` parameter.",
+              "description": "If true, `meetingID` will be treated as a wildcard and used as a prefix when matching the resources (i.e. it will run a query similar to `LIKE 'meetingID%'`).",
               "schema": {
                 "type": "boolean"
               }
@@ -2876,7 +2877,7 @@
             "meetingName": {
               "name": "meetingName",
               "in": "query",
-              "description": "Name(s) of the meeting. Multiple names can be provided, separated by commas.",
+              "description": "Name(s) of the meeting. Multiple names can be provided, separated by commas. Filters meetings by exact name.",
               "schema": {
                 "type": "string"
               }
@@ -2884,7 +2885,7 @@
             "meetingNameWildcard": {
               "name": "meetingNameWildcard",
               "in": "query",
-              "description": "Defines if the returned meeting name must start with the `meetingName` parameter.",
+              "description": "If true, `meetingName` will be treated as a wildcard and used as a prefix when matching the resources (i.e. it will run a query similar to `LIKE 'meetingName%'`).",
               "schema": {
                 "type": "boolean"
               }
@@ -2892,7 +2893,7 @@
             "meta": {
               "name": "meta",
               "in": "query",
-              "description": "This is a special parameter type (there is no parameter named just `meta`).\n\nExamples of the use of the meta parameters are `meta_Presenter=Jane%20Doe`, `meta_category=FINANCE`, and `meta_TERM=Fall2016`. ",
+              "description": "This is a special parameter that allows the definition of metadata for a meeting. There is no parameter named just `meta`, `meta` is used as a prefix.\n\nExamples of the use of the meta parameters are `meta_Presenter=Jane%20Doe`, `meta_category-group=FINANCE`, and `meta_TERM=Fall2016`.\n\nWhen defining metadata names, use only numbers and letters and the character `-`. Do not use `_`.\n",
               "schema": {
                 "type": "string"
               }
@@ -2965,6 +2966,15 @@
                 "example": "2024-10-21"
               }
             },
+            "onlyRecorded": {
+              "name": "onlyRecorded",
+              "in": "query",
+              "description": "Filters the results to include only recorded meetings. This parameter is effective only when `includeRecordings=true`.",
+              "schema": {
+                "type": "boolean",
+                "default": false
+              }
+            },
             "name": {
               "name": "name",
               "in": "query",
@@ -2973,10 +2983,18 @@
                 "type": "string"
               }
             },
+            "meetingID-create": {
+              "name": "meetingID",
+              "in": "query",
+              "description": "A meeting ID that can be used to identify this meeting by the 3rd-party application. It must be unique for each meeting: different active meetings can not have the same meeting ID. Meeting IDs should only contain upper/lower ASCII letters, numbers, dashes, or underscores. A good choice for the meeting ID is to use GUID value.",
+              "schema": {
+                "type": "string"
+              }
+            },
             "attendeePW": {
               "name": "attendeePW",
               "in": "query",
-              "description": "The password that will [join](#operation/join) URL can later provide as its password parameter to indicate the user will as a attendee. If no `attendeePW` is provided, create will return a randomly generated `attendeePW` password for the meeting.",
+              "description": "A secret string that can be used later on the [join](#operation/join) API call to indicate that the user should be an attendee. If no `attendeePW` is provided, a random string will be used and returned.",
               "schema": {
                 "type": "string"
               }
@@ -2984,7 +3002,7 @@
             "moderatorPW": {
               "name": "moderatorPW",
               "in": "query",
-              "description": "The password that will [join](#operation/join) URL can later provide as its password parameter to indicate the user will as a moderator. If no `moderatorPW` is provided, create will return a randomly generated `moderatorPW` password for the meeting.",
+              "description": "A secret string that can be used later on the [join](#operation/join) API call to indicate that the user should be a moderator. If no `moderatorPW` is provided, a random string will be used and returned.",
               "schema": {
                 "type": "string"
               }
@@ -3024,7 +3042,7 @@
             "logoutURL": {
               "name": "logoutURL",
               "in": "query",
-              "description": "The URL that the BigBlueButton client will go to after users click the OK button on the `You have been logged out message`",
+              "description": "The URL to which users are redirected after leaving the conference.",
               "schema": {
                 "type": "string"
               }
@@ -3032,7 +3050,7 @@
             "record": {
               "name": "record",
               "in": "query",
-              "description": "Setting `record=true` instructs the BigBlueButton server to record the media and events in the session for later playback.\n\nIn order for a playback file to be generated, a moderator must click the Start/Stop Recording button at least once during the sesssion; otherwise, in the absence of any recording marks, the record and playback scripts will not generate a playback file.",
+              "description": "Setting `record=true` allows users to record this conference. Only users with permission are able to start and stop recording.\n\nIn order for a playback file to be generated, a moderator must click the Start/Stop Recording button at least once during the sesssion; otherwise, in the absence of any recording marks, no playback file will be generated.\n",
               "schema": {
                 "type": "boolean",
                 "default": false
@@ -3118,7 +3136,7 @@
             "autoStartRecording": {
               "name": "autoStartRecording",
               "in": "query",
-              "description": "Whether to automatically start recording when first user joins.\n\nWhen this parameter is `true`, the recording UI in BigBlueButton will be initially active. Moderators in the session can still pause and restart recording using the UI control.\n\n*NOTE: Don’t pass `autoStartRecording=false` and `allowStartStopRecording=false` - the moderator won’t be able to start recording! ",
+              "description": "Whether to automatically start recording when first user joins.\n\nWhen this parameter is `true`, the recording interface in the conference will be initially active. Moderators in the session can still pause and restart recording using the UI control.\n\n*NOTE: Don’t pass `autoStartRecording=false` and `allowStartStopRecording=false` - the moderator won’t be able to start recording! \n",
               "schema": {
                 "type": "boolean",
                 "default": false
@@ -3242,7 +3260,7 @@
             "lockSettingsLockOnJoinConfigurable": {
               "name": "lockSettingsLockOnJoinConfigurable",
               "in": "query",
-              "description": "Setting to `lockSettingsLockOnJoinConfigurable=true` will allow applying of `lockSettingsLockOnJoin`.",
+              "description": "Setting to `true` will allow applying of `lockSettingsLockOnJoin`.",
               "schema": {
                 "type": "boolean",
                 "default": false
@@ -3272,7 +3290,7 @@
             "meetingKeepEvents": {
               "name": "meetingKeepEvents",
               "in": "query",
-              "description": "If `meetingKeepEvents` is `true` BigBlueButton saves meeting events even if the meeting is not recorded",
+              "description": "If `meetingKeepEvents` is `true`, meeting events will be stored even if the meeting is not recorded",
               "schema": {
                 "type": "boolean",
                 "default": false
@@ -3281,7 +3299,7 @@
             "endWhenNoModerator": {
               "name": "endWhenNoModerator",
               "in": "query",
-              "description": "If `endWhenNoModerator` is `true` the meeting will end automatically after a delay.",
+              "description": "If `endWhenNoModerator` is `true` the meeting will end automatically after a delay in case no moderator is present.",
               "schema": {
                 "type": "boolean",
                 "default": false
@@ -3314,7 +3332,7 @@
             "learningDashboardEnabled": {
               "name": "learningDashboardEnabled",
               "in": "query",
-              "description": "When this option is enabled BigBlueButton generates a Dashboard where moderators can view a summary of the activities of the meeting.",
+              "description": "When this option is set to `true`, the Learning Dashboard will be available, a place where moderators can view a summary of the activities of the meeting.",
               "schema": {
                 "type": "boolean",
                 "default": true
@@ -3359,7 +3377,7 @@
             "password": {
               "name": "password",
               "in": "query",
-              "description": "Meeting password.",
+              "description": "The meeting password, that defines the user role in the session (either `attendeePW` or `moderatorPW`).",
               "required": true,
               "schema": {
                 "type": "string"
@@ -3377,7 +3395,7 @@
             "createTime": {
               "name": "createTime",
               "in": "query",
-              "description": "Third-party apps using the API can now pass createTime parameter (which was created in the create call), BigBlueButton will ensure it matches the ‘createTime’ for the session. If they differ, BigBlueButton will not proceed with the join request. This prevents a user from reusing their join URL for a subsequent session with the same meetingID.",
+              "description": "Set this to the `createTime` returned by the `create` API call when the meeting was created. The server will ensure it matches the `createTime` for the session. If they differ, the `join` request will fail. This prevents a user from reusing their join URL for a subsequent session with the same `meetingID`.",
               "schema": {
                 "type": "string"
               }
@@ -3385,7 +3403,7 @@
             "userID": {
               "name": "userID",
               "in": "query",
-              "description": "An identifier for this user that will help your application to identify which person this is. This user ID will be returned for this user in the getMeetingInfo API call so that you can check.",
+              "description": "An identifier for this user that will help your application to identify which person this is. This user ID will be returned for this user in the `getMeetingInfo` API call so that you can check.",
               "schema": {
                 "type": "string"
               }
@@ -3477,10 +3495,18 @@
                 "type": "boolean"
               }
             },
+            "meetingID-getRecordings": {
+              "name": "meetingID",
+              "in": "query",
+              "description": "The `meetingID` for get the recordings. It can be a set of `meetingID`s separated by commas. If the meeting ID is not specified, it will return all the recordings. If a `recordID` is specified, the `meetingID` is ignored.",
+              "schema": {
+                "type": "string"
+              }
+            },
             "recordID": {
               "name": "recordID",
               "in": "query",
-              "description": "ID of the recording.",
+              "description": "A record ID for get the recordings. It can be a set of record IDs separate by commas. If the record ID is not specified, it will use `meetingID` as the main criteria. If neither is specified, it will return all the recordings. The record ID can also be used as a wildcard by including only the first characters in the string.",
               "schema": {
                 "type": "string"
               }
@@ -3513,7 +3539,7 @@
             "publish": {
               "name": "publish",
               "in": "query",
-              "description": "The value for publish or unpublish the recording(s).",
+              "description": "Either true to publish the recording(s), or false to unpublish the recording(s).",
               "schema": {
                 "type": "boolean"
               }
@@ -3563,7 +3589,7 @@
             "hookID": {
               "name": "hookID",
               "in": "query",
-              "description": "The identification of the hook.",
+              "description": "The identifier for the target hook.",
               "schema": {
                 "type": "string"
               }
@@ -3979,7 +4005,7 @@
               }
             }
           },
-          "/institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/file={file}": {
+          "/institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/file": {
             "get": {
               "tags": [
                 "artifacts"
@@ -4009,6 +4035,14 @@
                   "schema": {
                     "type": "string"
                   }
+                },
+                {
+                  "in": "query",
+                  "name": "file_name",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
                 }
               ],
               "responses": {
@@ -4020,6 +4054,96 @@
                         "type": "object",
                         "properties": {
                           "link": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Meeting not found or file not found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "put": {
+              "tags": [
+                "artifacts"
+              ],
+              "summary": "file",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "institution_guid",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "int_meeting_id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "file",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "in": "query",
+                  "name": "file_name",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response"
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
                             "type": "string"
                           }
                         }
@@ -4067,6 +4191,20 @@
                   "schema": {
                     "type": "string"
                   }
+                },
+                {
+                  "in": "query",
+                  "name": "filter",
+                  "description": "Comma-separated list of artifact types. If specified, only included artifacts are returned.",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "shared_notes",
+                      "participants_list",
+                      "engagement_report"
+                    ]
+                  }
                 }
               ],
               "responses": {
@@ -4082,13 +4220,20 @@
                             "items": {
                               "type": "object",
                               "properties": {
+                                "file_type": {
+                                  "type": "string"
+                                },
                                 "file_name": {
                                   "type": "string"
                                 },
                                 "link": {
                                   "type": "string"
                                 }
-                              }
+                              },
+                              "required": [
+                                "file_name",
+                                "link"
+                              ]
                             }
                           }
                         }
