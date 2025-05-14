@@ -3,12 +3,11 @@ id: guide
 title: Guide
 ---
 
-### [English 🇺🇸](guide) [Portuguese 🇧🇷](guide-pt)
+[🇧🇷 Versão em Português](guide-pt) | [🇺🇸 English version](guide)
 
-Last update: October 17, 2024
+_Last update: October 17, 2024_
 
 :::note
-
 <aside>
 🗨️ Welcome and thank you for using the Elos API. On this page you will find all the information related to using the Elos API, and if you can't find what you're looking for or can't answer your question, please contact our team at **suporte@mconf.com** - we'll be happy to help.
 </aside>
@@ -41,25 +40,21 @@ This article focuses on API integration, which we recommend in two cases:
 
 Most commonly, API integration is used when you want to integrate Elos with your own system, for which there is no ready-made integration.
 
-The Elos API is compatible with the BigBlueButton (BBB) API, so if your product already integrates with BBB, you can use the same API to integrate with Elos. The API documentation is available at https://api.h.elos.dev/docs.
+The Elos API is compatible with the BigBlueButton (BBB) API, so if your product already integrates with BBB, you can use the same API to integrate with Elos. The API documentation is available at [here](/docs/api/conference).
 
 We also support the extended webhooks API, which allows the integration to receive relevant events from ongoing sessions or recordings: https://api.h.elos.dev/docs/#tag/hooks.
 
 Access to the API is usually via libraries that already exist and are maintained by the community. Using libraries, you don't have to worry about the complexity of generating and signing valid API calls, you can simply use the methods provided by the library to create your integration. If the library doesn't offer access to a method or parameter you want for your integration, you can modify the library for this purpose.
 
 Among the best-known libraries used to access the API are:
+* Library for PHP: https://github.com/bigbluebutton/bigbluebutton-api-php
+* Library for Javascript: https://github.com/mconf/bigbluebutton-api-js
+* Library for Ruby: https://github.com/mconf/bigbluebutton-api-ruby
+* Library for Rails: https://github.com/mconf/bigbluebutton_rails
+* Library for C#: https://github.com/nitinjs/bigbluebutton-api-dotnet
+* Library for Java: https://github.com/bigbluebutton/bigbluebutton-api-java
 
-Library for PHP: https://github.com/bigbluebutton/bigbluebutton-api-php
-
-Library for Javascript: https://github.com/mconf/bigbluebutton-api-js
-
-Library for Ruby: https://github.com/mconf/bigbluebutton-api-ruby
-
-Library for Rails: https://github.com/mconf/bigbluebutton_rails
-
-Library for C#: https://github.com/nitinjs/bigbluebutton-api-dotnet
-
-Library for Java: https://github.com/bigbluebutton/bigbluebutton-api-java
+If you're looking for a quick start guide, check this FAQ entry: [In a nutshell, what do I need to know for a simple integration?](#in-a-nutshell-what-do-i-need-to-know-for-a-simple-integration)
 
 ## Difference between Elos Portal rooms and those created using API
 
@@ -696,11 +691,10 @@ Suggestions are very welcome at any time. Feel free to contact us whenever you w
 - The room exists in Elos the moment the `CREATE` method is called, and ceases to exist after the room closes - each time the room is used, the `CREATE` method must be used;
 - All calls to the API are executed in the backend of your application. The only exception is the `JOIN` method, which must be generated in the backend and the user is redirected to it, taking them to the corresponding room;
 - The _shared secret_ used to sign API calls should only be known by your backend and under no circumstances should it be passed to the frontend or exposed to the user in any way;
-- No `CREATE` você irá definir os parâmetros `moderatorPW` e `attendeePW`. Eles podem ser qualquer coisa, desde que sejam diferentes, por exemplo, `mp` e `ap` respectivamente. Quando o `JOIN` for gerado, o `mp` é passado para que o usuário conecte como moderador, e o `ap` é passado para que o usuário conecte como participante;
-- No `CREATE`, passe `record=true` para que a sessão possa ser gravada.
-
-- In `CREATE` you will define the parameters `moderatorPW` and `attendeePW`. They can be anything, as long as they are different, for example, `mp` and `ap` respectively. When the `JOIN` is generated, `mp` is passed so that the user connects as a moderator, and `ap` is passed so that the user connects as an attendee;
-- In `CREATE`, pass `record=true` so that the session can be saved.
+- On `CREATE` you will defined the parameters `moderatorPW` and `attendeePW`. They can be set to any string, as long as they are different, as in `mp` and `ap` respectively. When the `JOIN` URL is generated, you will pass `mp` if you want the user to join as a moderator, or `ap` if you want the user to join as attendee;
+- On `CREATE`, pass `record=true` so that the session can be recorded.
+- On `CREATE` you will define the parameters `moderatorPW` and `attendeePW`. They can be anything, as long as they are different, for example, `mp` and `ap` respectively. When the `JOIN` is generated, `mp` is passed so that the user connects as a moderator, and `ap` is passed so that the user connects as an attendee;
+- On `CREATE`, pass `record=true` so that the session can be saved.
 
 ### Can I replace the Elos logo in the top left corner?
 
