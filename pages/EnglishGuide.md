@@ -117,10 +117,8 @@ Another important piece of information regarding the API is that when the sessio
 - Use only letters, numbers and the characters `-` or `_`.
 - Do not use accents.
 - As a separator between words, give preference to `-`, but there are exceptions:
-  - BigBlueButton has standardized the use of `userdata_variable_name` for user parameters in `join`. The `userdata-` is a prefix that is always the same and for the rest `_` must be used. So Live does the same. See [this link](https://github.com/bigbluebutton/bigbluebutton/blob/74d446dd08a22257c51f35ac40deec46a838a94c/bigbluebutton-html5/imports/api/users-settings/server/methods/addUserSettings.js#L31-L71).
-    Using `userdata-variable-name` **does not work**! (may have unexpected effects)
-  - BigBlueButton has standardized on using `meta_` as a prefix for parameters in `create`, so `_` needs to be used there. For the rest of the name, use `-`, for example `meta_variable_name`.
-    Using `meta_variable_name` **does not work**! (may have unexpected effects)
+  - On `join`, use `userdata-variable_name` for user parameters. The `userdata-` is a prefix that is always the same and for the rest `_` must be used. Using `userdata-variable-name` **may not work** (and may have unexpected effects)! For more information you can see [this link](https://github.com/bigbluebutton/bigbluebutton/blob/74d446dd08a22257c51f35ac40deec46a838a94c/bigbluebutton-html5/imports/api/users-settings/server/methods/addUserSettings.js#L31-L71).
+  - On `create`, use `meta_variable-name` for `meta` parameters. The prefix is always `meta_`, but for the rest of the variable name, use `-` as the separators. Using `meta_variable_name` **may not work** (may have unexpected effects)!
 
 ---
 
@@ -193,9 +191,9 @@ It is essential that the iframe is served using HTTPS, otherwise the browser may
 
 ## Webhooks
 
-It is possible, via the webhooks API, to register an endpoint to receive relevant events about sessions and recordings. This registration can be done with session granularity (passing the `meetingID` in the `hooks/create` request) or globally, for all sessions, as documented at https://docs.bigbluebutton.org/development/webhooks#hookscreate.
+It is possible, via the webhooks API, to register an endpoint to receive relevant events about sessions and recordings. This registration can be done with session granularity (passing the `meetingID` in the `hooks/create` request) or globally, for all sessions, as documented [here](/docs/api/conference#tag/hooks).
 
-However, unlike the original BigBlueButton implementation, we have modified the model for validating the integrity of the events emitted, as follows:
+Unlike the original BigBlueButton implementation, we have modified the model for validating the integrity of the events emitted, as follows:
 
 - When registering a webhook via the `hooks/create` method, an `authToken` field is returned in the XML response;
 - The `authToken` must be saved in the database to be used later to validate the events received;
