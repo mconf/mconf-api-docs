@@ -9,13 +9,57 @@ import { themes as prismThemes } from "prism-react-renderer";
 /** @type {import('@docusaurus/types').Config} */
 // Read the OpenAPI spec from a local file
 
+// Check if internal APIs should be shown
+const showInternalAPIs = process.env.SHOW_INTERNAL_APIS === "true";
+
+// Base API specs (always included)
+const baseSpecs = [
+  {
+    spec: "/opt/docusaurus/static/proxy/openapi.yaml",
+    route: "/api/conference/",
+  },
+];
+
+// Conditionally add internal APIs
+if (showInternalAPIs) {
+  baseSpecs.push(
+    {
+      spec: "/opt/docusaurus/static/data/openapi.yaml",
+      route: "/api/data/",
+    },
+    {
+      spec: "/opt/docusaurus/static/administrative/openapi.yaml",
+      route: "/api/administrative/",
+    }
+  );
+}
+
+// Base navbar items (always included)
+const baseNavbarItems = [
+  { to: "/blog", label: "What's new", position: "left" },
+  { to: "/pages/guide", label: "Guide", position: "left" },
+  { to: "/api/conference", label: "Conference API", position: "right" },
+];
+
+// Conditionally add internal API navbar items
+if (showInternalAPIs) {
+  baseNavbarItems.push(
+    { to: "/api/data", label: "Data API", position: "right" },
+    {
+      to: "/api/administrative",
+      label: "Administrative API",
+      position: "right",
+    }
+  );
+}
+
 const config = {
-title: "Elos API Documentation",
+  title: "Elos API Documentation",
   // tagline: "API Documentation",
   favicon: "img/favicon.svg",
 
   // Set the production url of your site here
-  url: "https://api.h.elos.dev",
+  url: "https://elos.vc/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/docs/",
@@ -29,6 +73,11 @@ title: "Elos API Documentation",
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
+  },
+
+  // To use in client side
+  customFields: {
+    showInternalAPIs: showInternalAPIs,
   },
 
   presets: [
@@ -61,25 +110,10 @@ title: "Elos API Documentation",
       "redocusaurus",
       {
         // Plugin Options for loading OpenAPI files
-        specs: [
-          // Pass it a path to a local OpenAPI YAML file
-          {
-            // Redocusaurus will automatically bundle your spec into a single file during the build
-            spec: "/opt/docusaurus/static/proxy/openapi.yaml",
-            route: "/api/conference/",
-          },
-          {
-            spec: "/opt/docusaurus/static/data/openapi.yaml",
-            route: "/api/data/",
-          },
-          {
-            spec: "/opt/docusaurus/static/administrative/openapi.yaml",
-            route: "/api/administrative/",
-          },
-        ],
+        specs: baseSpecs, // Use dynamic specs array
         theme: {
           // Change with your site colors
-          primaryColor: "#1890ff",
+          primaryColor: "#2cccd3",
         },
       },
     ],
@@ -96,40 +130,17 @@ title: "Elos API Documentation",
           alt: "Elos Logo",
           src: "img/logo.svg",
         },
-        items: [
-          { to: "/blog", label: "What's new", position: "left" },
-          { to: "/pages/guide", label: "Guide", position: "left" },
-          { to: "/api/conference", label: "Conference API", position: "right" },
-          { to: "/api/data", label: "Data API", position: "right" },
-          {
-            to: "/api/administrative",
-            label: "Administrative API",
-            position: "right",
-          },
-        ],
+        items: baseNavbarItems, // Use dynamic navbar items
       },
       footer: {
-        style: "dark",
+        style: "light",
         links: [
           {
             title: "Links",
             items: [
               {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/company/elosvc",
-              },
-              {
-                label: "Facebook",
-                href: "https://www.facebook.com/elos.vc/",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "GitHub",
-                href: "https://github.com/mconf",
+                label: "Elos",
+                href: "https://elos.vc/",
               },
               {
                 label: "About Mconf",
