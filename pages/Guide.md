@@ -8,6 +8,7 @@ title: Guia
 _Última atualização: October 17, 2024_
 
 :::note
+
 <aside>
 🗨️ Bem-vindo e obrigado por utilizar a API do Elos. Nessa página você encontrará todas as informações relacionadas ao uso do Elos por API, e caso não encontre o que procura ou não consiga resposta para sua dúvida, entre em contato com nosso time através do **suporte@mconf.com** - será um prazer ajudar.
 </aside>
@@ -42,17 +43,18 @@ O mais comum é que a integração por API seja utilizada quando se deseja integ
 
 A API do Elos é compatível com a API do BigBlueButton (BBB), de forma que se o produto já possui integração com o BBB será possível utilizar a mesma API para integrar com o Elos. A documentação da API está disponivel [aqui](/docs/api/conference).
 
-Ainda suportamos a API estendida de webhooks, que permite à integração receber eventos relevantes das sessões em andamento ou gravações: https://api.h.elos.dev/docs/#tag/hooks.
+Ainda suportamos a API estendida de webhooks, que permite à integração receber eventos relevantes das sessões em andamento ou gravações: [webhook API](/api/conference/#tag/hooks).
 
 O acesso à API normalmente é feito via bibliotecas que já existem e são mantidas pela comunidade. Usando bibliotecas, você não precisará se preocupar com a complexidade de geração e assinatura de chamadas válidas da API, você pode simplesmente utilizar os métodos fornecidos pela biblioteca para criar sua integração. Caso a biblioteca não ofereça acesso a um método ou parâmetro desejável para a sua integração, você pode modificar a biblioteca para este fim.
 
 Entre as bibliotecas mais conhecidas e utilizadas para acessar a API estão:
-* Biblioteca para PHP: https://github.com/bigbluebutton/bigbluebutton-api-php
-* Biblioteca para Javascript: https://github.com/mconf/bigbluebutton-api-js
-* Biblioteca para Ruby: https://github.com/mconf/bigbluebutton-api-ruby
-* Biblioteca para Rails: https://github.com/mconf/bigbluebutton_rails
-* Biblioteca para C#: https://github.com/nitinjs/bigbluebutton-api-dotnet
-* Biblioteca para Java: https://github.com/bigbluebutton/bigbluebutton-api-java
+
+- Biblioteca para PHP: https://github.com/bigbluebutton/bigbluebutton-api-php
+- Biblioteca para Javascript: https://github.com/mconf/bigbluebutton-api-js
+- Biblioteca para Ruby: https://github.com/mconf/bigbluebutton-api-ruby
+- Biblioteca para Rails: https://github.com/mconf/bigbluebutton_rails
+- Biblioteca para C#: https://github.com/nitinjs/bigbluebutton-api-dotnet
+- Biblioteca para Java: https://github.com/bigbluebutton/bigbluebutton-api-java
 
 Se você está procurando uma forma fácil de testar e começar a usar a API, confira esta pergunta da nossa FAQ: [De maneira resumida, o que preciso saber para uma integração simples?](#de-maneira-resumida-o-que-preciso-saber-para-uma-integração-simples)
 
@@ -668,7 +670,7 @@ jwt.verify(token, shared_secret, { algorithms: [ algorithm ] });
 
 ## Novidades e melhorias
 
-Estamos constantemente trabalhando para aprimorar nossa solução, oferecendo aos clientes e usuários a melhor experiência possível em videoconferência. Novidades e melhorias são continuamente lançadas, e você pode acompanhar as atualizações [aqui](https://ajuda.elos.vc/kb/article/168507/novidades-e-melhorias-do-elos?ticketId=&q=).
+Estamos constantemente trabalhando para aprimorar nossa solução, oferecendo aos clientes e usuários a melhor experiência possível em videoconferência. Novidades e melhorias são continuamente lançadas, e você pode acompanhar as atualizações [aqui](https://ajuda.elos.vc/kb/article/150995/tudo-sobre-o-elos).
 
 Sugestões são muito bem-vindas, a qualquer momento. Sinta-se à vontade para contatar-nos sempre que quiser compartilhar conosco um feedback ou sugestão ou mesmo para pedir ajuda.
 
