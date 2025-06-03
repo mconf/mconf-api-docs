@@ -3,30 +3,11 @@ get:
   operationId: getMeetingInfo
   description: Returns information about a meeting that is currently created on the servers (won't returned meetings that already ended).
   tags:
-    - meeting
+  - meeting
   parameters:
-    - $ref: "../components/parameters/meetingID.yaml"
-      required: true
-    - $ref: "../components/parameters/checksum.yaml"
-  responses:
-    "200":
-      description: Successful operation
-      content:
-        application/xml:
-          examples:
-            $ref: "../components/examples/getMeetingInfo/success.yaml"
-          schema:
-            $ref: "../components/schemas/responses/getMeetingInfo.yaml"
-post:
-  summary: getMeetingInfo
-  operationId: getMeetingInfo
-  description: Returns information about a meeting that is currently created on the servers (won't returned meetings that already ended).
-  tags:
-    - meeting
-  parameters:
-    - $ref: "../components/parameters/meetingID.yaml"
-      required: true
-    - $ref: "../components/parameters/checksum.yaml"
+  - $ref: "../components/parameters/meetingID.yaml"
+    required: true
+  - $ref: "../components/parameters/checksum.yaml"
   responses:
     "200":
       description: Successful operation

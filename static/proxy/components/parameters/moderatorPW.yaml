@@ -1,5 +1,5 @@
 name: moderatorPW
 in: query
-description: A secret string that can be used later on the [join](#operation/join) API call to indicate that the user should be a moderator. If no `moderatorPW` is provided, a random string will be used and returned.
+description: A secret string that can be used later on the [join](#operation/join-meeting) API call to indicate that the user should be a moderator. If no `moderatorPW` is provided, a random string will be used and returned.
 schema:
   type: string

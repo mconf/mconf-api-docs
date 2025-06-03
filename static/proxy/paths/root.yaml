@@ -3,7 +3,7 @@ get:
   operationId: /
   description: Returns the API version
   tags:
-    - monitoring
+  - extra
   responses:
     "200":
       description: Successful operation
@@ -18,7 +18,7 @@ post:
   operationId: /
   description: Returns the API version
   tags:
-    - monitoring
+  - extra
   responses:
     "200":
       description: Successful operation
@@ -33,7 +33,7 @@ head:
   operationId: /
   description: Returns the API version
   tags:
-    - monitoring
+  - extra
   responses:
     "200":
       description: Successful operation
