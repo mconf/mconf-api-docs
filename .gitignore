@@ -4,3 +4,4 @@ dist.yaml
 redoc-static.html
 .DS_Store
 build/
+.docusaurus/
