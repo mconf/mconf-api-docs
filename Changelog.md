@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.0
+- Improve graphical interface
+- Improve writing and update API information
+- Add environment option for hiding internal APIs
+
 ## 2.3.0
 - Improve font styling
 - Redirect 404 requests to home page
