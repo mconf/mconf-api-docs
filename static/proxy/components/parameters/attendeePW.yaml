@@ -1,5 +1,5 @@
 name: attendeePW
 in: query
-description: The password that will [join](#operation/join) URL can later provide as its password parameter to indicate the user will as a attendee. If no `attendeePW` is provided, create will return a randomly generated `attendeePW` password for the meeting. 
+description: A secret string that can be used later on the [join](#operation/join-meeting) API call to indicate that the user should be an attendee. If no `attendeePW` is provided, a random string will be used and returned.
 schema:
   type: string

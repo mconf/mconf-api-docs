@@ -6,20 +6,20 @@
 
 /* You can override the default Infima variables here. */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
 /*---------------------------------------------------------
   Root Variables: Base Typography and Colors
 ---------------------------------------------------------*/
 :root {
   /* Base font families */
-  --ifm-font-family-base: 'Nunito Sans', sans-serif;
-  --ifm-heading-font-family: 'Nunito Sans', sans-serif;
-  
+  --ifm-font-family-base: "Nunito Sans", sans-serif;
+  --ifm-heading-font-family: "Nunito Sans", sans-serif;
+
   /* Base sizes and line-height */
   --ifm-font-size-base: 16px;
   --ifm-line-height: 1.6;
-  
+
   /* Heading sizes */
   --ifm-h1-font-size: 2.75rem;
   --ifm-h2-font-size: 2.25rem;
@@ -27,16 +27,30 @@
   --ifm-h4-font-size: 1.5rem;
   --ifm-h5-font-size: 1.25rem;
   --ifm-h6-font-size: 1rem;
-  
+
+  /* Card background color */
+  --ifm-card-background-color: var(--ifm-background-surface-color);
+
   /* Primary Colors */
-  --ifm-color-primary: #64C9D1;
-  --ifm-color-primary-dark: #404040;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  
+  --ifm-color-primary: #2cccd3;
+  --ifm-color-primary-dark: #008c95;
+  --ifm-color-primary-darker: #007a82;
+  --ifm-color-primary-darkest: #006870;
+  --ifm-color-primary-light: #b1e4e3;
+  --ifm-color-primary-lighter: #c7eceb;
+  --ifm-color-primary-lightest: #ddf3f2;
+
+  /* Secondary Colors */
+  --ifm-color-secondary: #202020;
+  --ifm-color-secondary-light: #d9d9d6;
+  --ifm-color-secondary-lighter: #f0f0f0;
+  --ifm-color-secondary-lightest: #ffffff;
+
+  /* Alert Colors */
+  --ifm-color-warning: #ffc845;
+  --ifm-color-success: #00bf6f;
+  --ifm-color-danger: #cd545b;
+
   /* Code and Highlighting */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
@@ -45,53 +59,53 @@
 /*---------------------------------------------------------
   Dark Mode Variables
 ---------------------------------------------------------*/
-[data-theme='dark'] {
-  --ifm-color-primary: #64C9D1;
-  --ifm-color-primary-dark: #404040;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+[data-theme="dark"] {
+  --ifm-color-primary: #2cccd3;
+  --ifm-color-primary-dark: #008c95;
+  --ifm-color-primary-darker: #007a82;
+  --ifm-color-primary-darkest: #006870;
+  --ifm-color-primary-light: #b1e4e3;
+  --ifm-color-primary-lighter: #c7eceb;
+  --ifm-color-primary-lightest: #ddf3f2;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
 /*---------------------------------------------------------
   Dark Mode Overrides for Enhanced Readability & Modern Look
 ---------------------------------------------------------*/
-[data-theme='dark'] body {
+[data-theme="dark"] body {
   background-color: #121212;
   color: #e0e0e0;
 }
 
-[data-theme='dark'] h1,
-[data-theme='dark'] h2,
-[data-theme='dark'] h3,
-[data-theme='dark'] h4,
-[data-theme='dark'] h5,
-[data-theme='dark'] h6 {
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
   color: #ffffff;
 }
 
-[data-theme='dark'] p {
+[data-theme="dark"] p {
   color: #d0d0d0;
 }
 
-[data-theme='dark'] a {
+[data-theme="dark"] a {
   color: var(--ifm-color-primary);
 }
 
-[data-theme='dark'] code {
+[data-theme="dark"] code {
   background-color: #2d2d2d;
   color: #e0e0e0;
 }
 
-[data-theme='dark'] pre {
+[data-theme="dark"] pre {
   background-color: #1e1e1e;
   color: #e0e0e0;
 }
 
-[data-theme='dark'] blockquote {
+[data-theme="dark"] blockquote {
   border-left: 4px solid #444;
   color: #cccccc;
 }
@@ -112,7 +126,12 @@ body {
 /*---------------------------------------------------------
   Heading Styles
 ---------------------------------------------------------*/
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--ifm-heading-font-family);
   margin-top: 1.2em;
   margin-bottom: 0.5em;
@@ -212,31 +231,18 @@ blockquote {
   font-size: 1rem !important;
 }
 
-/*---------------------------------------------------------
-  Navbar & Footer Customization
----------------------------------------------------------*/
-.navbar__title,
-.navbar__logo {
-  font-family: var(--ifm-heading-font-family);
+/* Force expand all menu items with role="menuitem" */
+.redocusaurus [role="menuitem"] + ul,
+.redocusaurus [role="menuitem"] ~ ul,
+.redocusaurus li[role="menuitem"] ul {
+  display: block !important;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
-.footer {
-  font-family: var(--ifm-font-family-base);
-}
-
-/*---------------------------------------------------------
-  Utility Classes for Modern Text Variations
----------------------------------------------------------*/
-.bold {
-  font-weight: 700;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.light {
-  font-weight: 300;
+/* Hide SVG icons in list items within unordered lists */
+.redocusaurus ul li svg {
+  display: none !important;
 }
 
 /*---------------------------------------------------------
@@ -252,4 +258,139 @@ blockquote {
   h3 {
     font-size: 1.5rem;
   }
+}
+
+/*---------------------------------------------------------
+  Button Styles - Consistência para todos os botões
+---------------------------------------------------------*/
+/* Estilo base para todos os botões */
+.button {
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+/* Botão primário - modo claro */
+.button--primary {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary-dark);
+}
+
+.button--primary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão secundário - modo claro */
+.button--secondary {
+  background-color: #f0f0f0;
+  color: var(--ifm-color-primary-dark);
+  border-color: #e0e0e0;
+}
+
+.button--secondary:hover {
+  background-color: #e0e0e0;
+  color: var(--ifm-color-primary-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão link estilo card na página inicial */
+
+.apiCardButton,
+.helpLink {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.apiCardButton:hover,
+.helpLink:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: none;
+}
+
+.apiCardButton span,
+.helpLink span {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.apiCardButton:hover span,
+.helpLink:hover span {
+  transform: translateX(5px);
+}
+
+/* Dark Mode Button Overrides */
+[data-theme="dark"] .button--primary {
+  background-color: var(--ifm-color-primary);
+  color: #ffffff;
+  border-color: var(--ifm-color-primary-darker);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .button--primary:hover {
+  background-color: var(--ifm-color-primary-darker);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .button--secondary {
+  background-color: var(--ifm-color-emphasis-700);
+  color: #ffffff;
+  border-color: var(--ifm-color-emphasis-800);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .button--secondary:hover {
+  background-color: var(--ifm-color-emphasis-800);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .apiCardButton,
+[data-theme="dark"] .helpLink {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme="dark"] .apiCardButton:hover,
+[data-theme="dark"] .helpLink:hover {
+  color: #ffffff;
+}
+
+/*---------------------------------------------------------
+  Menu Customization
+---------------------------------------------------------*/
+.menu-content {
+  top: 60px !important;
+}
+
+/*---------------------------------------------------------
+  Navbar Item Styling for Consistency
+---------------------------------------------------------*/
+.navbar__items .navbar__item {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.navbar__items .navbar__item:hover,
+.navbar__items .navbar__item--active {
+  color: var(--ifm-color-primary-darker);
+  text-decoration: none;
+  background-color: rgba(44, 204, 211, 0.1);
+}
+
+[data-theme="dark"] .navbar__items .navbar__item {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme="dark"] .navbar__items .navbar__item:hover,
+[data-theme="dark"] .navbar__items .navbar__item--active {
+  color: white;
+  background-color: rgba(44, 204, 211, 0.2);
 }

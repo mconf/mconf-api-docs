@@ -1,6 +1,6 @@
 name: meetingKeepEvents
 in: query
-description: If `meetingKeepEvents` is `true` BigBlueButton saves meeting events even if the meeting is not recorded
+description: If `meetingKeepEvents` is `true`, meeting events will be stored even if the meeting is not recorded
 schema:
     type: boolean
     default: false

@@ -1,28 +1,11 @@
 get:
   summary: getMeetings
   operationId: getMeetings
-  description: This call will return a list of all the meetings found on the servers based on the scope of the secret.
+  description: This call will return a list of all the meetings found on the servers that you have access to. It returns only meetings that are created on a server, it won't include past meetings that already ended.
   tags:
   - meeting
   parameters:
-    - $ref: '../components/parameters/checksum.yaml'
-  responses:
-    '200':
-      description: Successful operation
-      content:
-        application/xml:
-          examples:
-            $ref: '../components/examples/getMeetings/success.yaml'
-          schema:
-            $ref: '../components/schemas/responses/getMeetings.yaml'
-post:
-  summary: getMeetings
-  operationId: getMeetings
-  description: This call will return a list of all the meetings found on the servers based on the scope of the secret.
-  tags:
-  - meeting
-  parameters:
-    - $ref: '../components/parameters/checksum.yaml'
+  - $ref: '../components/parameters/checksum.yaml'
   responses:
     '200':
       description: Successful operation

@@ -11,6 +11,8 @@ services:
       - .:/opt/docusaurus
     environment:
       - NODE_ENV=development
+      - SHOW_INTERNAL_APIS=true
+
   prod:
     build:
       context: .

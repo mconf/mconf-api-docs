@@ -1,5 +1,5 @@
 name: meetingIDWildcard
 in: query
-description: Defines if the returned meeting ids must start with the `meetingID` parameter.
-schema: 
+description: If true, `meetingID` will be treated as a wildcard and used as a prefix when matching the resources (i.e. it will run a query similar to `LIKE 'meetingID%'`).
+schema:
   type: boolean

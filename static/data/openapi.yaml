@@ -6,36 +6,36 @@ info:
     Elos meeting data, reports and artifacts
   version: 2.1.0
   servers:
-    - url: https://api.h.elos.dev/
+  - url: /
 
 tags:
-  - name: summary
-  - name: artifacts
+- name: summary
+- name: artifacts
 
 paths:
   /institutions/{institution_guid}/reports/summary/{ref_date}:
     get:
       tags:
-        - summary
+      - summary
       summary: summary
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: ref_date
-          required: true
-          schema:
-            type: string
-          description: Reference date in YYYY-MM-DD or YYYY-MM format
-        - in: query
-          name: filter
-          required: true
-          schema:
-            type: string
-            enum: [daily, monthly]
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: ref_date
+        required: true
+        schema:
+          type: string
+        description: Reference date in YYYY-MM-DD or YYYY-MM format
+      - in: query
+        name: filter
+        required: true
+        schema:
+          type: string
+          enum: [ daily, monthly ]
       responses:
         "200":
           description: Successful response
@@ -88,32 +88,32 @@ paths:
   /institutions/{institution_guid}/artifacts/report/{ref_month}:
     get:
       tags:
-        - artifacts
+      - artifacts
       summary: report
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: ref_month
-          required: true
-          schema:
-            type: string
-          description: Reference month in YYYY-MM format
-        - in: query
-          name: language
-          required: true
-          schema:
-            type: string
-            enum: [pt, en]
-        - in: query
-          name: format
-          required: true
-          schema:
-            type: string
-            enum: [pdf, csv, xls]
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: ref_month
+        required: true
+        schema:
+          type: string
+        description: Reference month in YYYY-MM format
+      - in: query
+        name: language
+        required: true
+        schema:
+          type: string
+          enum: [ pt, en ]
+      - in: query
+        name: format
+        required: true
+        schema:
+          type: string
+          enum: [ pdf, csv, xls ]
       responses:
         "200":
           description: Successful response
@@ -137,19 +137,19 @@ paths:
   /institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/engagement_report:
     get:
       tags:
-        - artifacts
+      - artifacts
       summary: engagement_report
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: int_meeting_id
-          required: true
-          schema:
-            type: string
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: int_meeting_id
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: Successful response
@@ -173,19 +173,19 @@ paths:
   /institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/participants_list:
     get:
       tags:
-        - artifacts
+      - artifacts
       summary: participants_list
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: int_meeting_id
-          required: true
-          schema:
-            type: string
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: int_meeting_id
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: Successful response
@@ -209,19 +209,19 @@ paths:
   /institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/shared_notes:
     get:
       tags:
-        - artifacts
+      - artifacts
       summary: shared_notes
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: int_meeting_id
-          required: true
-          schema:
-            type: string
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: int_meeting_id
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: Successful response
@@ -245,29 +245,29 @@ paths:
   /institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/file:
     get:
       tags:
-        - artifacts
+      - artifacts
       summary: file
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: int_meeting_id
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: file
-          required: true
-          schema:
-            type: string
-        - in: query
-          name: file_name
-          required: true
-          schema:
-            type: string
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: int_meeting_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: file
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: file_name
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: Successful response
@@ -298,29 +298,29 @@ paths:
                     type: string
     put:
       tags:
-        - artifacts
+      - artifacts
       summary: file
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: int_meeting_id
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: file
-          required: true
-          schema:
-            type: string
-        - in: query
-          name: file_name
-          required: true
-          schema:
-            type: string
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: int_meeting_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: file
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: file_name
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: Successful response
@@ -346,26 +346,26 @@ paths:
   /institutions/{institution_guid}/artifacts/meetings/{int_meeting_id}/list_objects:
     get:
       tags:
-        - artifacts
+      - artifacts
       summary: list_objects
       parameters:
-        - in: path
-          name: institution_guid
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: int_meeting_id
-          required: true
-          schema:
-            type: string
-        - in: query
-          name: filter
-          description: Comma-separated list of artifact types. If specified, only included artifacts are returned. 
-          required: false
-          schema:
-            type: string
-            enum: [shared_notes, participants_list, engagement_report]
+      - in: path
+        name: institution_guid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: int_meeting_id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: filter
+        description: Comma-separated list of artifact types. If specified, only included artifacts are returned.
+        required: false
+        schema:
+          type: string
+          enum: [ shared_notes, participants_list, engagement_report ]
       responses:
         "200":
           description: Successful response
@@ -386,8 +386,8 @@ paths:
                         link:
                           type: string
                       required:
-                        - file_name
-                        - link
+                      - file_name
+                      - link
 
         "404":
           description: Meeting not found or file not found

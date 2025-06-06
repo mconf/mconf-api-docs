@@ -5,27 +5,25 @@ get:
   tags:
   - meeting
   parameters:
-    - $ref: '../components/parameters/fullName.yaml'
-      required: true
-    - $ref: '../components/parameters/meetingID.yaml'
-      required: true
-    - $ref: '../components/parameters/password.yaml'
-      required: true
-    - $ref: '../components/parameters/createTime.yaml'
-    - $ref: '../components/parameters/userID.yaml'
-    - $ref: '../components/parameters/webVoiceConf.yaml'
-    - $ref: '../components/parameters/configToken.yaml'
-    - $ref: '../components/parameters/defaultLayout.yaml'
-    - $ref: '../components/parameters/avatarURL.yaml'
-    - $ref: '../components/parameters/redirect.yaml'
-    - $ref: '../components/parameters/clientURL.yaml'
-    - $ref: '../components/parameters/joinViaHtml5.yaml'
-      deprecated: true
-    - $ref: '../components/parameters/guest.yaml'
-    - $ref: '../components/parameters/role.yaml'
-    - $ref: '../components/parameters/excludeFromDashboard.yaml'
-    - $ref: '../components/parameters/checksum.yaml'
-   
+  - $ref: '../components/parameters/fullName.yaml'
+    required: true
+  - $ref: '../components/parameters/meetingID.yaml'
+    required: true
+  - $ref: '../components/parameters/password.yaml'
+    required: true
+  - $ref: '../components/parameters/createTime.yaml'
+  - $ref: '../components/parameters/userID.yaml'
+  - $ref: '../components/parameters/webVoiceConf.yaml'
+  - $ref: '../components/parameters/defaultLayout.yaml'
+  - $ref: '../components/parameters/avatarURL.yaml'
+  - $ref: '../components/parameters/redirect.yaml'
+  - $ref: '../components/parameters/clientURL.yaml'
+    deprecated: true
+  - $ref: '../components/parameters/guest.yaml'
+  - $ref: '../components/parameters/role.yaml'
+  - $ref: '../components/parameters/excludeFromDashboard.yaml'
+  - $ref: '../components/parameters/checksum.yaml'
+
   responses:
     '200':
       description: Successful operation

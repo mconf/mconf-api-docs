@@ -3,37 +3,34 @@ info:
   description:
     $ref: "./info-description.md"
   version: 1.0.0
-  title: Elos BBB API
+  title: Elos Conference API
   contact:
     name: Email
     url: https://elos.vc
     email: contato@elos.vc
 servers:
-  - url: https://api.h.elos.dev/bigbluebutton/api
-    description: The homologation API server
+- url: /bigbluebutton/api
+  description: The homologation API server
 
 x-tagGroups:
-  - name: General
-    tags:
-      - meeting
-      - recording
-      - callbacks
-  - name: Other
-    tags:
-      - hooks
-      - monitoring
+- name: General
+  tags:
+  - meeting
+  - recording
+- name: Other
+  tags:
+  - hooks
+  - extra
 
 tags:
-  - name: meeting
-    description: Everything about your Meetings
-  - name: recording
-    description: Access Recording information
-  - name: callbacks
-    description: Everything about your Callbacks
-  - name: monitoring
-    description: Monitoring centered requests
-  - name: hooks
-    description: Everything about your Hooks
+- name: meeting
+  description: Create, join, end and get information about your meetings
+- name: recording
+  description: Fetch and manage your recordings
+- name: extra
+  description: Extra endpoints and API information
+- name: hooks
+  description: Create and manage webhooks, endpoints used to receive events from your meetings and recordings
 paths:
   /:
     $ref: "./paths/root.yaml"
@@ -59,10 +56,8 @@ paths:
     $ref: "./paths/deleteRecordings.yaml"
   /updateRecordings:
     $ref: "./paths/updateRecordings.yaml"
-  /getRecordingToken:
-    $ref: "./paths/getRecordingToken.yaml"
-  /callback_events:
-    $ref: "./paths/callbackEvents.yaml"
+  # /getRecordingToken: Ainda não implementado
+  #   $ref: "./paths/getRecordingToken.yaml"
   /hooks/create:
     $ref: "./paths/createHook.yaml"
   /hooks/list:
@@ -71,10 +66,7 @@ paths:
     $ref: "./paths/destroy.yaml"
   /hooks/enable:
     $ref: "./paths/enable.yaml"
-  /getDefaultConfigXML:
-    $ref: "./paths/getDefaultConfigXML.yaml"
-  /setConfigXML:
-    $ref: "./paths/setConfigXML.yaml"
+
 components:
   securitySchemes:
     Bearer:

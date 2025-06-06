@@ -3,9 +3,9 @@ id: guide-pt
 title: Guia
 ---
 
-### [English 🇺🇸](guide) [Portuguese 🇧🇷](guide-pt)
+[🇧🇷 Versão em Português](guide-pt) | [🇺🇸 English version](guide)
 
-Última atualização: October 17, 2024
+_Última atualização: October 17, 2024_
 
 :::note
 
@@ -41,25 +41,22 @@ Este artigo é focado na integração por meio de API, a qual recomendamos em do
 
 O mais comum é que a integração por API seja utilizada quando se deseja integrar o Elos a um sistema próprio, para o qual não se dispõe de integração pronta.
 
-A API do Elos é compatível com a API do BigBlueButton (BBB), de forma que se o produto já possui integração com o BBB será possível utilizar a mesma API para integrar com o Elos. A documentação da API está disponivel em https://api.h.elos.dev/docs.
+A API do Elos é compatível com a API do BigBlueButton (BBB), de forma que se o produto já possui integração com o BBB será possível utilizar a mesma API para integrar com o Elos. A documentação da API está disponivel [aqui](/docs/api/conference).
 
-Ainda suportamos a API estendida de webhooks, que permite à integração receber eventos relevantes das sessões em andamento ou gravações: https://api.h.elos.dev/docs/#tag/hooks.
+Ainda suportamos a API estendida de webhooks, que permite à integração receber eventos relevantes das sessões em andamento ou gravações: [webhook API](/api/conference/#tag/hooks).
 
 O acesso à API normalmente é feito via bibliotecas que já existem e são mantidas pela comunidade. Usando bibliotecas, você não precisará se preocupar com a complexidade de geração e assinatura de chamadas válidas da API, você pode simplesmente utilizar os métodos fornecidos pela biblioteca para criar sua integração. Caso a biblioteca não ofereça acesso a um método ou parâmetro desejável para a sua integração, você pode modificar a biblioteca para este fim.
 
 Entre as bibliotecas mais conhecidas e utilizadas para acessar a API estão:
 
-Biblioteca para PHP: https://github.com/bigbluebutton/bigbluebutton-api-php
+- Biblioteca para PHP: https://github.com/bigbluebutton/bigbluebutton-api-php
+- Biblioteca para Javascript: https://github.com/mconf/bigbluebutton-api-js
+- Biblioteca para Ruby: https://github.com/mconf/bigbluebutton-api-ruby
+- Biblioteca para Rails: https://github.com/mconf/bigbluebutton_rails
+- Biblioteca para C#: https://github.com/nitinjs/bigbluebutton-api-dotnet
+- Biblioteca para Java: https://github.com/bigbluebutton/bigbluebutton-api-java
 
-Biblioteca para Javascript: https://github.com/mconf/bigbluebutton-api-js
-
-Biblioteca para Ruby: https://github.com/mconf/bigbluebutton-api-ruby
-
-Biblioteca para Rails: https://github.com/mconf/bigbluebutton_rails
-
-Biblioteca para C#: https://github.com/nitinjs/bigbluebutton-api-dotnet
-
-Biblioteca para Java: https://github.com/bigbluebutton/bigbluebutton-api-java
+Se você está procurando uma forma fácil de testar e começar a usar a API, confira esta pergunta da nossa FAQ: [De maneira resumida, o que preciso saber para uma integração simples?](#de-maneira-resumida-o-que-preciso-saber-para-uma-integração-simples)
 
 ## Diferença entre salas do Portal Elos e criadas usando API
 
@@ -122,10 +119,8 @@ Outra informação importante em relação à API é que quando a sessão for cr
 - Usar apenas letras, números e os caracteres `-` ou `_`.
 - Não usar acentos.
 - Como separador entre palavras, dar preferência para `-`, mas existem exceções:
-  - O BigBlueButton padronizou o uso de `userdata-nome_da_variavel` para parâmetros do usuário no `join`. O `userdata-` é um prefixo sempre igual e no restante deve ser usado `_`. Então o Live faz o mesmo. Ver [este link](https://github.com/bigbluebutton/bigbluebutton/blob/74d446dd08a22257c51f35ac40deec46a838a94c/bigbluebutton-html5/imports/api/users-settings/server/methods/addUserSettings.js#L31-L71).
-    Usar `userdata-nome-da-variavel` **não funciona**! (pode ter efeitos inesperados)
-  - O BigBlueButton padronizou o uso de `meta_` como prefixo para parâmetros no `create`, então o `_` precisa ser usado ali. No restante do nome, usar `-`, como, por exemplo, `meta_nome-da-variavel`.
-    Usar `meta_nome_da_variavel` **não funciona**! (pode ter efeitos inesperados)
+  - No `join`, use `userdata-nome_da_variavel` para parâmetros do usuário. O prefixo `userdata-` é sempre o mesmo, mas para o nome das variáveis utilize `_` como separador. Usar `userdata-nome-da-variavel` **pode não funcionar** (e ter efeitos indesejados)! Você pode ver mais informações [neste link](https://github.com/bigbluebutton/bigbluebutton/blob/74d446dd08a22257c51f35ac40deec46a838a94c/bigbluebutton-html5/imports/api/users-settings/server/methods/addUserSettings.js#L31-L71).
+  - No `create`, use `meta_nome-da-variavel` para parâmetros `meta`. O prefixo `meta_` é sempre o mesmo, mas para o nome das variáveis utilize `_` como separador. Usar `meta_nome_da_variavel` **pode não funcionar** (e ter efeitos indesejados)!
 
 ---
 
@@ -198,9 +193,9 @@ Para utilizar o iframe usamos o seguinte comando:
 
 ## Webhooks
 
-É possível, através da API de webhooks, registrar um endpoint para receber eventos relevantes sobre sessões e gravações. Esse registro pode ser feito com granularidade de sessão (passando o `meetingID` na requisição `hooks/create`) ou global, para todas as sessões, conforme documentado em https://docs.bigbluebutton.org/development/webhooks#hookscreate.
+É possível, através da API de webhooks, registrar um endpoint para receber eventos relevantes sobre sessões e gravações. Esse registro pode ser feito com granularidade de sessão (passando o `meetingID` na requisição `hooks/create`) ou global, para todas as sessões, conforme documentado [aqui](/docs/api/conference#tag/hooks).
 
-Entretanto, diferente da implementação original do BigBlueButton, nós modificamos o modelo de validação da integridade dos eventos emitidos, da seguinte forma:
+Diferente da implementação original do BigBlueButton, nós modificamos o modelo de validação da integridade dos eventos emitidos, da seguinte forma:
 
 - Ao registrar um webhook através do método `hooks/create`, é retornado um campo `authToken` na resposta em XML;
 - O `authToken` deve ser salvo no banco para ser usado mais tarde na validação dos eventos recebidos;
@@ -675,7 +670,7 @@ jwt.verify(token, shared_secret, { algorithms: [ algorithm ] });
 
 ## Novidades e melhorias
 
-Estamos constantemente trabalhando para aprimorar nossa solução, oferecendo aos clientes e usuários a melhor experiência possível em videoconferência. Novidades e melhorias são continuamente lançadas, e você pode acompanhar as atualizações [aqui](https://ajuda.elos.vc/kb/article/168507/novidades-e-melhorias-do-elos?ticketId=&q=).
+Estamos constantemente trabalhando para aprimorar nossa solução, oferecendo aos clientes e usuários a melhor experiência possível em videoconferência. Novidades e melhorias são continuamente lançadas, e você pode acompanhar as atualizações [aqui](https://ajuda.elos.vc/kb/article/150995/tudo-sobre-o-elos).
 
 Sugestões são muito bem-vindas, a qualquer momento. Sinta-se à vontade para contatar-nos sempre que quiser compartilhar conosco um feedback ou sugestão ou mesmo para pedir ajuda.
 
