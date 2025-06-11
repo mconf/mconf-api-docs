@@ -18,13 +18,13 @@ function HomepageHeader() {
         <div className={styles.heroButtons}>
           <Link
             className="button button--primary button--lg margin-right--md"
-            to="/pages/guide"
+            to="/pages/guide-pt"
           >
             Guia em Português
           </Link>
           <Link
             className="button button--primary button--lg"
-            to="/pages/englishGuide"
+            to="/pages/guide"
           >
             English Guide
           </Link>
