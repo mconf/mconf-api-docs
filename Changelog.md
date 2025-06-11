@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.1
+- Fix guide links
+
 ## 2.4.0
 - Improve graphical interface
 - Improve writing and update API information
