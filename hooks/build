@@ -1,0 +1,6 @@
+#!/bin/bash -x
+
+docker build -t $IMAGE_NAME-internal --build-arg SHOW_INTERNAL_APIS=true -f $DOCKERFILE_PATH .
+docker push $IMAGE_NAME-internal
+
+docker build -t $IMAGE_NAME --build-arg SHOW_INTERNAL_APIS=false -f $DOCKERFILE_PATH .
