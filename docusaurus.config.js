@@ -114,6 +114,19 @@ const config = {
         theme: {
           // Change with your site colors
           primaryColor: "#2cccd3",
+          options: {
+            hideDownloadButton: false,
+            disableSearch: false,
+            hideSingleRequestSampleTab: true,
+            menuToggle: true,
+            nativeScrollbars: false,
+            hideLoading: false,
+            theme: {
+              sidebar: {
+                width: "0px",
+              },
+            },
+          },
         },
       },
     ],
@@ -130,7 +143,6 @@ const config = {
           alt: "Elos Logo",
           src: "img/logo.svg",
         },
-        items: baseNavbarItems, // Use dynamic navbar items
       },
       footer: {
         style: "light",

@@ -11,6 +11,12 @@ function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
       <div className="container">
+        <img
+          src="img/favicon.svg"
+          alt="Elos API"
+          className={styles.heroImage}
+        />
+
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
@@ -18,23 +24,17 @@ function HomepageHeader() {
         <div className={styles.heroButtons}>
           <Link
             className="button button--primary button--lg margin-right--md"
-            to="/pages/guide-pt"
-          >
-            Guia em Português
-          </Link>
-          <Link
-            className="button button--primary button--lg"
             to="/pages/guide"
           >
             English Guide
           </Link>
+          <Link
+            className="button button--primary button--lg"
+            to="/pages/guide-pt"
+          >
+            Guia em Português
+          </Link>
         </div>
-        <img
-          src="img/laptop.png"
-          width="30%"
-          alt="Elos API"
-          className={styles.heroImage}
-        />
       </div>
     </header>
   );
@@ -62,11 +62,6 @@ function FeaturedLinks() {
   return (
     <section className={styles.features}>
       <div className="container">
-        <div className={styles.sectionTitle}>
-          <h2>API Documentation</h2>
-          <p>Choose one of the APIs below to see its complete documentation</p>
-        </div>
-
         <div className={styles.apiCardGrid}>
           <APICard
             title="Conference API"
@@ -87,34 +82,6 @@ function FeaturedLinks() {
               />
             </>
           )}
-        </div>
-
-        <div className={styles.helpSection}>
-          <h2>Need help?</h2>
-          <div className={styles.helpCards}>
-            <div className={styles.helpCard}>
-              <h3>Help Center</h3>
-              <p>Access articles and tutorials on how to use Elos.</p>
-              <a
-                href="https://ajuda.elos.vc/kb/article/150995/tudo-sobre-o-elos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.helpLink}
-              >
-                Visit help center <span>→</span>
-              </a>
-            </div>
-            <div className={styles.helpCard}>
-              <h3>Technical Support</h3>
-              <p>
-                Contact our support team for specific questions about
-                integration.
-              </p>
-              <a href="mailto:support@elos.vc" className={styles.helpLink}>
-                Contact support <span>→</span>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>

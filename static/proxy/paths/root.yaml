@@ -1,9 +1,9 @@
 get:
   summary: API Version
-  operationId: /
+  operationId: api-get-version
   description: Returns the API version
   tags:
-  - extra
+    - extra
   responses:
     "200":
       description: Successful operation
@@ -15,10 +15,10 @@ get:
             $ref: "../components/schemas/responses/version.yaml"
 post:
   summary: API Version
-  operationId: /
+  operationId: api-post-version
   description: Returns the API version
   tags:
-  - extra
+    - extra
   responses:
     "200":
       description: Successful operation
@@ -30,10 +30,10 @@ post:
             $ref: "../components/schemas/responses/version.yaml"
 head:
   summary: API Version
-  operationId: /
+  operationId: api-head-version
   description: Returns the API version
   tags:
-  - extra
+    - extra
   responses:
     "200":
       description: Successful operation
