@@ -1,5 +1,0 @@
-name: bannerText
-in: query
-description: Will set the banner text in the client.
-schema:
-    type: string

@@ -274,7 +274,6 @@ blockquote {
 .button--primary {
   background-color: var(--ifm-color-primary);
   color: white;
-  border-color: var(--ifm-color-primary-dark);
 }
 
 .button--primary:hover {

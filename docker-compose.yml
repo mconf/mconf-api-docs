@@ -12,14 +12,20 @@ services:
     environment:
       - NODE_ENV=development
       - SHOW_INTERNAL_APIS=true
+      # - SITE_URL=https://api.h.elos.dev
+      - SITE_URL=http://localhost:3000
 
   prod:
     build:
       context: .
       target: prod
+      args:
+        # - SITE_URL=https://api.h.elos.dev
+        - SITE_URL=http://localhost
+        - SHOW_INTERNAL_APIS=false
     image: mconf/mconf-api-docs:latest
     ports:
       - "80:80"
     environment:
       - NODE_ENV=production
-      - SHOW_INTERNAL_APIS=true
+      - SHOW_INTERNAL_APIS=false

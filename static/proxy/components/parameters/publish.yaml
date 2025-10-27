@@ -1,5 +1,0 @@
-name: publish
-in: query
-description: Either true to publish the recording(s), or false to unpublish the recording(s).
-schema:
-  type: boolean

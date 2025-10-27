@@ -1,5 +1,0 @@
-name: keepEvents
-in: query
-deprecated: true
-schema:
-    type: boolean

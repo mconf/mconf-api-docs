@@ -1,6 +1,0 @@
-name: allowModsToEjectCameras
-in: query
-description: Setting to `true` will allow moderators to close other users cameras in the meeting.
-schema:
-    type: boolean
-    default: false

@@ -1,5 +1,0 @@
-name: name
-in: query
-description: Name of the meeting that will be created.
-schema:
-  type: string

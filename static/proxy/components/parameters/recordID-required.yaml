@@ -1,6 +1,0 @@
-name: recordID
-in: query
-description: ID of the recording.
-required: true
-schema: 
-  type: string

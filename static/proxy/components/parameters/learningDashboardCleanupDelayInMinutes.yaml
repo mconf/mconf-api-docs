@@ -1,6 +1,0 @@
-name: learningDashboardCleanupDelayInMinutes
-in: query
-description: This option set the delay (in minutes) before the Learning Dashboard become unavailable after the end of the meeting. If this value is zero, the Learning Dashboard will keep available permanently.
-schema:
-    type: integer
-    default: 2

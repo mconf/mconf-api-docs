@@ -3,7 +3,7 @@ id: guide-pt
 title: Guia
 ---
 
-[🇧🇷 Versão em Português](guide-pt) | [🇺🇸 English version](guide)
+[🇧🇷 Versão em Português](/pages/guide-pt) | [🇺🇸 English version](/pages/guide)
 
 _Última atualização: October 17, 2024_
 
@@ -41,7 +41,7 @@ Este artigo é focado na integração por meio de API, a qual recomendamos em do
 
 O mais comum é que a integração por API seja utilizada quando se deseja integrar o Elos a um sistema próprio, para o qual não se dispõe de integração pronta.
 
-A API do Elos é compatível com a API do BigBlueButton (BBB), de forma que se o produto já possui integração com o BBB será possível utilizar a mesma API para integrar com o Elos. A documentação da API está disponivel [aqui](/docs/api/conference).
+A API do Elos é compatível com a API do BigBlueButton (BBB), de forma que se o produto já possui integração com o BBB será possível utilizar a mesma API para integrar com o Elos. A documentação da API está disponível [aqui](/docs/api/conference).
 
 Ainda suportamos a API estendida de webhooks, que permite à integração receber eventos relevantes das sessões em andamento ou gravações: [webhook API](/api/conference/#tag/hooks).
 
@@ -104,7 +104,7 @@ Estes valores servem para identificar os usuários que vão conectar na sala e a
 
 É importante que:
 
-- ID da sala seja uma palavra grande e aletatória, idealmente um GUID;
+- ID da sala seja uma palavra grande e aleatória, idealmente um GUID;
 - Senha de participante seja uma hash;
 - Senha de moderador seja uma hash diferente da senha de participante;
 - O usuário final não tenha visibilidade dessas senhas.
@@ -152,7 +152,7 @@ Parâmetros interessantes para serem utilizados no `join`:
 Existem quatro hipóteses para uma sessão ser encerrada:
 
 - Quando um moderador seleciona a opção "Encerrar a sessão" dentro da sala. Qualquer moderador possui esta opção, e após confirmação, todos os usuários são desconectados, e a sala é fechada. Por conta disso, é importante ponderar sobre quem na sessão deve entrar como moderador, e quem deve entrar como participante. Não é uma boa prática que todos os participantes conectem como moderador, pois aumenta a chance de, por acidente, alguém encerrar a sessão.
-- Quando todos os participantes desconectarem. Após todos sairem, a sala ainda permanece ativa por 5 minutos e depois é encerrada automaticamente.
+- Quando todos os participantes desconectarem. Após todos saírem, a sala ainda permanece ativa por 5 minutos e depois é encerrada automaticamente.
 - Por API através do método `end`. Não há confirmação para este método, ou seja, quando ele é chamado para uma sala rodando, essa sessão é encerrada imediatamente. Esta opção normalmente aparece nas integrações em algum local de gerência da sala, em que o usuário dono da sala consegue enxergar o status da sala rodando e tem a opção de encerrá-la clicando na interface da integração.
 - Por inatividade. Caso uma sessão permaneça por uma hora sem nenhuma atividade, ela é encerrada automaticamente. É considerado atividade todas as ações de entrada e saída de usuários, ativação de microfone e câmera, início e fim de fala de um participante, anotações no quadro branco, entre outros. Esta condição existe para evitar o cenário de uma sessão rodando por tempo indeterminado por engano. Veja mais em: https://ajuda.elos.vc/kb/article/152226/fechamento-de-sala-por-inatividade.
 

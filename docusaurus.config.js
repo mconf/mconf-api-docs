@@ -15,8 +15,10 @@ const showInternalAPIs = process.env.SHOW_INTERNAL_APIS === "true";
 // Base API specs (always included)
 const baseSpecs = [
   {
-    spec: "/opt/docusaurus/static/proxy/openapi.yaml",
+    id: "conference-api",
+    spec: "static/proxy/openapi.yaml",
     route: "/api/conference/",
+    url: "/proxy/openapi.yaml",
   },
 ];
 
@@ -24,19 +26,23 @@ const baseSpecs = [
 if (showInternalAPIs) {
   baseSpecs.push(
     {
-      spec: "/opt/docusaurus/static/data/openapi.yaml",
+      id: "data-api",
+      spec: "static/data/openapi.yaml",
       route: "/api/data/",
+      url: "/data/openapi.yaml",
     },
     {
-      spec: "/opt/docusaurus/static/administrative/openapi.yaml",
+      id: "administrative-api",
+      spec: "static/administrative/openapi.yaml",
       route: "/api/administrative/",
+      url: "/administrative/openapi.yaml",
     }
   );
 }
 
 // Base navbar items (always included)
 const baseNavbarItems = [
-  { to: "/blog", label: "What's new", position: "left" },
+  // { to: "/blog", label: "What's new", position: "left" },
   { to: "/pages/guide", label: "Guide", position: "left" },
   { to: "/api/conference", label: "Conference API", position: "right" },
 ];
@@ -59,10 +65,13 @@ const config = {
   favicon: "img/favicon.svg",
 
   // Set the production url of your site here
-  url: "https://elos.vc/",
+  // In dev mode, use port 3000; in prod, use default port 80
+  url: process.env.SITE_URL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/docs/",
+
+  trailingSlash: false,
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -90,17 +99,18 @@ const config = {
           path: "pages",
           routeBasePath: "pages",
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ["rss", "atom"],
-            xslt: true,
-          },
-          // Useful options to enforce blogging best practices
-          onInlineTags: "warn",
-          onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn",
-        },
+        // blog: {
+        //   showReadingTime: true,
+        //   feedOptions: {
+        //     type: ["rss", "atom"],
+        //     xslt: true,
+        //   },
+        //   // Useful options to enforce blogging best practices
+        //   onInlineTags: "warn",
+        //   onInlineAuthors: "warn",
+        //   onUntruncatedBlogPosts: "warn",
+        // },
+        blog: false, // Disable blog
         theme: {
           customCss: "./src/css/custom.css",
         },

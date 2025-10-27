@@ -1,7 +1,0 @@
-name: record
-in: query
-description: 
-  $ref: '../../../docs/params/record.md'
-schema:
-  type: boolean
-  default: false

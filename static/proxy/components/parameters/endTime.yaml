@@ -1,7 +1,0 @@
-name: end_time
-in: query
-description: "Date to filter meetings (format: YYYY-MM-DD)."
-schema:
-  type: string
-  format: date
-  example: "2024-10-21"

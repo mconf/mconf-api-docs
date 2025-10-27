@@ -1,7 +1,0 @@
-name: autoStartRecording
-in: query
-description:
-  $ref: '../../../docs/params/autoStartRecording.md'
-schema:
-  type: boolean
-  default: false

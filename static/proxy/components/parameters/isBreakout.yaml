@@ -1,6 +1,0 @@
-name: isBreakout
-in: query
-description: Must be set to `true` to create a breakout room.
-schema:
-  type: boolean
-  default: false

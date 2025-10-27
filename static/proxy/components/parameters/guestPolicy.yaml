@@ -1,9 +1,0 @@
-name: guestPolicy
-in: query
-description: Will set the guest policy for the meeting. The guest policy determines whether or not users who send a join request with `guest=true` will be allowed to join the meeting.
-schema:
-    type: string
-    enum:
-      - ALWAYS_ACCEPT
-      - ALWAYS_DENY
-      - ASK_MODERATOR

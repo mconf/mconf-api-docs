@@ -1,6 +1,0 @@
-name: fullName
-in: query
-description: Name of the user
-required: true
-schema:
-  type: string

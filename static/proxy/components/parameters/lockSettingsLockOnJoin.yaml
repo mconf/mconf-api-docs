@@ -1,6 +1,0 @@
-name: lockSettingsLockOnJoin
-in: query
-description: Setting to `false` will not apply lock setting to users when they join.
-schema:
-    type: boolean
-    default: true

@@ -1,5 +1,0 @@
-name: parentMeetingID
-in: query
-description: Must be provided when creating a breakout room, the parent room must be running. 
-schema:
-  type: string

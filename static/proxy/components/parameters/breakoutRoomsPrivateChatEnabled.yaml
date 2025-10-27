@@ -1,6 +1,0 @@
-name: breakoutRoomsPrivateChatEnabled
-in: query
-description: If set to false, the private chat will be disabled in breakout rooms. 
-schema:
-  type: boolean
-  default: true

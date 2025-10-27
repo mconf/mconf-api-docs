@@ -1,5 +1,0 @@
-name: maxParticipants
-in: query
-description: Set the maximum number of users allowed to join the conference at the same time.
-schema:
-  type: integer

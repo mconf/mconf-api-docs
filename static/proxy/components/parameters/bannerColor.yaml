@@ -1,6 +1,0 @@
-name: bannerColor
-in: query
-description: Will set the banner background color in the client. The required format is color hex #FFFFFF.
-schema:
-    type: string
-    format: hex

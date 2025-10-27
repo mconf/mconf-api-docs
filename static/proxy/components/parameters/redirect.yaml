@@ -1,6 +1,0 @@
-name: redirect
-in: query
-description: Variable that defines if user will be redirected. Setting this variable to `false` will not redirect the browser but returns an XML instead whether the JOIN call has succeeded or not.
-schema:
-  type: boolean
-  default: true

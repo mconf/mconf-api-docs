@@ -1,5 +1,0 @@
-name: voiceBridge
-in: query
-description: Unique number for the in the range of 10000 to 99999 for the FreeSWITCH voice conference associated with this meeting
-schema:
-  type: string

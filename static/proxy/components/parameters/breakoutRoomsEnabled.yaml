@@ -1,6 +1,0 @@
-name: breakoutRoomsEnabled
-in: query
-description: If set to false, breakout rooms will be disabled.
-schema:
-  type: boolean
-  default: true

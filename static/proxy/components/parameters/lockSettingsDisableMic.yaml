@@ -1,6 +1,0 @@
-name: lockSettingsDisableMic
-in: query
-description: Setting to `true` will only allow user to join listen only.
-schema:
-    type: boolean
-    default: false

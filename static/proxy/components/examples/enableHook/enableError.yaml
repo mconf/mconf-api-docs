@@ -1,7 +1,0 @@
-fail:
-  value: |-
-    <response>
-      <returncode>FAILED</returncode>
-      <messageKey>enableHookError</messageKey>
-      <message>An error happened while enabling your hook. Please contact the system's administrators.</message>
-    </response>

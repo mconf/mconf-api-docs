@@ -1,5 +1,0 @@
-name: muteOnStart
-in: query
-description: Setting `true` will mute all users when the meeting starts.
-schema:
-    type: boolean

@@ -1,6 +1,0 @@
-name: learningDashboardEnabled
-in: query
-description: When this option is set to `true`, the Learning Dashboard will be available, a place where moderators can view a summary of the activities of the meeting.
-schema:
-    type: boolean
-    default: true

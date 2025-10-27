@@ -3,7 +3,7 @@ id: guide
 title: Guide
 ---
 
-[🇧🇷 Versão em Português](guide-pt) | [🇺🇸 English version](guide)
+[🇧🇷 Versão em Português](/pages/guide-pt) | [🇺🇸 English version](/pages/guide)
 
 _Last update: October 17, 2024_
 

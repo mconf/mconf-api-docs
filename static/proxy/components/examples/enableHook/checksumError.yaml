@@ -1,7 +1,0 @@
-fail:
-  value: |-
-    <response>
-      <returncode>FAILED</returncode>
-      <messageKey>checksumError</messageKey>
-      <message>You did not pass the checksum security check</message>
-    </response>

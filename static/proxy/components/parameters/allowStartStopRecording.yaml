@@ -1,7 +1,0 @@
-name: allowStartStopRecording
-in: query
-description:
-    $ref: '../../../docs/params/allowStartStopRecording.md'
-schema:
-    type: boolean
-    default: true
