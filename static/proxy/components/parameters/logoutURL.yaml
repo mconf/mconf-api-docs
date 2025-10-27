@@ -1,5 +1,0 @@
-name: logoutURL
-in: query
-description: The URL to which users are redirected after leaving the conference.
-schema:
-  type: string

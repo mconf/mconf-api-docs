@@ -1,7 +1,0 @@
-fail:
-  value: |-
-    <response>
-      <returncode>FAILED</returncode>
-      <messageKey>enableMissingHook</messageKey>
-      <message>The hook informed was not found or the shared secret didn't match the hook's.</message>
-    </response>

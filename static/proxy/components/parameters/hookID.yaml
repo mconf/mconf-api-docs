@@ -1,5 +1,0 @@
-name: hookID
-in: query
-description: The identifier for the target hook.
-schema: 
-  type: string

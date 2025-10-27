@@ -1,5 +1,0 @@
-name: meetingName
-in: query
-description: Name(s) of the meeting. Multiple names can be provided, separated by commas. Filters meetings by exact name.
-schema:
-  type: string

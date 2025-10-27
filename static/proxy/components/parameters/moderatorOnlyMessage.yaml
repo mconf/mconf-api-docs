@@ -1,6 +1,0 @@
-name: moderatorOnlyMessage
-in: query
-description: 
-  $ref: '../../../docs/params/moderatorOnlyMessage.md'
-schema:
-  type: string

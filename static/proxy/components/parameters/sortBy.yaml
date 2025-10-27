@@ -1,6 +1,0 @@
-name: sort_by
-in: query
-description: Which field to sort by
-schema:
-  type: string
-  enum: [name, start_time]

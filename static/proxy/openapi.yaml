@@ -1,7 +1,59 @@
 openapi: 3.0.3
 info:
-  description:
-    $ref: "./info-description.md"
+  description: |-
+    This is [Elos](https://elos.vc/) official API documentation, built using the OpenAPI specification with Redoc.
+
+    # Intro
+
+    The Elos API is compatible with the [BigBlueButton (BBB) API](https://docs.bigbluebutton.org/development/api/), so if your product already integrates with BBB, you can use the same API to integrate with Elos. Most of the API calls described here are either identical or very similar to what is offered by BigBlueButton. Some API calls, however, are unique to Elos.
+
+    # Authentication
+
+    To verify if an API call is valid, the API uses a checksum system.
+
+    In this system, every API call should include a `checksum` parameter. The value passed in this parameter is calculated from a combination of the API call method name plus the query string plus your shared secret to access the API. For each incoming request the servers will verify the checksum and see if they match with the shared secret stored on the server. If they match, the controller accepts the incoming request.
+
+    To calculate the checksum, follow these steps:
+
+    1. Create the entire query string for your API call without the checksum parameter. Example for the `create` API call:
+       ```plaintext
+       name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444
+       ```
+    2. Prepend the API call name (`create` in this example) to your string:
+       ```plaintext
+       createname=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444
+       ```
+    3. Now, append the shared secret to your string. Using `639259d4-9dd8-4b25-bf01-95f9567eaf4b` as the shared secret in this example (the example shows multiple lines for clarity, but it's all a single string):
+       ```plaintext
+       createname=Test+Meeting&meetingID=abc123&attendeePW=111222&
+       moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b
+       ```
+    4. Now, find the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash for that string. The implementation varies based on programming language, for example:
+       - Ruby
+         ```ruby
+         require 'digest'
+         string = "createname=Test+Meeting&meetingID=abc123&attendeePW=111222&" \
+                  "moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b"
+         Digest::SHA256.hexdigest(string)
+         # da9185f7f333cfdfcd6eeac32dca3777510c4c436020d8b887ba5515bd1d189e
+         ```
+       - PHP
+         ```php
+         <?php
+         $string = "createname=Test+Meeting&meetingID=abc123&attendeePW=111222&" .
+                   "moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b";
+         $sha256_hash = hash('sha256', $string);
+         echo $sha256_hash;
+         ?>
+         ```
+       - The resulting checksum is: `da9185f7f333cfdfcd6eeac32dca3777510c4c436020d8b887ba5515bd1d189e`
+    5. Add a checksum parameter to your query string:
+       ```plaintext
+       name=Test+Meeting&meetingID=abc123&attendeePW=111222&
+       moderatorPW=333444&checksum=da9185f7f333cfdfcd6eeac32dca3777510c4c436020d8b887ba5515bd1d189e
+       ```
+
+    You **must** send this checksum with **every** API call. Since end users do not know your shared secret, they can not fake calls to the service, and they cannot modify any API calls since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.
   version: 1.0.0
   title: Elos Conference API
   contact:
@@ -9,64 +61,2699 @@ info:
     url: https://elos.vc
     email: contato@elos.vc
 servers:
-- url: /bigbluebutton/api
-  description: The homologation API server
-
+  - url: /bigbluebutton/api
+    description: The homologation API server
 x-tagGroups:
-- name: General
-  tags:
-  - meeting
-  - recording
-- name: Other
-  tags:
-  - hooks
-  - extra
-
+  - name: General
+    tags:
+      - meeting
+      - recording
+  - name: Other
+    tags:
+      - hooks
+      - extra
 tags:
-- name: meeting
-  description: Create, join, end and get information about your meetings
-- name: recording
-  description: Fetch and manage your recordings
-- name: extra
-  description: Extra endpoints and API information
-- name: hooks
-  description: Create and manage webhooks, endpoints used to receive events from your meetings and recordings
+  - name: meeting
+    description: Create, join, end and get information about your meetings
+  - name: recording
+    description: Fetch and manage your recordings
+  - name: extra
+    description: Extra endpoints and API information
+  - name: hooks
+    description: Create and manage webhooks, endpoints used to receive events from your meetings and recordings
 paths:
   /:
-    $ref: "./paths/root.yaml"
+    get:
+      summary: API Version
+      operationId: api-get-version
+      description: Returns the API version
+      tags:
+        - extra
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <version>1.0.0</version>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      returncode:
+                        type: string
+                      version:
+                        type: string
+    post:
+      summary: API Version
+      operationId: api-post-version
+      description: Returns the API version
+      tags:
+        - extra
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <version>1.0.0</version>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      returncode:
+                        type: string
+                      version:
+                        type: string
+    head:
+      summary: API Version
+      operationId: api-head-version
+      description: Returns the API version
+      tags:
+        - extra
+      responses:
+        "200":
+          description: Successful operation
   /getMeetings:
-    $ref: "./paths/getMeetings.yaml"
+    get:
+      summary: getMeetings
+      operationId: getMeetings
+      description: This call will return a list of all the meetings found on the servers that you have access to. It returns only meetings that are created on a server, it won't include past meetings that already ended.
+      tags:
+        - meeting
+      parameters:
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <meetings>
+                        <meeting>
+                          <meetingName>Demo Meeting</meetingName>
+                          <meetingID>Demo Meeting</meetingID>
+                          <internalMeetingID>183f0bf3a0982a127bdb8161e0c44eb696b3e75c-1531241258036</internalMeetingID>
+                          <createTime>1531241258036</createTime>
+                          <createDate>Tue Jul 10 16:47:38 UTC 2018</createDate>
+                          <voiceBridge>70066</voiceBridge>
+                          <dialNumber>613-555-1234</dialNumber>
+                          <attendeePW>ap</attendeePW>
+                          <moderatorPW>mp</moderatorPW>
+                          <running>false</running>
+                          <duration>0</duration>
+                          <hasUserJoined>false</hasUserJoined>
+                          <recording>false</recording>
+                          <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+                          <startTime>1531241258074</startTime>
+                          <endTime>0</endTime>
+                          <participantCount>0</participantCount>
+                          <listenerCount>0</listenerCount>
+                          <voiceParticipantCount>0</voiceParticipantCount>
+                          <videoCount>0</videoCount>
+                          <maxUsers>0</maxUsers>
+                          <moderatorCount>0</moderatorCount>
+                          <attendees/>
+                          <metadata/>
+                          <isBreakout>false</isBreakout>
+                        </meeting>
+                      </meetings>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - meetings
+                    properties:
+                      returncode:
+                        type: string
+                      meetings:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - meetingName
+                            - meetingID
+                            - internalMeetingID
+                            - createTime
+                            - createDate
+                            - voiceBridge
+                            - dialNumber
+                            - attendeePW
+                            - moderatorPW
+                            - running
+                            - duration
+                            - hasUserJoined
+                            - recording
+                            - hasBeenForciblyEnded
+                            - startTime
+                            - endTime
+                            - participantCount
+                            - listenerCount
+                            - voiceParticipantCount
+                            - videoCount
+                            - maxUsers
+                            - moderatorCount
+                            - attendees
+                            - metadata
+                            - isBreakout
+                          properties:
+                            meetingName:
+                              type: string
+                            meetingID:
+                              type: string
+                            internalMeetingID:
+                              type: string
+                            createTime:
+                              type: string
+                            createDate:
+                              type: string
+                              format: date-time
+                            voiceBridge:
+                              type: string
+                            dialNumber:
+                              type: string
+                            attendeePW:
+                              type: string
+                            moderatorPW:
+                              type: string
+                            running:
+                              type: boolean
+                            duration:
+                              type: integer
+                              format: int32
+                            hasUserJoined:
+                              type: boolean
+                            recording:
+                              type: boolean
+                            hasBeenForciblyEnded:
+                              type: boolean
+                            startTime:
+                              type: string
+                            endTime:
+                              type: string
+                            participantCount:
+                              type: integer
+                              format: int32
+                            listenerCount:
+                              type: integer
+                              format: int32
+                            voiceParticipantCount:
+                              type: integer
+                              format: int32
+                            videoCount:
+                              type: integer
+                              format: int32
+                            maxUsers:
+                              type: integer
+                              format: int32
+                            moderatorCount:
+                              type: integer
+                              format: int32
+                            atendees:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                  - userID
+                                  - fullName
+                                  - role
+                                  - isPresenter
+                                  - isListeningOnly
+                                  - hasJoinedVoice
+                                  - hasVideo
+                                  - clientType
+                                  - customData
+                                properties:
+                                  userID:
+                                    type: integer
+                                    format: int64
+                                  fullName:
+                                    type: string
+                                  role:
+                                    type: string
+                                  isPresenter:
+                                    type: boolean
+                                  isListeningOnly:
+                                    type: boolean
+                                  hasJoinedVoice:
+                                    type: boolean
+                                  hasVideo:
+                                    type: boolean
+                                  customData:
+                                    type: object
+                            metaData:
+                              type: object
+                            isBreakout:
+                              type: boolean
+                            transfer:
+                              type: boolean
+                            transferCount:
+                              type: integer
+                              format: int32
   /getAllMeetings:
-    $ref: "./paths/getAllMeetings.yaml"
-  /isMeetingRunning:
-    $ref: "./paths/isMeetingRunning.yaml"
-  /getMeetingInfo:
-    $ref: "./paths/getMeetingInfo.yaml"
-  /create:
-    $ref: "./paths/create.yaml"
-  /end:
-    $ref: "./paths/end.yaml"
-  /join:
-    $ref: "./paths/join.yaml"
-  /getRecordings:
-    $ref: "./paths/getRecordings.yaml"
-  /publishRecordings:
-    $ref: "./paths/publishRecordings.yaml"
-  /deleteRecordings:
-    $ref: "./paths/deleteRecordings.yaml"
-  /updateRecordings:
-    $ref: "./paths/updateRecordings.yaml"
-  # /getRecordingToken: Ainda não implementado
-  #   $ref: "./paths/getRecordingToken.yaml"
-  /hooks/create:
-    $ref: "./paths/createHook.yaml"
-  /hooks/list:
-    $ref: "./paths/list.yaml"
-  /hooks/destroy:
-    $ref: "./paths/destroy.yaml"
-  /hooks/enable:
-    $ref: "./paths/enable.yaml"
+    get:
+      summary: getAllMeetings
+      operationId: getAllMeetings
+      description: |-
+        <div style="
+            background-color: #cff4fc;
+            color: #033b46;
+            padding: 20px;
+            font-size: 16px;
+            border-left: 0.25rem solid #9eeaf9
+            ">
+            This is a custom Elos call, which means it is not supported by the standard BigBlueButton API
+        </div>
 
+        This call works as [getMeetings](#operation/getMeetings) but will also return meetings that already ended. Also, it can aggregate the recording info when setting `includeRecordings` to `true`. This is the standard call used to list a history of meetings (including or not their recordings).
+
+        ### Pagination
+        This call can be paginated using the `limit` and `offset` parameters.
+      tags:
+        - meeting
+      parameters:
+        - name: meetingID
+          in: query
+          description: ID(s) of the meeting. Multiple IDs can be provided, separated by commas.
+          schema:
+            type: string
+        - name: meetingIDWildcard
+          in: query
+          description: If true, `meetingID` will be treated as a wildcard and used as a prefix when matching the resources (i.e. it will run a query similar to `LIKE 'meetingID%'`).
+          schema:
+            type: boolean
+        - name: meetingName
+          in: query
+          description: Name(s) of the meeting. Multiple names can be provided, separated by commas. Filters meetings by exact name.
+          schema:
+            type: string
+        - name: meetingNameWildcard
+          in: query
+          description: If true, `meetingName` will be treated as a wildcard and used as a prefix when matching the resources (i.e. it will run a query similar to `LIKE 'meetingName%'`).
+          schema:
+            type: boolean
+        - name: meta
+          in: query
+          description: |-
+            This is a special parameter that allows the definition of metadata for a meeting. There is no parameter named just `meta`, `meta` is used as a prefix.
+
+            Examples of the use of the meta parameters are `meta_Presenter=Jane%20Doe`, `meta_category-group=FINANCE`, and `meta_TERM=Fall2016`.
+
+            When defining metadata names, use only numbers and letters and the character `-`. Do not use `_`.
+          schema:
+            type: string
+        - name: includeRecordings
+          in: query
+          description: Defines if the recordings must be included in the response.
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          description: Maximum number of rows to return in the response.
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of rows to skip before start retrieving rows.
+          schema:
+            type: integer
+        - name: sort_by
+          in: query
+          description: Which field to sort by
+          schema:
+            type: string
+            enum:
+              - name
+              - start_time
+        - name: order_by
+          in: query
+          description: Set ascending or descending order
+          schema:
+            type: enum
+            enum:
+              - asc
+              - desc
+        - name: start_time
+          in: query
+          description: "Date to filter meetings (format: YYYY-MM-DD). If used alone, only meetings from that day will be retrieved."
+          schema:
+            type: string
+            format: date
+            example: "2024-10-21"
+        - name: end_time
+          in: query
+          description: "Date to filter meetings (format: YYYY-MM-DD)."
+          schema:
+            type: string
+            format: date
+            example: "2024-10-21"
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <nextPage>false</nextPage>
+                      <meetings>
+                          <meetingData>
+                              <meeting>
+                                  <meetingName>mymeeting</meetingName>
+                                  <meetingID>extid</meetingID>
+                                  <internalMeetingID>inid</internalMeetingID>
+                                  <createTime>Thu Sep 18 19:17:10 UTC 2014</createTime>
+                                  <createDate>Thu Sep 18 19:17:10 UTC 2014</createDate>
+                                  <voiceBridge>74518</voiceBridge>
+                                  <dialNumber>613-555-1234</dialNumber>
+                                  <attendeePW>ap</attendeePW>
+                                  <moderatorPW>mp</moderatorPW>
+                                  <running>true</running>
+                                  <duration>0</duration>
+                                  <hasUserJoined>true</hasUserJoined>
+                                  <recording>false</recording>
+                                  <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+                                  <startTime>1411067830029</startTime>
+                                  <endTime>2131241</endTime>
+                                  <participantCount>2</participantCount>
+                                  <listenerCount>1</listenerCount>
+                                  <voiceParticipantCount>1</voiceParticipantCount>
+                                  <videoCount>1</videoCount>
+                                  <maxUsers>3</maxUsers>
+                                  <moderatorCount>1</moderatorCount>
+                                  <attendees></attendees>
+                                  <metadata></metadata>
+                                  <isBreakout>false</isBreakout>
+                                  <transfer>false</transfer>
+                                  <transferCount>0</transferCount>
+                              </meeting>
+                              <recording>
+                                  <recordID>recordID</recordID>
+                                  <meetingID>extid</meetingID>
+                                  <internalMeetingID></internalMeetingID>
+                                  <name>myrecord</name>
+                                  <isBreakout>false</isBreakout>
+                                  <published>true</published>
+                                  <state>published</state>
+                                  <startTime>123123123</startTime>
+                                  <endTime>124124124123123</endTime>
+                                  <size>0</size>
+                                  <rawSize>0</rawSize>
+                                  <participants>2</participants>
+                                  <metadata></metadata>
+                              </recording>
+                          </meetingData>
+                      </meetings>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - nextPage
+                      - meetings
+                    properties:
+                      returncode:
+                        type: string
+                      nextPage:
+                        type: boolean
+                      meetings:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - meeting
+                          properties:
+                            meeting:
+                              type: object
+                              required:
+                                - meetingName
+                                - meetingID
+                                - internalMeetingID
+                                - createTime
+                                - createDate
+                                - voiceBridge
+                                - dialNumber
+                                - attendeePW
+                                - moderatorPW
+                                - running
+                                - duration
+                                - hasUserJoined
+                                - recording
+                                - hasBeenForciblyEnded
+                                - startTime
+                                - endTime
+                                - participantCount
+                                - listenerCount
+                                - voiceParticipantCount
+                                - videoCount
+                                - maxUsers
+                                - moderatorCount
+                                - attendees
+                                - metadata
+                                - isBreakout
+                              properties:
+                                meetingName:
+                                  type: string
+                                meetingID:
+                                  type: string
+                                internalMeetingID:
+                                  type: string
+                                createTime:
+                                  type: string
+                                createDate:
+                                  type: string
+                                  format: date-time
+                                voiceBridge:
+                                  type: string
+                                dialNumber:
+                                  type: string
+                                attendeePW:
+                                  type: string
+                                moderatorPW:
+                                  type: string
+                                running:
+                                  type: boolean
+                                duration:
+                                  type: integer
+                                  format: int32
+                                hasUserJoined:
+                                  type: boolean
+                                recording:
+                                  type: boolean
+                                hasBeenForciblyEnded:
+                                  type: boolean
+                                startTime:
+                                  type: string
+                                endTime:
+                                  type: string
+                                participantCount:
+                                  type: integer
+                                  format: int32
+                                listenerCount:
+                                  type: integer
+                                  format: int32
+                                voiceParticipantCount:
+                                  type: integer
+                                  format: int32
+                                videoCount:
+                                  type: integer
+                                  format: int32
+                                maxUsers:
+                                  type: integer
+                                  format: int32
+                                moderatorCount:
+                                  type: integer
+                                  format: int32
+                                atendees:
+                                  type: array
+                                  items:
+                                    type: object
+                                    required:
+                                      - userID
+                                      - fullName
+                                      - role
+                                      - isPresenter
+                                      - isListeningOnly
+                                      - hasJoinedVoice
+                                      - hasVideo
+                                      - clientType
+                                      - customData
+                                    properties:
+                                      userID:
+                                        type: integer
+                                        format: int64
+                                      fullName:
+                                        type: string
+                                      role:
+                                        type: string
+                                      isPresenter:
+                                        type: boolean
+                                      isListeningOnly:
+                                        type: boolean
+                                      hasJoinedVoice:
+                                        type: boolean
+                                      hasVideo:
+                                        type: boolean
+                                      customData:
+                                        type: object
+                                metaData:
+                                  type: object
+                                isBreakout:
+                                  type: boolean
+                                transfer:
+                                  type: boolean
+                                transferCount:
+                                  type: integer
+                                  format: int32
+                            recording:
+                              type: object
+                              required:
+                                - recordID
+                                - meetingID
+                                - internalMeetingID
+                                - name
+                                - isBreakout
+                                - published
+                                - state
+                                - startTime
+                                - endTime
+                                - size
+                                - rawSize
+                                - participants
+                                - metadata
+                              properties:
+                                recordID:
+                                  type: string
+                                meetingID:
+                                  type: string
+                                internalMeetingID:
+                                  type: string
+                                name:
+                                  type: string
+                                isBreakout:
+                                  type: boolean
+                                published:
+                                  type: boolean
+                                state:
+                                  type: string
+                                  enum:
+                                    - unpublished
+                                    - published
+                                    - processing
+                                    - deleted
+                                startTime:
+                                  type: integer
+                                endTime:
+                                  type: integer
+                                size:
+                                  type: integer
+                                rawSize:
+                                  type: integer
+                                participants:
+                                  type: integer
+                                metadata:
+                                  type: object
+                                playback:
+                                  type: object
+                                  required:
+                                    - format
+                                  properties:
+                                    format:
+                                      type: object
+                                      required:
+                                        - type
+                                        - url
+                                        - processingTime
+                                        - length
+                                        - size
+                                        - preview
+                                      properties:
+                                        type:
+                                          type: string
+                                          enum:
+                                            - presentation
+                                            - video
+                                        url:
+                                          type: string
+                                        processingTime:
+                                          type: integer
+                                        length:
+                                          type: integer
+                                        size:
+                                          type: integer
+                                        preview:
+                                          type: object
+                                          properties:
+                                            images:
+                                              type: array
+                                              items:
+                                                type: string
+  /isMeetingRunning:
+    get:
+      summary: isMeetingRunning
+      operationId: isMeetingRunning
+      description: This call allows you to check whether a meeting is running or not by looking it up using a meetingID.
+      tags:
+        - meeting
+      parameters:
+        - name: meetingID
+          in: query
+          description: ID(s) of the meeting. Multiple IDs can be provided, separated by commas.
+          schema:
+            type: string
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                       <returncode>SUCCESS</returncode>
+                       <running>true</running>                   
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - running
+                    properties:
+                      returncode:
+                        type: string
+                      running:
+                        type: boolean
+  /getMeetingInfo:
+    get:
+      summary: getMeetingInfo
+      operationId: getMeetingInfo
+      description: Returns information about a meeting that is currently created on the servers (won't returned meetings that already ended).
+      tags:
+        - meeting
+      parameters:
+        - name: meetingID
+          in: query
+          description: ID(s) of the meeting. Multiple IDs can be provided, separated by commas.
+          schema:
+            type: string
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <meetingName>random-9031005</meetingName>
+                      <meetingID>random-9031005</meetingID>
+                      <internalMeetingID>dd6dad570f6323f50a9e1e1c6e94771b844e7495-1645118562804</internalMeetingID>
+                      <createTime>1645118562804</createTime>
+                      <createDate>Thu Feb 17 17:22:42 UTC 2022</createDate>
+                      <voiceBridge>490695878</voiceBridge>
+                      <dialNumber>18632080022</dialNumber>
+                      <attendeePW>ap</attendeePW>
+                      <moderatorPW>mp</moderatorPW>
+                      <running>false</running>
+                      <duration>540</duration>
+                      <hasUserJoined>false</hasUserJoined>
+                      <recording>false</recording>
+                      <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+                      <startTime>1645118562816</startTime>
+                      <endTime>0</endTime>
+                      <participantCount>0</participantCount>
+                      <listenerCount>0</listenerCount>
+                      <voiceParticipantCount>0</voiceParticipantCount>
+                      <videoCount>0</videoCount>
+                      <maxUsers>0</maxUsers>
+                      <moderatorCount>0</moderatorCount>
+                      <attendees/>
+                      <metadata/>
+                      <isBreakout>false</isBreakout>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - meeting
+                    properties:
+                      returncode:
+                        type: string
+                      meeting:
+                        type: object
+                        required:
+                          - meetingName
+                          - meetingID
+                          - internalMeetingID
+                          - createTime
+                          - createDate
+                          - voiceBridge
+                          - dialNumber
+                          - attendeePW
+                          - moderatorPW
+                          - running
+                          - duration
+                          - hasUserJoined
+                          - recording
+                          - hasBeenForciblyEnded
+                          - startTime
+                          - endTime
+                          - participantCount
+                          - listenerCount
+                          - voiceParticipantCount
+                          - videoCount
+                          - maxUsers
+                          - moderatorCount
+                          - attendees
+                          - metadata
+                          - isBreakout
+                        properties:
+                          meetingName:
+                            type: string
+                          meetingID:
+                            type: string
+                          internalMeetingID:
+                            type: string
+                          createTime:
+                            type: string
+                          createDate:
+                            type: string
+                            format: date-time
+                          voiceBridge:
+                            type: string
+                          dialNumber:
+                            type: string
+                          attendeePW:
+                            type: string
+                          moderatorPW:
+                            type: string
+                          running:
+                            type: boolean
+                          duration:
+                            type: integer
+                            format: int32
+                          hasUserJoined:
+                            type: boolean
+                          recording:
+                            type: boolean
+                          hasBeenForciblyEnded:
+                            type: boolean
+                          startTime:
+                            type: string
+                          endTime:
+                            type: string
+                          participantCount:
+                            type: integer
+                            format: int32
+                          listenerCount:
+                            type: integer
+                            format: int32
+                          voiceParticipantCount:
+                            type: integer
+                            format: int32
+                          videoCount:
+                            type: integer
+                            format: int32
+                          maxUsers:
+                            type: integer
+                            format: int32
+                          moderatorCount:
+                            type: integer
+                            format: int32
+                          atendees:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                                - userID
+                                - fullName
+                                - role
+                                - isPresenter
+                                - isListeningOnly
+                                - hasJoinedVoice
+                                - hasVideo
+                                - clientType
+                                - customData
+                              properties:
+                                userID:
+                                  type: integer
+                                  format: int64
+                                fullName:
+                                  type: string
+                                role:
+                                  type: string
+                                isPresenter:
+                                  type: boolean
+                                isListeningOnly:
+                                  type: boolean
+                                hasJoinedVoice:
+                                  type: boolean
+                                hasVideo:
+                                  type: boolean
+                                customData:
+                                  type: object
+                          metaData:
+                            type: object
+                          isBreakout:
+                            type: boolean
+                          transfer:
+                            type: boolean
+                          transferCount:
+                            type: integer
+                            format: int32
+  /create:
+    get:
+      summary: create
+      operationId: get-create
+      description: |-
+        Creates a meeting. This is the API call that receives all configurations for a meeting, some that can't be changed later on. Only after creating a meeting the users are allowed to join it.
+
+        It is recommended to call `create` always before joining a user into a session. The create call is idempotent: you can call it multiple times with the same parameters without side effects. This simplifies the logic for joining a user into a session as your application can always call `create` before returning the join URL to the user. This way, regardless of the order in which users join, the meeting will always exist when the user tries to join (the first `create` call actually creates the meeting; subsequent calls to `create` simply return `SUCCESS` and and indication that the meeting is already running).
+
+        If you create a meeting but no user joins it, it will be automatically finished after a few minutes.
+      tags:
+        - meeting
+      parameters:
+        - name: name
+          in: query
+          description: Name of the meeting that will be created.
+          schema:
+            type: string
+        - name: meetingID
+          in: query
+          description: "A meeting ID that can be used to identify this meeting by the 3rd-party application. It must be unique for each meeting: different active meetings can not have the same meeting ID. Meeting IDs should only contain upper/lower ASCII letters, numbers, dashes, or underscores. A good choice for the meeting ID is to use GUID value."
+          schema:
+            type: string
+        - name: attendeePW
+          in: query
+          description: A secret string that can be used later on the [join](#operation/join-meeting) API call to indicate that the user should be an attendee. If no `attendeePW` is provided, a random string will be used and returned.
+          schema:
+            type: string
+        - name: moderatorPW
+          in: query
+          description: A secret string that can be used later on the [join](#operation/join-meeting) API call to indicate that the user should be a moderator. If no `moderatorPW` is provided, a random string will be used and returned.
+          schema:
+            type: string
+        - name: welcome
+          in: query
+          description: |-
+            A welcome message that gets displayed on the chat window when the participant joins. You can include keywords (`%%CONFNAME%%`, `%%DIALNUM%%`, `%%CONFNUM%%`) which will be substituted automatically.
+
+            The welcome message has limited support for HTML formatting. Be careful about copy/pasted HTML from e.g. MS Word, as it can easily exceed the maximum supported URL length when used on a GET request.
+          schema:
+            type: string
+        - name: maxParticipants
+          in: query
+          description: Set the maximum number of users allowed to join the conference at the same time.
+          schema:
+            type: integer
+        - name: logoutURL
+          in: query
+          description: The URL to which users are redirected after leaving the conference.
+          schema:
+            type: string
+        - name: record
+          in: query
+          description: |-
+            Setting `record=true` allows users to record this conference. Only users with permission are able to start and stop recording.
+
+            In order for a playback file to be generated, a moderator must click the Start/Stop Recording button at least once during the sesssion; otherwise, in the absence of any recording marks, no playback file will be generated.
+          schema:
+            type: boolean
+            default: false
+        - name: duration
+          in: query
+          description: |-
+            The maximum length (in minutes) for the meeting.
+
+            BigBlueButton begins tracking the length of a meeting when it is created. If `duration` contains a non-zero value, then when the length of the meeting exceeds the duration value the server will immediately end the meeting (equivalent to receiving an end API request at that moment).
+          schema:
+            type: integer
+            default: 0
+        - name: isBreakout
+          in: query
+          description: Must be set to `true` to create a breakout room.
+          schema:
+            type: boolean
+            default: false
+        - name: parentMeetingID
+          in: query
+          description: Must be provided when creating a breakout room, the parent room must be running.
+          schema:
+            type: string
+        - name: sequence
+          in: query
+          description: The sequence number of the breakout room.
+          schema:
+            type: integer
+        - name: freeJoin
+          in: query
+          description: If set to true, the client will give the user the choice to choose the breakout rooms he wants to join.
+          schema:
+            type: boolean
+        - name: breakoutRoomsEnabled
+          in: query
+          description: If set to false, breakout rooms will be disabled.
+          schema:
+            type: boolean
+            default: true
+        - name: breakoutRoomsPrivateChatEnabled
+          in: query
+          description: If set to false, the private chat will be disabled in breakout rooms.
+          schema:
+            type: boolean
+            default: true
+        - name: breakoutRoomsRecord
+          in: query
+          description: If set to false, breakout rooms will not be recorded.
+          schema:
+            type: boolean
+            default: true
+        - name: meta
+          in: query
+          description: |-
+            This is a special parameter that allows the definition of metadata for a meeting. There is no parameter named just `meta`, `meta` is used as a prefix.
+
+            Examples of the use of the meta parameters are `meta_Presenter=Jane%20Doe`, `meta_category-group=FINANCE`, and `meta_TERM=Fall2016`.
+
+            When defining metadata names, use only numbers and letters and the character `-`. Do not use `_`.
+          schema:
+            type: string
+        - name: moderatorOnlyMessage
+          in: query
+          description: |-
+            Display a message to all moderators in the public chat.
+
+            The value is interpreted in the same way as the `welcome` parameter.
+          schema:
+            type: string
+        - name: autoStartRecording
+          in: query
+          description: |-
+            Whether to automatically start recording when first user joins.
+
+            When this parameter is `true`, the recording interface in the conference will be initially active. Moderators in the session can still pause and restart recording using the UI control.
+
+            *NOTE: Don't pass `autoStartRecording=false` and `allowStartStopRecording=false` - the moderator won't be able to start recording!
+          schema:
+            type: boolean
+            default: false
+        - name: allowStartStopRecording
+          in: query
+          description: |-
+            Allow the user to start/stop recording.
+
+            If you set both `allowStartStopRecording=false` and `autoStartRecording=true`, then the entire length of the session will be recorded, and the moderators in the session will not be able to pause/resume the recording.
+          schema:
+            type: boolean
+            default: true
+        - name: webcamsOnlyForModerator
+          in: query
+          description: Setting to `true` will cause all webcams shared by viewers during this meeting to only appear for moderators.
+          schema:
+            type: boolean
+            default: false
+        - name: bannerText
+          in: query
+          description: Will set the banner text in the client.
+          schema:
+            type: string
+        - name: bannerColor
+          in: query
+          description: Will set the banner background color in the client. The required format is color hex
+          schema:
+            type: string
+            format: hex
+        - name: muteOnStart
+          in: query
+          description: Setting `true` will mute all users when the meeting starts.
+          schema:
+            type: boolean
+        - name: allowModsToUnmuteUsers
+          in: query
+          description: Setting to `true` will allow moderators to unmute other users in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisableCam
+          in: query
+          description: Setting `true` will prevent users from sharing their camera in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisableMic
+          in: query
+          description: Setting to `true` will only allow user to join listen only.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisablePrivateChat
+          in: query
+          description: Setting to `true` will disable private chats in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisablePublicChat
+          in: query
+          description: Setting to `true` will disable public chat in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisableNote
+          in: query
+          description: Setting to `true` will disable notes in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsLockedLayout
+          in: query
+          description: Setting to true will lock the layout in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsLockOnJoin
+          in: query
+          description: Setting to `false` will not apply lock setting to users when they join.
+          schema:
+            type: boolean
+            default: true
+        - name: lockSettingsLockOnJoinConfigurable
+          in: query
+          description: Setting to `true` will allow applying of `lockSettingsLockOnJoin`.
+          schema:
+            type: boolean
+            default: false
+        - name: guestPolicy
+          in: query
+          description: Will set the guest policy for the meeting. The guest policy determines whether or not users who send a join request with `guest=true` will be allowed to join the meeting.
+          schema:
+            type: string
+            enum:
+              - ALWAYS_ACCEPT
+              - ALWAYS_DENY
+              - ASK_MODERATOR
+        - name: meetingKeepEvents
+          in: query
+          description: If `meetingKeepEvents` is `true`, meeting events will be stored even if the meeting is not recorded
+          schema:
+            type: boolean
+            default: false
+        - name: endWhenNoModerator
+          in: query
+          description: If `endWhenNoModerator` is `true` the meeting will end automatically after a delay in case no moderator is present.
+          schema:
+            type: boolean
+            default: false
+        - name: endWhenNoModeratorDelayInMinutes
+          in: query
+          description: If `endWhenNoModerator` is `true`, the meeting will be automatically ended after this many minutes.
+          schema:
+            type: integer
+            default: 1
+        - name: meetingLayout
+          in: query
+          description: Will set the default layout for the meeting.
+          schema:
+            type: string
+            enum:
+              - CUSTOM_LAYOUT
+              - SMART_LAYOUT
+              - PRESENTATION_FOCUS
+              - VIDEO_FOCUS
+            default: SMART_LAYOUT
+        - name: learningDashboardEnabled
+          in: query
+          description: When this option is set to `true`, the Learning Dashboard will be available, a place where moderators can view a summary of the activities of the meeting.
+          schema:
+            type: boolean
+            default: true
+        - name: learningDashboardCleanupDelayInMinutes
+          in: query
+          description: This option set the delay (in minutes) before the Learning Dashboard become unavailable after the end of the meeting. If this value is zero, the Learning Dashboard will keep available permanently.
+          schema:
+            type: integer
+            default: 2
+        - name: allowModsToEjectCameras
+          in: query
+          description: Setting to `true` will allow moderators to close other users cameras in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: allowRequestsWithoutSession
+          in: query
+          description: Setting to `true` will allow users to join meetings without session cookie's validation.
+          schema:
+            type: boolean
+            default: false
+        - name: virtualBackgroundsDisabled
+          in: query
+          description: Setting to `true` will disable Virtual Backgrounds for all users in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <meetingID>mymeeting</meetingID>
+                      <internalMeetingID>364366f1ca5940e99c149adbf046370ce8da625c-1529954869512</internalMeetingID>
+                      <parentMeetingID>bbb-none</parentMeetingID>
+                      <attendeePW>EWOIptzv</attendeePW>
+                      <moderatorPW>mp</moderatorPW>
+                      <createTime>1529954870092</createTime>
+                      <voiceBridge>55523</voiceBridge>
+                      <dialNumber>613-555-1234</dialNumber>
+                      <createDate>Mon Jun 25 21:27:50 CEST 2018</createDate>
+                      <hasUserJoined>false</hasUserJoined>
+                      <duration>0</duration>
+                      <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+                      <messageKey/>
+                      <message/>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - meetingID
+                      - internalMeetingID
+                      - parentMeetingID
+                      - attendeePW
+                      - moderatorPW
+                      - createTime
+                      - voiceBridge
+                      - dialNumber
+                      - createDate
+                      - hasUserJoined
+                      - duration
+                      - hasBeenForciblyEnded
+                    properties:
+                      returncode:
+                        type: string
+                      meetingID:
+                        type: string
+                      internalMeetingID:
+                        type: string
+                      parentMeetingID:
+                        type: string
+                      attendeePW:
+                        type: string
+                      moderatorPW:
+                        type: string
+                      createTime:
+                        type: string
+                      voiceBridge:
+                        type: string
+                      dialNumber:
+                        type: string
+                      createDate:
+                        type: string
+                        format: date-time
+                      hasUserJoined:
+                        type: boolean
+                      duration:
+                        type: integer
+                        format: int32
+                      hasBeenForciblyEnded:
+                        type: boolean
+                      messageKey:
+                        type: string
+                      message:
+                        type: string
+    post:
+      summary: create
+      operationId: post-create
+      description: |-
+        Creates a meeting. This is the API call that receives all configurations for a meeting, some that can't be changed later on. Only after creating a meeting the users are allowed to join it.
+
+        It is recommended to call `create` always before joining a user into a session. The create call is idempotent: you can call it multiple times with the same parameters without side effects. This simplifies the logic for joining a user into a session as your application can always call `create` before returning the join URL to the user. This way, regardless of the order in which users join, the meeting will always exist when the user tries to join (the first `create` call actually creates the meeting; subsequent calls to `create` simply return `SUCCESS` and and indication that the meeting is already running).
+
+        If you create a meeting but no user joins it, it will be automatically finished after a few minutes.
+      tags:
+        - meeting
+      parameters:
+        - name: name
+          in: query
+          description: Name of the meeting that will be created.
+          schema:
+            type: string
+        - name: meetingID
+          in: query
+          description: "A meeting ID that can be used to identify this meeting by the 3rd-party application. It must be unique for each meeting: different active meetings can not have the same meeting ID. Meeting IDs should only contain upper/lower ASCII letters, numbers, dashes, or underscores. A good choice for the meeting ID is to use GUID value."
+          schema:
+            type: string
+        - name: attendeePW
+          in: query
+          description: A secret string that can be used later on the [join](#operation/join-meeting) API call to indicate that the user should be an attendee. If no `attendeePW` is provided, a random string will be used and returned.
+          schema:
+            type: string
+        - name: moderatorPW
+          in: query
+          description: A secret string that can be used later on the [join](#operation/join-meeting) API call to indicate that the user should be a moderator. If no `moderatorPW` is provided, a random string will be used and returned.
+          schema:
+            type: string
+        - name: welcome
+          in: query
+          description: |-
+            A welcome message that gets displayed on the chat window when the participant joins. You can include keywords (`%%CONFNAME%%`, `%%DIALNUM%%`, `%%CONFNUM%%`) which will be substituted automatically.
+
+            The welcome message has limited support for HTML formatting. Be careful about copy/pasted HTML from e.g. MS Word, as it can easily exceed the maximum supported URL length when used on a GET request.
+          schema:
+            type: string
+        - name: maxParticipants
+          in: query
+          description: Set the maximum number of users allowed to join the conference at the same time.
+          schema:
+            type: integer
+        - name: logoutURL
+          in: query
+          description: The URL to which users are redirected after leaving the conference.
+          schema:
+            type: string
+        - name: record
+          in: query
+          description: |-
+            Setting `record=true` allows users to record this conference. Only users with permission are able to start and stop recording.
+
+            In order for a playback file to be generated, a moderator must click the Start/Stop Recording button at least once during the sesssion; otherwise, in the absence of any recording marks, no playback file will be generated.
+          schema:
+            type: boolean
+            default: false
+        - name: duration
+          in: query
+          description: |-
+            The maximum length (in minutes) for the meeting.
+
+            BigBlueButton begins tracking the length of a meeting when it is created. If `duration` contains a non-zero value, then when the length of the meeting exceeds the duration value the server will immediately end the meeting (equivalent to receiving an end API request at that moment).
+          schema:
+            type: integer
+            default: 0
+        - name: isBreakout
+          in: query
+          description: Must be set to `true` to create a breakout room.
+          schema:
+            type: boolean
+            default: false
+        - name: parentMeetingID
+          in: query
+          description: Must be provided when creating a breakout room, the parent room must be running.
+          schema:
+            type: string
+        - name: sequence
+          in: query
+          description: The sequence number of the breakout room.
+          schema:
+            type: integer
+        - name: freeJoin
+          in: query
+          description: If set to true, the client will give the user the choice to choose the breakout rooms he wants to join.
+          schema:
+            type: boolean
+        - name: breakoutRoomsEnabled
+          in: query
+          description: If set to false, breakout rooms will be disabled.
+          schema:
+            type: boolean
+            default: true
+        - name: breakoutRoomsPrivateChatEnabled
+          in: query
+          description: If set to false, the private chat will be disabled in breakout rooms.
+          schema:
+            type: boolean
+            default: true
+        - name: breakoutRoomsRecord
+          in: query
+          description: If set to false, breakout rooms will not be recorded.
+          schema:
+            type: boolean
+            default: true
+        - name: meta
+          in: query
+          description: |-
+            This is a special parameter that allows the definition of metadata for a meeting. There is no parameter named just `meta`, `meta` is used as a prefix.
+
+            Examples of the use of the meta parameters are `meta_Presenter=Jane%20Doe`, `meta_category-group=FINANCE`, and `meta_TERM=Fall2016`.
+
+            When defining metadata names, use only numbers and letters and the character `-`. Do not use `_`.
+          schema:
+            type: string
+        - name: moderatorOnlyMessage
+          in: query
+          description: |-
+            Display a message to all moderators in the public chat.
+
+            The value is interpreted in the same way as the `welcome` parameter.
+          schema:
+            type: string
+        - name: autoStartRecording
+          in: query
+          description: |-
+            Whether to automatically start recording when first user joins.
+
+            When this parameter is `true`, the recording interface in the conference will be initially active. Moderators in the session can still pause and restart recording using the UI control.
+
+            *NOTE: Don't pass `autoStartRecording=false` and `allowStartStopRecording=false` - the moderator won't be able to start recording!
+          schema:
+            type: boolean
+            default: false
+        - name: allowStartStopRecording
+          in: query
+          description: |-
+            Allow the user to start/stop recording.
+
+            If you set both `allowStartStopRecording=false` and `autoStartRecording=true`, then the entire length of the session will be recorded, and the moderators in the session will not be able to pause/resume the recording.
+          schema:
+            type: boolean
+            default: true
+        - name: webcamsOnlyForModerator
+          in: query
+          description: Setting to `true` will cause all webcams shared by viewers during this meeting to only appear for moderators.
+          schema:
+            type: boolean
+            default: false
+        - name: bannerText
+          in: query
+          description: Will set the banner text in the client.
+          schema:
+            type: string
+        - name: bannerColor
+          in: query
+          description: Will set the banner background color in the client. The required format is color hex
+          schema:
+            type: string
+            format: hex
+        - name: muteOnStart
+          in: query
+          description: Setting `true` will mute all users when the meeting starts.
+          schema:
+            type: boolean
+        - name: allowModsToUnmuteUsers
+          in: query
+          description: Setting to `true` will allow moderators to unmute other users in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisableCam
+          in: query
+          description: Setting `true` will prevent users from sharing their camera in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisableMic
+          in: query
+          description: Setting to `true` will only allow user to join listen only.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisablePrivateChat
+          in: query
+          description: Setting to `true` will disable private chats in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisablePublicChat
+          in: query
+          description: Setting to `true` will disable public chat in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsDisableNote
+          in: query
+          description: Setting to `true` will disable notes in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsLockedLayout
+          in: query
+          description: Setting to true will lock the layout in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: lockSettingsLockOnJoin
+          in: query
+          description: Setting to `false` will not apply lock setting to users when they join.
+          schema:
+            type: boolean
+            default: true
+        - name: lockSettingsLockOnJoinConfigurable
+          in: query
+          description: Setting to `true` will allow applying of `lockSettingsLockOnJoin`.
+          schema:
+            type: boolean
+            default: false
+        - name: guestPolicy
+          in: query
+          description: Will set the guest policy for the meeting. The guest policy determines whether or not users who send a join request with `guest=true` will be allowed to join the meeting.
+          schema:
+            type: string
+            enum:
+              - ALWAYS_ACCEPT
+              - ALWAYS_DENY
+              - ASK_MODERATOR
+        - name: meetingKeepEvents
+          in: query
+          description: If `meetingKeepEvents` is `true`, meeting events will be stored even if the meeting is not recorded
+          schema:
+            type: boolean
+            default: false
+        - name: endWhenNoModerator
+          in: query
+          description: If `endWhenNoModerator` is `true` the meeting will end automatically after a delay in case no moderator is present.
+          schema:
+            type: boolean
+            default: false
+        - name: endWhenNoModeratorDelayInMinutes
+          in: query
+          description: If `endWhenNoModerator` is `true`, the meeting will be automatically ended after this many minutes.
+          schema:
+            type: integer
+            default: 1
+        - name: meetingLayout
+          in: query
+          description: Will set the default layout for the meeting.
+          schema:
+            type: string
+            enum:
+              - CUSTOM_LAYOUT
+              - SMART_LAYOUT
+              - PRESENTATION_FOCUS
+              - VIDEO_FOCUS
+            default: SMART_LAYOUT
+        - name: learningDashboardEnabled
+          in: query
+          description: When this option is set to `true`, the Learning Dashboard will be available, a place where moderators can view a summary of the activities of the meeting.
+          schema:
+            type: boolean
+            default: true
+        - name: learningDashboardCleanupDelayInMinutes
+          in: query
+          description: This option set the delay (in minutes) before the Learning Dashboard become unavailable after the end of the meeting. If this value is zero, the Learning Dashboard will keep available permanently.
+          schema:
+            type: integer
+            default: 2
+        - name: allowModsToEjectCameras
+          in: query
+          description: Setting to `true` will allow moderators to close other users cameras in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: allowRequestsWithoutSession
+          in: query
+          description: Setting to `true` will allow users to join meetings without session cookie's validation.
+          schema:
+            type: boolean
+            default: false
+        - name: virtualBackgroundsDisabled
+          in: query
+          description: Setting to `true` will disable Virtual Backgrounds for all users in the meeting.
+          schema:
+            type: boolean
+            default: false
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          ## Pre-upload Slides
+
+          You can upload slides within the create call. If you do this, the BigBlueButton server will immediately download and process the slides.
+
+          You can pass the slides as a URL or embed the slides in base64 as part of the POST request. For embedding the slides, you have to send a HTTPS POST request (by default, the total size of the POST request can’t exceed 2MB, so embedding very large slides won’t work). The URL Resource has to be the same as the previously described.
+
+          In the body part, you would append a simple XML like the example below:
+
+          ```xml
+          <modules>
+             <module name="presentation">
+                <document url="http://www.sample-pdf.com/sample.pdf" filename="report.pdf"/>
+                <document name="sample-presentation.pdf">JVBERi0xLjQKJ....
+                  [clipped here]
+                  ....0CiUlRU9GCg==
+                </document>
+             </module>
+          </modules>
+          ```
+
+          When you need to provide a document using a URL, and the document URL does not contain an extension, you can use the filename parameter, such as filename=test-results.pdf to help the BigBlueButton server determine the file type (in this example it would be a PDF file).
+
+          In the case more than a single document is provided, the first one will be loaded in the client, the processing of the other documents will continue in the background and they will be available for display when the user select one of them from the client.
+        content:
+          application/xml:
+            schema:
+              type: object
+              properties:
+                modules:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      module:
+                        type: object
+                        properties:
+                          document:
+                            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <meetingID>mymeeting</meetingID>
+                      <internalMeetingID>364366f1ca5940e99c149adbf046370ce8da625c-1529954869512</internalMeetingID>
+                      <parentMeetingID>bbb-none</parentMeetingID>
+                      <attendeePW>EWOIptzv</attendeePW>
+                      <moderatorPW>mp</moderatorPW>
+                      <createTime>1529954870092</createTime>
+                      <voiceBridge>55523</voiceBridge>
+                      <dialNumber>613-555-1234</dialNumber>
+                      <createDate>Mon Jun 25 21:27:50 CEST 2018</createDate>
+                      <hasUserJoined>false</hasUserJoined>
+                      <duration>0</duration>
+                      <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+                      <messageKey/>
+                      <message/>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - meetingID
+                      - internalMeetingID
+                      - parentMeetingID
+                      - attendeePW
+                      - moderatorPW
+                      - createTime
+                      - voiceBridge
+                      - dialNumber
+                      - createDate
+                      - hasUserJoined
+                      - duration
+                      - hasBeenForciblyEnded
+                    properties:
+                      returncode:
+                        type: string
+                      meetingID:
+                        type: string
+                      internalMeetingID:
+                        type: string
+                      parentMeetingID:
+                        type: string
+                      attendeePW:
+                        type: string
+                      moderatorPW:
+                        type: string
+                      createTime:
+                        type: string
+                      voiceBridge:
+                        type: string
+                      dialNumber:
+                        type: string
+                      createDate:
+                        type: string
+                        format: date-time
+                      hasUserJoined:
+                        type: boolean
+                      duration:
+                        type: integer
+                        format: int32
+                      hasBeenForciblyEnded:
+                        type: boolean
+                      messageKey:
+                        type: string
+                      message:
+                        type: string
+  /end:
+    get:
+      summary: end
+      operationId: end-meeting
+      description: Use this to forcibly end a meeting and kick all participants out of the meeting.
+      tags:
+        - meeting
+      parameters:
+        - name: meetingID
+          in: query
+          description: ID(s) of the meeting. Multiple IDs can be provided, separated by commas.
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The meeting password, that defines the user role in the session (either `attendeePW` or `moderatorPW`).
+          required: true
+          schema:
+            type: string
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                       <returncode>SUCCESS</returncode>
+                       <messageKey>sentEndMeetingRequest</messageKey>
+                       <message>A request to end the meeting was sent.  Please wait a few seconds, and then use the getMeetingInfo or isMeetingRunning API calls to verify that it was ended.</message>                   
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                    properties:
+                      returncode:
+                        type: string
+                      messageKey:
+                        type: string
+                        enum:
+                          - sentEndMeetingRequest
+                      message:
+                        type: string
+  /join:
+    get:
+      summary: join
+      operationId: join-meeting
+      description: Joins a user to the meeting specified in the meetingID parameter.
+      tags:
+        - meeting
+      parameters:
+        - name: fullName
+          in: query
+          description: Name of the user
+          required: true
+          schema:
+            type: string
+        - name: meetingID
+          in: query
+          description: ID(s) of the meeting. Multiple IDs can be provided, separated by commas.
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The meeting password, that defines the user role in the session (either `attendeePW` or `moderatorPW`).
+          required: true
+          schema:
+            type: string
+        - name: createTime
+          in: query
+          description: Set this to the `createTime` returned by the `create` API call when the meeting was created. The server will ensure it matches the `createTime` for the session. If they differ, the `join` request will fail. This prevents a user from reusing their join URL for a subsequent session with the same `meetingID`.
+          schema:
+            type: string
+        - name: userID
+          in: query
+          description: An identifier for this user that will help your application to identify which person this is. This user ID will be returned for this user in the `getMeetingInfo` API call so that you can check.
+          schema:
+            type: string
+        - name: webVoiceConf
+          in: query
+          description: If you want to pass in a custom voice-extension when a user joins the voice conference using voip. This is useful if you want to collect more info in you Call Detail Records about the user joining the conference.
+          schema:
+            type: string
+        - name: defaultLayout
+          in: query
+          description: The layout name to be loaded first when the application is loaded.
+          schema:
+            type: string
+        - name: avatarURL
+          in: query
+          description: The link for the user's avatar to be displayed.
+          schema:
+            type: string
+        - name: redirect
+          in: query
+          description: Variable that defines if user will be redirected. Setting this variable to `false` will not redirect the browser but returns an XML instead whether the JOIN call has succeeded or not.
+          schema:
+            type: boolean
+            default: true
+        - name: clientURL
+          in: query
+          description: Some third party apps what to display their own custom client. These apps can pass the URL containing the custom client and when redirect is not set to false, the browser will get redirected to the value of clientURL.
+          schema:
+            type: string
+        - name: guest
+          in: query
+          description: Set to `true` to indicate that the user is a guest, otherwise do NOT send this parameter.
+          schema:
+            type: boolean
+        - name: role
+          in: query
+          description: Define user role for the meeting. If the role parameter is present and it's a valid option, it will take over of any password parameter provided.
+          schema:
+            type: string
+            enum:
+              - MODERATOR
+              - VIEWER
+        - name: excludeFromDashboard
+          in: query
+          description: If the parameter is passed on JOIN with value `true`, the user will be omitted from being displayed in the Learning Dashboard.
+          schema:
+            type: boolean
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <messageKey>successfullyJoined</messageKey>
+                      <message>You have joined successfully.</message>
+                      <meeting_id>640ab2bae07bedc4c163f679a746f7ab7fb5d1fa-1531155809613</meeting_id>
+                      <user_id>w_euxnssffnsbs</user_id>
+                      <auth_token>14mm5y3eurjw</auth_token>
+                      <session_token>ai1wqj8wb6s7rnk0</session_token>
+                      <url>https://yourserver.com/client/BigBlueButton.html?sessionToken=ai1wqj8wb6s7rnk0</url>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - messageKey
+                      - message
+                      - meeting_id
+                      - user_id
+                      - auth_token
+                      - session_token
+                      - url
+                    properties:
+                      returncode:
+                        type: string
+                      messageKey:
+                        type: string
+                        enum:
+                          - successfullyJoined
+                      message:
+                        type: string
+                      meeting_id:
+                        type: string
+                      user_id:
+                        type: string
+                      auth_token:
+                        type: string
+                      session_token:
+                        type: string
+                      guestStatus:
+                        description: Only when `guest` parameter is set to `true`.
+                        type: string
+                        enum:
+                          - ALLOW
+                          - WAIT
+                          - DENY
+                      url:
+                        type: string
+        "302":
+          description: Successful redirect
+  /getRecordings:
+    get:
+      summary: getRecordings
+      operationId: getRecordings
+      description: |-
+        Retrieves the recordings that are available for playback for a given `meetingID` (or set of `meetingID`s).
+
+        ### Pagination
+        This call can be paginated using the `limit` and `offset` parameters.
+      tags:
+        - recording
+      parameters:
+        - name: meetingID
+          in: query
+          description: The `meetingID` for get the recordings. It can be a set of `meetingID`s separated by commas. If the meeting ID is not specified, it will return all the recordings. If a `recordID` is specified, the `meetingID` is ignored.
+          schema:
+            type: string
+        - name: meetingIDWildcard
+          in: query
+          description: If true, `meetingID` will be treated as a wildcard and used as a prefix when matching the resources (i.e. it will run a query similar to `LIKE 'meetingID%'`).
+          schema:
+            type: boolean
+        - name: recordID
+          in: query
+          description: A record ID for get the recordings. It can be a set of record IDs separate by commas. If the record ID is not specified, it will use `meetingID` as the main criteria. If neither is specified, it will return all the recordings. The record ID can also be used as a wildcard by including only the first characters in the string.
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: The parameter state can be used to filter results. It can be a set of states separate by commas. If it is specified as `any`, recordings in all states are included.
+          schema:
+            type: string
+            enum:
+              - processing
+              - processed
+              - published
+              - unpublished
+              - any
+            default: published,unpublished
+        - name: meta
+          in: query
+          description: |-
+            This is a special parameter that allows the definition of metadata for a meeting. There is no parameter named just `meta`, `meta` is used as a prefix.
+
+            Examples of the use of the meta parameters are `meta_Presenter=Jane%20Doe`, `meta_category-group=FINANCE`, and `meta_TERM=Fall2016`.
+
+            When defining metadata names, use only numbers and letters and the character `-`. Do not use `_`.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of rows to return in the response.
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of rows to skip before start retrieving rows.
+          schema:
+            type: integer
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <nextPage>false</nextPage>
+                      <recordings>
+                          <recording>
+                            <recordID>ffbfc4cc24428694e8b53a4e144f414052431693-1530718721124</recordID>
+                            <meetingID>c637ba21adcd0191f48f5c4bf23fab0f96ed5c18</meetingID>
+                            <internalMeetingID>ffbfc4cc24428694e8b53a4e144f414052431693-1530718721124</internalMeetingID>
+                            <name>Fred's Room</name>
+                            <isBreakout>false</isBreakout>
+                            <published>true</published>
+                            <state>published</state>
+                            <startTime>1530718721124</startTime>
+                            <endTime>1530718810456</endTime>
+                            <participants>3</participants>
+                            <metadata>
+                                <isBreakout>false</isBreakout>
+                                <meetingName>Fred's Room</meetingName>
+                                <gl-listed>false</gl-listed>
+                                <meetingId>c637ba21adcd0191f48f5c4bf23fab0f96ed5c18</meetingId>
+                            </metadata>
+                            <playback>
+                                <format>
+                                  <type>podcast</type>
+                                  <url>https://demo.bigbluebutton.org/podcast/ffbfc4cc24428694e8b53a4e144f414052431693-1530718721124/audio.ogg</url>
+                                  <processingTime>0</processingTime>
+                                  <length>0</length>
+                                </format>
+                                <format>
+                                  <type>presentation</type>
+                                  <url>https://demo.bigbluebutton.org/playback/presentation/2.0/playback.html?meetingId=ffbfc4cc24428694e8b53a4e144f414052431693-1530718721124</url>
+                                  <processingTime>7177</processingTime>
+                                  <length>0</length>
+                                  <preview>
+                                      <images>
+                                        <image alt="Welcome to" height="136" width="176">https://demo.bigbluebutton.org/presentation/ffbfc4cc24428694e8b53a4e144f414052431693-1530718721124/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1530718721134/thumbnails/thumb-1.png</image>
+                                        <image alt="(this slide left blank for use as a whiteboard)" height="136" width="176">https://demo.bigbluebutton.org/presentation/ffbfc4cc24428694e8b53a4e144f414052431693-1530718721124/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1530718721134/thumbnails/thumb-2.png</image>
+                                        <image alt="(this slide left blank for use as a whiteboard)" height="136" width="176">https://demo.bigbluebutton.org/presentation/ffbfc4cc24428694e8b53a4e144f414052431693-1530718721124/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1530718721134/thumbnails/thumb-3.png</image>
+                                      </images>
+                                  </preview>
+                                </format>
+                            </playback>
+                          </recording>
+                          <recording>
+                            <recordID>ffbfc4cc24428694e8b53a4e144f414052431693-1530278898111</recordID>
+                            <meetingID>c637ba21adcd0191f48f5c4bf23fab0f96ed5c18</meetingID>
+                            <internalMeetingID>ffbfc4cc24428694e8b53a4e144f414052431693-1530278898111</internalMeetingID>
+                            <name>Fred's Room</name>
+                            <isBreakout>false</isBreakout>
+                            <published>true</published>
+                            <state>published</state>
+                            <startTime>1530278898111</startTime>
+                            <endTime>1530281194326</endTime>
+                            <participants>7</participants>
+                            <metadata>
+                                <meetingName>Fred's Room</meetingName>
+                                <isBreakout>false</isBreakout>
+                                <gl-listed>true</gl-listed>
+                                <meetingId>c637ba21adcd0191f48f5c4bf23fab0f96ed5c18</meetingId>
+                            </metadata>
+                            <playback>
+                                <format>
+                                  <type>podcast</type>
+                                  <url>https://demo.bigbluebutton.org/podcast/ffbfc4cc24428694e8b53a4e144f414052431693-1530278898111/audio.ogg</url>
+                                  <processingTime>0</processingTime>
+                                  <length>33</length>
+                                </format>
+                                <format>
+                                  <type>presentation</type>
+                                  <url>https://demo.bigbluebutton.org/playback/presentation/2.0/playback.html?meetingId=ffbfc4cc24428694e8b53a4e144f414052431693-1530278898111</url>
+                                  <processingTime>139458</processingTime>
+                                  <length>33</length>
+                                  <preview>
+                                      <images>
+                                        <image width="176" height="136" alt="Welcome to">https://demo.bigbluebutton.org/presentation/ffbfc4cc24428694e8b53a4e144f414052431693-1530278898111/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1530278898120/thumbnails/thumb-1.png</image>
+                                        <image width="176" height="136" alt="(this slide left blank for use as a whiteboard)">https://demo.bigbluebutton.org/presentation/ffbfc4cc24428694e8b53a4e144f414052431693-1530278898111/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1530278898120/thumbnails/thumb-2.png</image>
+                                        <image width="176" height="136" alt="(this slide left blank for use as a whiteboard)">https://demo.bigbluebutton.org/presentation/ffbfc4cc24428694e8b53a4e144f414052431693-1530278898111/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1530278898120/thumbnails/thumb-3.png</image>
+                                      </images>
+                                  </preview>
+                                </format>
+                            </playback>
+                          </recording>
+                      </recordings>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - nextPage
+                      - recordings
+                    properties:
+                      returncode:
+                        type: string
+                      nextPage:
+                        type: boolean
+                      recordings:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - recordID
+                            - meetingID
+                            - internalMeetingID
+                            - name
+                            - isBreakout
+                            - published
+                            - state
+                            - startTime
+                            - endTime
+                            - size
+                            - rawSize
+                            - participants
+                            - metadata
+                          properties:
+                            recordID:
+                              type: string
+                            meetingID:
+                              type: string
+                            internalMeetingID:
+                              type: string
+                            name:
+                              type: string
+                            isBreakout:
+                              type: boolean
+                            published:
+                              type: boolean
+                            state:
+                              type: string
+                              enum:
+                                - unpublished
+                                - published
+                                - processing
+                                - deleted
+                            startTime:
+                              type: integer
+                            endTime:
+                              type: integer
+                            size:
+                              type: integer
+                            rawSize:
+                              type: integer
+                            participants:
+                              type: integer
+                            metadata:
+                              type: object
+                            playback:
+                              type: object
+                              required:
+                                - format
+                              properties:
+                                format:
+                                  type: object
+                                  required:
+                                    - type
+                                    - url
+                                    - processingTime
+                                    - length
+                                    - size
+                                    - preview
+                                  properties:
+                                    type:
+                                      type: string
+                                      enum:
+                                        - presentation
+                                        - video
+                                    url:
+                                      type: string
+                                    processingTime:
+                                      type: integer
+                                    length:
+                                      type: integer
+                                    size:
+                                      type: integer
+                                    preview:
+                                      type: object
+                                      properties:
+                                        images:
+                                          type: array
+                                          items:
+                                            type: string
+  /publishRecordings:
+    get:
+      summary: publishRecordings
+      operationId: publishRecordings
+      description: Publish and unpublish recordings for a given recordID (or set of record IDs).
+      tags:
+        - recording
+      parameters:
+        - name: recordID
+          in: query
+          description: ID of the recording.
+          required: true
+          schema:
+            type: string
+        - name: publish
+          in: query
+          description: Either true to publish the recording(s), or false to unpublish the recording(s).
+          schema:
+            type: boolean
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <published>true</published>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - published
+                    properties:
+                      returncode:
+                        type: string
+                      published:
+                        type: boolean
+  /deleteRecordings:
+    get:
+      summary: deleteRecordings
+      operationId: deleteRecordings
+      description: Delete one or more recordings for a given recordID (or set of record IDs).
+      tags:
+        - recording
+      parameters:
+        - name: recordID
+          in: query
+          description: ID of the recording.
+          required: true
+          schema:
+            type: string
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <deleted>true</deleted>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - deleted
+                    properties:
+                      returncode:
+                        type: string
+                      deleted:
+                        type: boolean
+  /updateRecordings:
+    get:
+      summary: updateRecordings
+      operationId: updateRecordings
+      description: Update metadata for a given recordID (or set of record IDs).
+      tags:
+        - recording
+      parameters:
+        - description: A record ID for specify the recordings to apply the publish action. It can be a set of record IDs separated by commas.
+        - name: recordID
+          in: query
+          description: ID of the recording.
+          required: true
+          schema:
+            type: string
+        - name: meta
+          in: query
+          description: |-
+            You can pass one or more metadata values to be updated. The format of these parameters is the same as the metadata passed to the [create](#operation/create) call.
+
+            When `meta_parameter=NOT EMPTY` and `meta_parameter` exists its value is updated, if it doesn’t exist, the parameter is added. When `meta_parameter=`, and `meta_parameter` exists the key is removed, when it doesn’t exist the action is ignored.
+          schema:
+            type: string
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <updated>true</updated>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - updated
+                    properties:
+                      returncode:
+                        type: string
+                      updated:
+                        type: boolean
+  /hooks/create:
+    get:
+      summary: create
+      operationId: hooks-create
+      description: Create a Hook to receive events of meetings based on scope.
+      tags:
+        - hooks
+      parameters:
+        - name: callbackURL
+          in: query
+          description: The URL which receive the events.
+          schema:
+            type: string
+        - name: meetingID
+          in: query
+          description: ID(s) of the meeting. Multiple IDs can be provided, separated by commas.
+          schema:
+            type: string
+        - name: enabled
+          in: query
+          description: If true, hook will receive events, else, it won't
+          schema:
+            type: boolean
+            default: false
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <hookID>1</hookID>
+                      <hookGUID>f4fd4b8a-5c8e-4930-8f33-4f133d5d9b57</hookGUID>
+                      <authToken>e74963291b18e915d9470585ffd33b87d69f1cd6</authToken>
+                      <sharedSecretGUID>ed3cef25-9376-4efb-be8b-d5914524e1b9</sharedSecretGUID>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - hookID
+                      - hookGUID
+                      - authToken
+                      - sharedSecretGUID
+                    properties:
+                      returncode:
+                        type: string
+                      hookID:
+                        type: string
+                      hookGUID:
+                        type: string
+                      authToken:
+                        type: string
+                      sharedSecretGUID:
+                        type: string
+  /hooks/list:
+    get:
+      summary: list
+      operationId: hooks-list
+      description: List all the hooks your credentials have access to.
+      tags:
+        - hooks
+      parameters:
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <hooks>
+                       <hook>
+                         <hookID>1</hookID>
+                         <hookGUID>f4fd4b8a-5c8e-4930-8f33-4f133d5d9b57</hookGUID>
+                         <authToken>e74963291b18e915d9470585ffd33b87d69f1cd6</authToken>
+                         <callbackURL>https://webhook-test.test.webhook/test/hook</callbackURL>
+                         <sharedSecretGUID>ed3cef25-9376-4efb-be8b-d5914524e1b9</sharedSecretGUID>
+                         <enabled>true</enabled>
+                       </hook>
+                      </hooks>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - hooks
+                    properties:
+                      returncode:
+                        type: string
+                      hooks:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - hook
+                          properties:
+                            hook:
+                              type: object
+                              required:
+                                - hookID
+                                - hookGUID
+                                - authToken
+                                - callbackURL
+                                - enabled
+                              properties:
+                                hookID:
+                                  type: string
+                                hookGUID:
+                                  type: string
+                                authToken:
+                                  type: string
+                                callbackURL:
+                                  type: string
+                                sharedSecretGUID:
+                                  type: string
+                                externalMeetingID:
+                                  type: string
+                                enabled:
+                                  type: boolean
+  /hooks/destroy:
+    get:
+      summary: destroy
+      operationId: hooks-destroy
+      description: Delete a specific hook based on the given hook ID.
+      tags:
+        - hooks
+      parameters:
+        - name: hookID
+          in: query
+          description: The identifier for the target hook.
+          schema:
+            type: string
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <removed>true</removed>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - removed
+                    properties:
+                      returncode:
+                        type: string
+                      removed:
+                        type: boolean
+  /hooks/enable:
+    get:
+      summary: enable
+      operationId: hooks-enable
+      description: Enables a Hook to receive meetings events.
+      tags:
+        - hooks
+      parameters:
+        - name: hookID
+          in: query
+          description: The identifier for the target hook.
+          schema:
+            type: string
+        - name: checksum
+          in: query
+          description: SHA-1 value calculated for validation in the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/xml:
+              examples:
+                success:
+                  value: |-
+                    <response>
+                      <returncode>SUCCESS</returncode>
+                      <enabled>true</enabled>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: object
+                    required:
+                      - returncode
+                      - hookID
+                    properties:
+                      returncode:
+                        type: string
+                      hookID:
+                        type: string
+        "400":
+          description: Missing Hook ID
+          content:
+            application/xml:
+              examples:
+                fail:
+                  value: |-
+                    <response>
+                      <returncode>FAILED</returncode>
+                      <messageKey>missingParamHookID</messageKey>
+                      <message>You must specify a hookID in the parameters.</message>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                  - messageKey
+                  - message
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      returncode:
+                        type: string
+                      messageKey:
+                        type: string
+                      message:
+                        type: string
+        "401":
+          description: Checksum check failed
+          content:
+            application/xml:
+              examples:
+                fail:
+                  value: |-
+                    <response>
+                      <returncode>FAILED</returncode>
+                      <messageKey>checksumError</messageKey>
+                      <message>You did not pass the checksum security check</message>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                  - messageKey
+                  - message
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      returncode:
+                        type: string
+                      messageKey:
+                        type: string
+                      message:
+                        type: string
+        "404":
+          description: Hook Not Found
+          content:
+            application/xml:
+              examples:
+                fail:
+                  value: |-
+                    <response>
+                      <returncode>FAILED</returncode>
+                      <messageKey>enableMissingHook</messageKey>
+                      <message>The hook informed was not found or the shared secret didn't match the hook's.</message>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                  - messageKey
+                  - message
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      returncode:
+                        type: string
+                      messageKey:
+                        type: string
+                      message:
+                        type: string
+        "422":
+          description: Invalid Hook ID
+          content:
+            application/xml:
+              examples:
+                fail:
+                  value: |-
+                    <response>
+                      <returncode>FAILED</returncode>
+                      <messageKey>invalidParamHookID</messageKey>
+                      <message>You must specify a valid hookID in the parameters.</message>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                  - messageKey
+                  - message
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      returncode:
+                        type: string
+                      messageKey:
+                        type: string
+                      message:
+                        type: string
+        "500":
+          description: Couldn't enable hook
+          content:
+            application/xml:
+              examples:
+                fail:
+                  value: |-
+                    <response>
+                      <returncode>FAILED</returncode>
+                      <messageKey>enableHookError</messageKey>
+                      <message>An error happened while enabling your hook. Please contact the system's administrators.</message>
+                    </response>
+              schema:
+                type: object
+                required:
+                  - response
+                  - messageKey
+                  - message
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      returncode:
+                        type: string
+                      messageKey:
+                        type: string
+                      message:
+                        type: string
 components:
   securitySchemes:
     Bearer:

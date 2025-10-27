@@ -1,6 +1,0 @@
-name: enabled
-in: query
-description: If true, hook will receive events, else, it won't
-schema:
-  type: boolean
-  default: false

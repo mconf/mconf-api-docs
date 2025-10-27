@@ -1,8 +1,0 @@
-name: role
-in: query
-description: Define user role for the meeting. If the role parameter is present and it's a valid option, it will take over of any password parameter provided.
-schema:
-  type: string
-  enum:
-    - MODERATOR
-    - VIEWER

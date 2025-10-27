@@ -1,6 +1,0 @@
-name: lockSettingsDisablePrivateChat
-in: query
-description: Setting to `true` will disable private chats in the meeting.
-schema:
-    type: boolean
-    default: false

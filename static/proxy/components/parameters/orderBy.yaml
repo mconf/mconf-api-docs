@@ -1,6 +1,0 @@
-name: order_by
-in: query
-description: Set ascending or descending order
-schema: 
-  type: enum
-  enum: ['asc', 'desc']

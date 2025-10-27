@@ -1,5 +1,0 @@
-name: sequence
-in: query
-description: The sequence number of the breakout room.
-schema:
-  type: integer

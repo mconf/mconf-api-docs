@@ -1,5 +1,0 @@
-name: limit
-in: query
-description: Maximum number of rows to return in the response.
-schema: 
-  type: integer

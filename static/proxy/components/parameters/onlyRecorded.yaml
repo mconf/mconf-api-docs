@@ -1,6 +1,0 @@
-name: onlyRecorded
-in: query
-description: "Filters the results to include only recorded meetings. This parameter is effective only when `includeRecordings=true`."
-schema:
-  type: boolean
-  default: false

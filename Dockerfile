@@ -16,7 +16,9 @@ FROM base AS builder
 WORKDIR ${APP_PATH}
 
 ARG SHOW_INTERNAL_APIS
+ARG SITE_URL
 ENV SHOW_INTERNAL_APIS=$SHOW_INTERNAL_APIS
+ENV SITE_URL=$SITE_URL
 
 COPY . .
 
@@ -32,3 +34,4 @@ COPY --from=builder ${APP_PATH_DEFAULT}/nginx.conf /etc/nginx/conf.d/default.con
 
 COPY --from=builder ${APP_PATH_DEFAULT}/build /usr/share/nginx/html/docs
 COPY --from=builder ${APP_PATH_DEFAULT}/static/img/favicon.svg /usr/share/nginx/html/docs
+COPY --from=builder ${APP_PATH_DEFAULT}/redirect/index.html /usr/share/nginx/html/index.html

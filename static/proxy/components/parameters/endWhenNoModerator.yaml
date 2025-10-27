@@ -1,6 +1,0 @@
-name: endWhenNoModerator
-in: query
-description: If `endWhenNoModerator` is `true` the meeting will end automatically after a delay in case no moderator is present.
-schema:
-    type: boolean
-    default: false

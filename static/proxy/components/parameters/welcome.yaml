@@ -1,6 +1,0 @@
-name: welcome
-in: query
-description:
-  $ref: '../../../docs/params/welcome.md'
-schema:
-  type: string

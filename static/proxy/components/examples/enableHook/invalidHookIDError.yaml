@@ -1,7 +1,0 @@
-fail:
-  value: |-
-    <response>
-      <returncode>FAILED</returncode>
-      <messageKey>invalidParamHookID</messageKey>
-      <message>You must specify a valid hookID in the parameters.</message>
-    </response>

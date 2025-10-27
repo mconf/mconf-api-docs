@@ -1,6 +1,0 @@
-name: configXML
-in: query
-description: 
-  $ref: '../../../docs/params/configXML.md'
-schema:
-  type: string

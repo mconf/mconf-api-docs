@@ -1,5 +1,0 @@
-name: meetingID
-in: query
-description: "The `meetingID` for get the recordings. It can be a set of `meetingID`s separated by commas. If the meeting ID is not specified, it will return all the recordings. If a `recordID` is specified, the `meetingID` is ignored."
-schema:
-  type: string

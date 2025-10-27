@@ -1,5 +1,0 @@
-name: meetingID
-in: query
-description: ID(s) of the meeting. Multiple IDs can be provided, separated by commas.
-schema: 
-  type: string

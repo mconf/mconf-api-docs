@@ -1,5 +1,0 @@
-name: meetingID
-in: query
-description: "A meeting ID that can be used to identify this meeting by the 3rd-party application. It must be unique for each meeting: different active meetings can not have the same meeting ID. Meeting IDs should only contain upper/lower ASCII letters, numbers, dashes, or underscores. A good choice for the meeting ID is to use GUID value."
-schema:
-  type: string

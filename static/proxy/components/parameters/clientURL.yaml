@@ -1,5 +1,0 @@
-name: clientURL
-in: query
-description: Some third party apps what to display their own custom client. These apps can pass the URL containing the custom client and when redirect is not set to false, the browser will get redirected to the value of clientURL.
-schema:
-  type: string

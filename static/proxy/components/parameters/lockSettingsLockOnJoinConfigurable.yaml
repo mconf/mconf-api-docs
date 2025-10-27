@@ -1,6 +1,0 @@
-name: lockSettingsLockOnJoinConfigurable
-in: query
-description: Setting to `true` will allow applying of `lockSettingsLockOnJoin`.
-schema:
-    type: boolean
-    default: false

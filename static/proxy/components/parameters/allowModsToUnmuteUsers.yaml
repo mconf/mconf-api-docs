@@ -1,6 +1,0 @@
-name: allowModsToUnmuteUsers
-in: query
-description: Setting to `true` will allow moderators to unmute other users in the meeting.
-schema:
-    type: boolean
-    default: false

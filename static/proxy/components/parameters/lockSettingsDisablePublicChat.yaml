@@ -1,6 +1,0 @@
-name: lockSettingsDisablePublicChat
-in: query
-description: Setting to `true` will disable public chat in the meeting.
-schema:
-    type: boolean
-    default: false
