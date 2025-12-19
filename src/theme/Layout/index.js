@@ -728,7 +728,7 @@ export default function LayoutWrapper(props) {
                       href="https://ajuda.elos.vc/kb/article/150995/tudo-sobre-o-elos"
                       target="_blank"
                     >
-                      <MaterialIcon>indeterminate_question_box</MaterialIcon>{" "}
+                      <MaterialIcon>indeterminate_question_box</MaterialIcon>
                       Help Center
                     </a>
                   </li>
@@ -736,6 +736,31 @@ export default function LayoutWrapper(props) {
                     <a className="menu__link" href="mailto:support@elos.vc">
                       <MaterialIcon> contact_emergency </MaterialIcon> Technical
                       Support
+                    </a>
+                  </li>
+                </CollapsibleCategory>
+
+                <CollapsibleCategory
+                  label="Links"
+                  defaultOpen={true}
+                  searchQuery={searchQuery}
+                >
+                  <li className="menu__list-item">
+                    <a
+                      className="menu__link"
+                      href="https://elos.vc/site/"
+                      target="_blank"
+                    >
+                      <MaterialIcon>link</MaterialIcon>
+                      Elos
+                    </a>
+                  </li>
+                  <li className="menu__list-item">
+                    <a
+                      className="menu__link"
+                      href="https://elos.vc/site/sobre-a-mconf/"
+                    >
+                      <MaterialIcon> link </MaterialIcon> About Mconf
                     </a>
                   </li>
                 </CollapsibleCategory>

@@ -680,7 +680,7 @@ Sugestões são muito bem-vindas, a qualquer momento. Sinta-se à vontade para c
 
 - O Elos permitirá que você implemente uma lógica de negócio pensada por você;
 - Você não precisará cadastrar usuários ou salas no Elos, isso será feito via API no momento do acesso;
-- Cada sala é identificada por um `meetingID` gerado por você, preferencialmente um UUID;
+- Cada sala é identificada por um `meetingID` gerado por você, preferencialmente um GUID;
 - Determine a qual entidade no seu sistema estará vinculada cada sala - seja uma turma, seja um agendamento, seja um agente;
 - Gere um `meetingID` para cada entidade e grave no banco;
 - Não é esperado que você precise lidar com a complexidade de geração das URLs da API - utilize uma biblioteca pronta pra isso (veja [aqui](https://www.notion.so/Documenta-o-API-Elos-327d7f8f72894c5480cf2fa7804ef7bb?pvs=21));
