@@ -69,6 +69,8 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            SITE_URL=https://example.com
           labels: |
             ${{ steps.meta.outputs.labels }}
 

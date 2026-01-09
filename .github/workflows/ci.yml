@@ -27,6 +27,8 @@ jobs:
         run: npm ci
 
       - name: Build Project
+        env:
+          SITE_URL: https://example.com
         run: npm run build
 
   # TODO: Add lint job when we have a linting rule on the project
@@ -97,6 +99,8 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            SITE_URL=https://example.com
           labels: |
             ${{ steps.meta.outputs.labels }}
 
