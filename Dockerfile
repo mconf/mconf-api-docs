@@ -26,7 +26,7 @@ RUN npm ci
 
 RUN npm run build
 
-FROM nginx:1.27.2-alpine AS prod
+FROM nginx:1.29.4-alpine AS prod
 
 ARG APP_PATH_DEFAULT
 
