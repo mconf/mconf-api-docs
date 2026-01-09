@@ -11,7 +11,7 @@ jobs:
   # Copied from: mconf/mconf-ci-jobs/.github/workflows/lb-node-build.yml@main (2026-01-09)
   build:
     name: Run build
-    runs-on: [self-hosted, ubuntu-22.04]
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
       - name: Check out Source Repository
@@ -38,7 +38,7 @@ jobs:
   # Copied from: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main (2026-01-09)
   push-scan:
     name: Build, Push and Scan Docker
-    runs-on: [self-hosted, ubuntu-22.04]
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
       - name: Check out Source Repository
