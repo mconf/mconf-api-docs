@@ -1,0 +1,23 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    uses: mconf/mconf-ci-jobs/.github/workflows/lb-node-build.yml@main
+    with:
+      node-version: '18'
+
+  # TODO: Add lint job when we have a linting rule on the project
+  # lint:
+  #   uses: mconf/mconf-ci-jobs/.github/workflows/lb-node-lint.yml@main
+  #   with:
+  #     node-version: '18'
+
+  push-scan:
+    uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
+    secrets: inherit
