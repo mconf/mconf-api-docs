@@ -19,4 +19,5 @@ jobs:
       version: ${{ inputs.version }}
       previous_version: ${{ inputs.previous_version }}
       changelog_file: 'Changelog.md'
+      runs-on: '["ubuntu-22.04"]'
     secrets: inherit

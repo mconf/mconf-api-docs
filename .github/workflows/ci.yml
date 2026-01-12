@@ -12,6 +12,7 @@ jobs:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-node-build.yml@main
     with:
       node-version: '18'
+      runs-on: '["ubuntu-22.04"]'
 
   # lint:
   #   uses: mconf/mconf-ci-jobs/.github/workflows/lb-node-lint.yml@main
@@ -20,4 +21,6 @@ jobs:
 
   push-scan:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
+    with:
+      runs-on: '["ubuntu-22.04"]'
     secrets: inherit
