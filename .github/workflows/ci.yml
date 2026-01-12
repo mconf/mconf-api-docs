@@ -8,125 +8,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Copied from: mconf/mconf-ci-jobs/.github/workflows/lb-node-build.yml@main (2026-01-09)
   build:
-    name: Run build
-    runs-on: ubuntu-22.04
-    timeout-minutes: 15
-    steps:
-      - name: Check out Source Repository
-        uses: actions/checkout@v6
+    uses: mconf/mconf-ci-jobs/.github/workflows/lb-node-build.yml@main
+    with:
+      node-version: '18'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Clean Install Project
-        run: npm ci
-
-      - name: Build Project
-        env:
-          SITE_URL: https://example.com
-        run: npm run build
-
-  # TODO: Add lint job when we have a linting rule on the project
   # lint:
   #   uses: mconf/mconf-ci-jobs/.github/workflows/lb-node-lint.yml@main
   #   with:
   #     node-version: '18'
 
-  # Copied from: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main (2026-01-09)
   push-scan:
-    name: Build, Push and Scan Docker
-    runs-on: ubuntu-22.04
-    timeout-minutes: 30
-    steps:
-      - name: Check out Source Repository
-        uses: actions/checkout@v6
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: daileon
-          password: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
-
-      - name: Calculate Docker Tag
-        id: tag
-        run: |
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-          # Replace / with - to avoid conflict
-            TAG=$(echo "${{ github.head_ref }}" | sed 's/\//-/g')
-          else
-            TAG="${{github.ref_name}}"
-          fi
-          echo "IMAGE=${{github.repository}}:$TAG" >> "$GITHUB_OUTPUT"
-
-      - name: Generate Docker Metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ steps.tag.outputs.IMAGE }}
-
-      - name: Install SSH Agent
-        if: ${{ env.ssh-private-key != '' }}
-        env:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: sudo apt-get update && sudo apt-get install -y openssh-client
-
-      - name: Configure Git to Access Private Modules
-        if: ${{ env.ssh-private-key != '' }}
-        env:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: |
-            ${{ secrets.SSH_PRIVATE_KEY }}
-            ${{ secrets.PRODUCER_SSH_PRIVATE_KEY }}
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v6
-        with:
-          ssh: ${{ env.SSH_AUTH_SOCK != '' && format('default={0}', env.SSH_AUTH_SOCK) || '' }}
-          push: ${{ startsWith(github.ref, 'refs/tags/') }}
-          load: true
-          tags: ${{ steps.tag.outputs.IMAGE }}
-          context: .
-          platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          build-args: |
-            SITE_URL=https://example.com
-          labels: |
-            ${{ steps.meta.outputs.labels }}
-
-      - name: Generate Unique Identifier
-        id: generate-uuid
-        run: echo "UUID=$(cat /proc/sys/kernel/random/uuid)" >> "$GITHUB_ENV"
-
-      - name: Run Trivy on Docker Image
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ steps.tag.outputs.IMAGE }}
-          ignore-unfixed: true
-          format: "json"
-          output: "/tmp/${{ env.UUID }}.json"
-          severity: "CRITICAL,HIGH"
-
-      - name: Upload Trivy results to Trivy Explorer
-        id: upload_trivy
-        run: |
-          RESPONSE=$(curl -s -H "Content-Type: application/json" -H "Authorization: ${{secrets.TRIVY_EXPLORER_AUTH_TOKEN}}" --data "@/tmp/${{ env.UUID }}.json" ${{secrets.TRIVY_EXPLORER_URL}})
-          echo "Response: $RESPONSE"
-          REPORT_URL=$(echo "$RESPONSE" | jq -r '.url')
-          echo "report_url=$REPORT_URL" >> "$GITHUB_OUTPUT"
-
-      - name: Add Report Link to Job Summary
-        run: |
-          echo "Trivy Scan Report" >> "$GITHUB_STEP_SUMMARY"
-          echo "A new security scan report has been generated. You can view it here:" >> "$GITHUB_STEP_SUMMARY"
-          echo "[View Detailed Report](${{ steps.upload_trivy.outputs.report_url }})" >> "$GITHUB_STEP_SUMMARY"
+    uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
+    secrets: inherit
