@@ -21,7 +21,7 @@ jobs:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
     with:
       build-args: |
-        SITE_URL=${{ secrets.SITE_URL }}
+        SITE_URL=${{ secrets.SITE_URL_INTERNAL }}
         SHOW_INTERNAL_APIS=true
       image-suffix: '-internal'
       runs-on: '["ubuntu-22.04"]'
