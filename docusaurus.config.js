@@ -154,25 +154,6 @@ const config = {
           src: "img/logo.svg",
         },
       },
-      footer: {
-        style: "light",
-        links: [
-          {
-            title: "Links",
-            items: [
-              {
-                label: "Elos",
-                href: "https://elos.vc/",
-              },
-              {
-                label: "About Mconf",
-                href: "https://elos.vc/site/sobre-a-mconf/",
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Elos `,
-      },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,

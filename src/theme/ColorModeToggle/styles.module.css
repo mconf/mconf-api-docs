@@ -1,0 +1,108 @@
+.toggleContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.toggleCheckbox {
+  display: none;
+}
+
+.toggleLabel {
+  position: relative;
+  width: 70px;
+  height: 35px;
+  background-color: white;
+  border: 2px solid #eaeaea;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.toggleLabel:hover {
+  background-color: #f5f5f5;
+}
+
+.toggleButton {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  background-color: black;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  left: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggleCheckbox:checked + .toggleLabel {
+  background-color: #333;
+  border: 2px solid #333;
+}
+
+.toggleCheckbox:checked + .toggleLabel:hover {
+  background-color: #222;
+}
+
+.toggleCheckbox:checked + .toggleLabel .toggleButton {
+  background-color: white;
+  transform: translateX(31px);
+}
+
+.toggleCheckbox:focus + .toggleLabel {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.toggleLabel::before {
+  content: "light_mode";
+  font-family: "Material Symbols Outlined";
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 21px;
+  line-height: 1;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.toggleLabel::after {
+  content: "dark_mode";
+  font-family: "Material Symbols Outlined";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 19px;
+  line-height: 1;
+  transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  color: black;
+}
+
+.toggleCheckbox:not(:checked) + .toggleLabel::before {
+  opacity: 1;
+  color: white;
+  z-index: 1;
+}
+
+.toggleCheckbox:not(:checked) + .toggleLabel::after {
+  opacity: 0.3;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.toggleCheckbox:checked + .toggleLabel::before {
+  opacity: 0.3;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.toggleCheckbox:checked + .toggleLabel::after {
+  opacity: 1;
+  color: black;
+  z-index: 1;
+  right: 7px;
+  font-size: 21px;
+}

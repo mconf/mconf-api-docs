@@ -162,7 +162,7 @@ paths:
       parameters:
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -442,7 +442,7 @@ paths:
             example: "2024-10-21"
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -749,7 +749,7 @@ paths:
             type: string
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -795,7 +795,7 @@ paths:
             type: string
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -1262,7 +1262,7 @@ paths:
             default: false
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -1636,7 +1636,7 @@ paths:
             default: false
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -1780,7 +1780,7 @@ paths:
             type: string
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -1896,7 +1896,7 @@ paths:
             type: boolean
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2023,7 +2023,7 @@ paths:
             type: integer
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2241,7 +2241,7 @@ paths:
             type: boolean
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2288,7 +2288,7 @@ paths:
             type: string
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2344,7 +2344,7 @@ paths:
             type: string
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2401,7 +2401,7 @@ paths:
             default: false
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2454,7 +2454,7 @@ paths:
       parameters:
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2537,7 +2537,7 @@ paths:
             type: string
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
@@ -2583,7 +2583,7 @@ paths:
             type: string
         - name: checksum
           in: query
-          description: SHA-1 value calculated for validation in the API.
+          description: SHA-256 value calculated for validation in the API.
           required: true
           schema:
             type: string
