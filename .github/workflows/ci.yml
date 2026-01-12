@@ -14,6 +14,7 @@ jobs:
       node-version: '18'
       build-env: |
         SITE_URL=${{ vars.SITE_URL }}
+        SHOW_INTERNAL_APIS=false
       runs-on: '["ubuntu-22.04"]'
 
   # lint:
@@ -24,5 +25,8 @@ jobs:
   push-scan:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
     with:
+      build-args: |
+        SITE_URL=${{ vars.SITE_URL }}
+        SHOW_INTERNAL_APIS=false
       runs-on: '["ubuntu-22.04"]'
     secrets: inherit
