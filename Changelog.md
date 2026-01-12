@@ -7,6 +7,12 @@
 - Update prism-react-renderer from 2.4.0 to 2.4.1, enabling React Server Components support
 - Improve CI/CD workflows with enhanced environment variable handling and image building
 
+## 2.5.0
+- New sidebar design with icons and dropdown functionality
+- Add searchbar to sidebar
+- Change home page design
+- Update build hook
+
 ## 2.4.1
 - Fix guide links
 
