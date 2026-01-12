@@ -7,6 +7,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  push-scan:
+  push-scan-public:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
+    with:
+      build-args: |
+        SITE_URL=${{ secrets.SITE_URL }}
+        SHOW_INTERNAL_APIS=false
+      image-suffix: ''
+    secrets: inherit
+
+  push-scan-internal:
+    uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
+    with:
+      build-args: |
+        SITE_URL=${{ secrets.SITE_URL }}
+        SHOW_INTERNAL_APIS=true
+      image-suffix: '-internal'
     secrets: inherit
