@@ -12,6 +12,8 @@ jobs:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-node-build.yml@main
     with:
       node-version: '18'
+      build-env: |
+        SITE_URL=${{ vars.SITE_URL }}
       runs-on: '["ubuntu-22.04"]'
 
   # lint:
