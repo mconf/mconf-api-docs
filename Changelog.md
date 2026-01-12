@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.0
+- Add Dependabot configuration for automatic dependency updates
+- Update Nginx from 1.27.2-alpine to 1.29.4-alpine
+- Update prism-react-renderer from 2.4.0 to 2.4.1, enabling React Server Components support
+- Improve CI/CD workflows with enhanced environment variable handling and image building
+
 ## 2.4.1
 - Fix guide links
 
