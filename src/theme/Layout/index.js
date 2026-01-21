@@ -630,36 +630,47 @@ export default function LayoutWrapper(props) {
                       defaultOpen={true}
                       searchQuery={searchQuery}
                     >
-                      {matchesSearch("institution", "Administrative API") && (
+                      {matchesSearch("institutions", "Administrative API") && (
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}/get"
-                          >
-                            <MethodBadge method="GET" />
-                            institution
-                          </Link>
-                        </li>
-                      )}
-                      {matchesSearch("institution", "Administrative API") && (
-                        <li className="menu__list-item">
-                          <Link
-                            className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}/put"
-                          >
-                            <MethodBadge method="PUT" />
-                            institution
-                          </Link>
-                        </li>
-                      )}
-                      {matchesSearch("institution", "Administrative API") && (
-                        <li className="menu__list-item">
-                          <Link
-                            className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1/post"
+                            to="/docs/api/administrative#/paths/~1institutions/post"
                           >
                             <MethodBadge method="POST" />
-                            institution
+                            institutions
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("institutions", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}/get"
+                          >
+                            <MethodBadge method="GET" />
+                            institutions
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("institutions", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}/put"
+                          >
+                            <MethodBadge method="PUT" />
+                            institutions
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("institutions", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}/delete"
+                          >
+                            <MethodBadge method="DEL" />
+                            institutions
                           </Link>
                         </li>
                       )}
@@ -670,10 +681,10 @@ export default function LayoutWrapper(props) {
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}~1meeting_settings/get"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}~1meeting_settings/get"
                           >
                             <MethodBadge method="GET" />
-                            institution/meeting_settings
+                            meeting_settings
                           </Link>
                         </li>
                       )}
@@ -684,10 +695,10 @@ export default function LayoutWrapper(props) {
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}~1unsubscription/post"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}~1unsubscription/post"
                           >
                             <MethodBadge method="POST" />
-                            institution/unsubscription
+                            unsubscription
                           </Link>
                         </li>
                       )}
@@ -695,21 +706,32 @@ export default function LayoutWrapper(props) {
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}~1reactivation/post"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}~1reactivation/post"
                           >
                             <MethodBadge method="POST" />
-                            institution/reactivation
+                            reactivation
                           </Link>
                         </li>
                       )}
-                      {matchesSearch("user", "Administrative API") && (
+                      {matchesSearch("user_anonymization", "Administrative API") && (
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1user~1{external_user_id}/delete"
+                            to="/docs/api/administrative#/paths/~1users~1{external_user_id}~1anonymization/post"
                           >
-                            <MethodBadge method="DEL" />
-                            user
+                            <MethodBadge method="POST" />
+                            user_anonymization
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("room_anonymization", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1rooms~1{external_meeting_id}~1anonymization/post"
+                          >
+                            <MethodBadge method="POST" />
+                            room_anonymization
                           </Link>
                         </li>
                       )}
