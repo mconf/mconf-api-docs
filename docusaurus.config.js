@@ -12,13 +12,94 @@ import { themes as prismThemes } from "prism-react-renderer";
 // Check if internal APIs should be shown
 const showInternalAPIs = process.env.SHOW_INTERNAL_APIS === "true";
 
+// Check design variant to use
+const designVariant = process.env.THEME || "default";
+
+// Get CSS file
+const getCSSPath = (variant) => {
+  switch (variant) {
+    case "confweb":
+      return "./src/css/custom-confweb.css";
+    case "elos":
+      return "./src/css/custom.css";
+    case "default":
+    default:
+      return "./src/css/custom.css";
+  }
+};
+
+// Get logo file
+const getLogoPath = (variant) => {
+  switch (variant) {
+    case "confweb":
+      return "img/logo-conf-web.svg";
+    case "elos":
+      return "img/logo.svg";
+    case "default":
+    default:
+      return "img/logo.svg";
+  }
+};
+
+// Get dark mode logo file
+const getDarkLogoPath = (variant) => {
+  switch (variant) {
+    case "confweb":
+      return "img/logo-conf-web-horizontal-dark.svg";
+    case "elos":
+      return "img/logo.svg";
+    case "default":
+    default:
+      return "img/logo.svg";
+  }
+};
+
+// Get home page logo file
+const getHeroLogoPath = (variant) => {
+  switch (variant) {
+    case "confweb":
+      return "img/logo-conf-web-vertical.svg";
+    case "elos":
+      return "img/favicon.svg";
+    case "default":
+    default:
+      return "img/favicon.svg";
+  }
+};
+
+// Get home page dark mode logo file
+const getHeroDarkLogoPath = (variant) => {
+  switch (variant) {
+    case "confweb":
+      return "img/logo-conf-web-vertical-dark.svg";
+    case "elos":
+      return "img/favicon.svg";
+    case "default":
+    default:
+      return "img/favicon.svg";
+  }
+};
+
+const customCSSPath = getCSSPath(designVariant);
+const logoPath = getLogoPath(designVariant);
+const darkLogoPath = getDarkLogoPath(designVariant);
+const heroLogoPath = getHeroLogoPath(designVariant);
+const heroDarkLogoPath = getHeroDarkLogoPath(designVariant);
+
+// Get correct spec file based on theme
+const getSpecPath = (basePath) => {
+  return designVariant === "confweb"
+    ? basePath.replace(".yaml", "-confweb.yaml")
+    : basePath;
+};
+
 // Base API specs (always included)
 const baseSpecs = [
   {
     id: "conference-api",
-    spec: "static/proxy/openapi.yaml",
+    spec: getSpecPath("static/proxy/openapi.yaml"),
     route: "/api/conference/",
-    url: "/proxy/openapi.yaml",
+    url: getSpecPath("/proxy/openapi.yaml"),
   },
 ];
 
@@ -27,16 +108,16 @@ if (showInternalAPIs) {
   baseSpecs.push(
     {
       id: "data-api",
-      spec: "static/data/openapi.yaml",
+      spec: getSpecPath("static/data/openapi.yaml"),
       route: "/api/data/",
-      url: "/data/openapi.yaml",
+      url: getSpecPath("/data/openapi.yaml"),
     },
     {
       id: "administrative-api",
-      spec: "static/administrative/openapi.yaml",
+      spec: getSpecPath("static/administrative/openapi.yaml"),
       route: "/api/administrative/",
-      url: "/administrative/openapi.yaml",
-    }
+      url: getSpecPath("/administrative/openapi.yaml"),
+    },
   );
 }
 
@@ -55,12 +136,15 @@ if (showInternalAPIs) {
       to: "/api/administrative",
       label: "Administrative API",
       position: "right",
-    }
+    },
   );
 }
 
 const config = {
-  title: "Elos API Documentation",
+  title:
+    designVariant === "confweb"
+      ? "ConferênciaWeb API Documentation"
+      : "Elos API Documentation",
   // tagline: "API Documentation",
   favicon: "img/favicon.svg",
 
@@ -87,6 +171,9 @@ const config = {
   // To use in client side
   customFields: {
     showInternalAPIs: showInternalAPIs,
+    designVariant: designVariant,
+    heroLogoPath: heroLogoPath,
+    heroDarkLogoPath: heroDarkLogoPath,
   },
 
   presets: [
@@ -112,7 +199,7 @@ const config = {
         // },
         blog: false, // Disable blog
         theme: {
-          customCss: "./src/css/custom.css",
+          customCss: customCSSPath,
         },
       }),
     ],
@@ -146,12 +233,14 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: "img/logo.svg",
+      image: logoPath,
       navbar: {
         // title: "Elos",
         logo: {
-          alt: "Elos Logo",
-          src: "img/logo.svg",
+          alt:
+            designVariant === "confweb" ? "ConferênciaWeb Logo" : "Elos Logo",
+          src: logoPath,
+          srcDark: darkLogoPath,
         },
       },
       prism: {

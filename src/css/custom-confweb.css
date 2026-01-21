@@ -1,0 +1,446 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+/*---------------------------------------------------------
+  Root Variables: Base Typography and Colors
+---------------------------------------------------------*/
+:root {
+  /* Base font families */
+  --ifm-font-family-base: "Nunito Sans", sans-serif;
+  --ifm-heading-font-family: "Nunito Sans", sans-serif;
+
+  /* Base sizes and line-height */
+  --ifm-font-size-base: 16px;
+  --ifm-line-height: 1.6;
+
+  /* Heading sizes */
+  --ifm-h1-font-size: 2.75rem;
+  --ifm-h2-font-size: 2.25rem;
+  --ifm-h3-font-size: 1.75rem;
+  --ifm-h4-font-size: 1.5rem;
+  --ifm-h5-font-size: 1.25rem;
+  --ifm-h6-font-size: 1rem;
+
+  /* Card background color */
+  --ifm-card-background-color: var(--ifm-background-surface-color);
+
+  /* Primary Colors */
+  --ifm-color-primary: #003399;
+  --ifm-color-primary-dark: #002973;
+  --ifm-color-primary-darker: #002266;
+  --ifm-color-primary-darkest: #001a4d;
+  --ifm-color-primary-light: #3366cc;
+  --ifm-color-primary-lighter: #6699ff;
+  --ifm-color-primary-lightest: #99bbff;
+
+  /* Secondary Colors */
+  --ifm-color-secondary: #202020;
+  --ifm-color-secondary-light: #d9d9d6;
+  --ifm-color-secondary-lighter: #f0f0f0;
+  --ifm-color-secondary-lightest: #ffffff;
+
+  /* Alert Colors */
+  --ifm-color-warning: #ffc845;
+  --ifm-color-success: #00bf6f;
+  --ifm-color-danger: #cd545b;
+
+  /* Code and Highlighting */
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/*---------------------------------------------------------
+  Dark Mode Variables
+---------------------------------------------------------*/
+[data-theme="dark"] {
+  --ifm-color-primary: #f18700;
+  --ifm-color-primary-dark: #d87700;
+  --ifm-color-primary-darker: #c06a00;
+  --ifm-color-primary-darkest: #a85e00;
+  --ifm-color-primary-light: #ff9e1a;
+  --ifm-color-primary-lighter: #ffb347;
+  --ifm-color-primary-lightest: #ffc673;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/*---------------------------------------------------------
+  Dark Mode Overrides for Enhanced Readability & Modern Look
+---------------------------------------------------------*/
+[data-theme="dark"] body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: #ffffff;
+}
+
+[data-theme="dark"] p {
+  color: #d0d0d0;
+}
+
+[data-theme="dark"] a {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme="dark"] code {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] pre {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] blockquote {
+  border-left: 4px solid #444;
+  color: #cccccc;
+}
+
+/*---------------------------------------------------------
+  Base Body Styles
+---------------------------------------------------------*/
+body {
+  font-family: var(--ifm-font-family-base);
+  font-size: var(--ifm-font-size-base);
+  line-height: var(--ifm-line-height);
+  color: #333;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/*---------------------------------------------------------
+  Heading Styles
+---------------------------------------------------------*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--ifm-heading-font-family);
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  color: #222;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: var(--ifm-h1-font-size);
+}
+
+h2 {
+  font-size: var(--ifm-h2-font-size);
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 0.25em;
+}
+
+h3 {
+  font-size: var(--ifm-h3-font-size);
+}
+
+h4 {
+  font-size: var(--ifm-h4-font-size);
+  font-weight: 600;
+}
+
+h5 {
+  font-size: var(--ifm-h5-font-size);
+  font-style: italic;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: var(--ifm-h6-font-size);
+  font-style: italic;
+  font-weight: 600;
+}
+
+/*---------------------------------------------------------
+  Paragraph & Link Styles
+---------------------------------------------------------*/
+p {
+  margin-bottom: 1em;
+  font-size: 1rem;
+}
+
+a {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*---------------------------------------------------------
+  Code and Preformatted Text Styles
+---------------------------------------------------------*/
+/* Inline code styling */
+code {
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.95em;
+  background-color: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+/* Block code styling */
+pre {
+  font-family: var(--ifm-font-family-base);
+  background-color: #f0f0f0;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
+
+/*---------------------------------------------------------
+  Blockquotes
+---------------------------------------------------------*/
+blockquote {
+  font-style: italic;
+  border-left: 4px solid #eaeaea;
+  margin: 1.5em 0;
+  padding-left: 1em;
+  color: #555;
+}
+
+/*---------------------------------------------------------
+  Redocusaurus (API Docs) Adjustments
+---------------------------------------------------------*/
+.redocusaurus .redoc-wrap {
+  font-family: var(--ifm-font-family-base) !important;
+  font-size: 1rem !important;
+}
+
+/* Force expand all menu items with role="menuitem" */
+.redocusaurus [role="menuitem"] + ul,
+.redocusaurus [role="menuitem"] ~ ul,
+.redocusaurus li[role="menuitem"] ul {
+  display: block !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Hide SVG icons in list items within unordered lists */
+.redocusaurus ul li svg {
+  display: none !important;
+}
+
+/*---------------------------------------------------------
+  Responsive Adjustments for Headings
+---------------------------------------------------------*/
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/*---------------------------------------------------------
+  Button Styles - Consistência para todos os botões
+---------------------------------------------------------*/
+/* Estilo base para todos os botões */
+.button {
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+/* Botão primário - modo claro */
+.button--primary {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.button--primary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão secundário - modo claro */
+.button--secondary {
+  background-color: #f0f0f0;
+  color: var(--ifm-color-primary-dark);
+  border-color: #e0e0e0;
+}
+
+.button--secondary:hover {
+  background-color: #e0e0e0;
+  color: var(--ifm-color-primary-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão link estilo card na página inicial */
+
+.apiCardButton,
+.helpLink {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.apiCardButton:hover,
+.helpLink:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: none;
+}
+
+.apiCardButton span,
+.helpLink span {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.apiCardButton:hover span,
+.helpLink:hover span {
+  transform: translateX(5px);
+}
+
+/* Dark Mode Button Overrides */
+[data-theme="dark"] .button--primary {
+  background-color: var(--ifm-color-primary);
+  color: #ffffff;
+  border-color: var(--ifm-color-primary-darker);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .button--primary:hover {
+  background-color: var(--ifm-color-primary-darker);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .button--secondary {
+  background-color: var(--ifm-color-emphasis-700);
+  color: #ffffff;
+  border-color: var(--ifm-color-emphasis-800);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .button--secondary:hover {
+  background-color: var(--ifm-color-emphasis-800);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .apiCardButton,
+[data-theme="dark"] .helpLink {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme="dark"] .apiCardButton:hover,
+[data-theme="dark"] .helpLink:hover {
+  color: #ffffff;
+}
+
+/*---------------------------------------------------------
+  Menu Customization
+---------------------------------------------------------*/
+.menu-content {
+  top: 60px !important;
+}
+
+.hero__title {
+  margin-bottom: 10px !important;
+  margin-top: 25px !important;
+}
+
+.hero__subtitle {
+  margin-bottom: 0 !important;
+}
+
+/*---------------------------------------------------------
+  Navbar Item Styling for Consistency
+---------------------------------------------------------*/
+.navbar__items .navbar__item {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.navbar__items .navbar__item:hover,
+.navbar__items .navbar__item--active {
+  color: var(--ifm-color-primary-darker);
+  text-decoration: none;
+  background-color: rgba(0, 51, 153, 0.1);
+}
+
+[data-theme="dark"] .navbar__items .navbar__item {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme="dark"] .navbar__items .navbar__item:hover,
+[data-theme="dark"] .navbar__items .navbar__item--active {
+  color: white;
+  background-color: rgba(241, 135, 0, 0.2);
+}
+
+/*---------------------------------------------------------
+  Hide Default SideBar
+---------------------------------------------------------*/
+.redoc-wrap .menu-content {
+  display: none !important;
+}
+
+.redoc-wrap > div {
+  margin-left: 0 !important;
+}
+
+.api-content {
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+.redoc-wrap [role="search"] {
+  display: none !important;
+}
+
+/*---------------------------------------------------------
+  Material Symbols Icons
+---------------------------------------------------------*/
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+  vertical-align: middle;
+  margin-right: 8px;
+}
