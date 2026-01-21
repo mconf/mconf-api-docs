@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
   description: |-
-    This is [Elos](https://elos.vc/) official API documentation, built using the OpenAPI specification with Redoc.
+    This is our official API documentation, built using the OpenAPI specification with Redoc.
 
     # Intro
 
-    The Elos API is compatible with the [BigBlueButton (BBB) API](https://docs.bigbluebutton.org/development/api/), so if your product already integrates with BBB, you can use the same API to integrate with Elos. Most of the API calls described here are either identical or very similar to what is offered by BigBlueButton. Some API calls, however, are unique to Elos.
+    The Conference API is compatible with the [BigBlueButton (BBB) API](https://docs.bigbluebutton.org/development/api/), so if your product already integrates with BBB, you can use the same code to integrate with our API. Most of the API calls described here are either identical or very similar to what is offered by BigBlueButton. Some API calls, however, are unique to our API.
 
     # Authentication
 
@@ -56,10 +56,6 @@ info:
     You **must** send this checksum with **every** API call. Since end users do not know your shared secret, they can not fake calls to the service, and they cannot modify any API calls since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.
   version: 1.0.0
   title: Conference API
-  contact:
-    name: Email
-    url: https://elos.vc
-    email: contato@elos.vc
 servers:
   - url: /bigbluebutton/api
     description: The homologation API server

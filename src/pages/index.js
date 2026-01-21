@@ -13,14 +13,13 @@ function HomepageHeader() {
       <div className="container">
         <img
           src="img/favicon.svg"
-          alt="Elos API"
+          alt="API Documentation"
           className={styles.heroImage}
         />
 
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
-        <p className="hero__subtitle">Documentation for Elos API integration</p>
         <div className={styles.heroButtons}>
           <Link
             className="button button--primary button--lg margin-right--md"
@@ -91,7 +90,7 @@ function FeaturedLinks() {
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout description="Elos API Documentation">
+    <Layout description="API Documentation">
       <HomepageHeader />
       <main>
         <FeaturedLinks />
