@@ -86,20 +86,13 @@ const darkLogoPath = getDarkLogoPath(designVariant);
 const heroLogoPath = getHeroLogoPath(designVariant);
 const heroDarkLogoPath = getHeroDarkLogoPath(designVariant);
 
-// Get correct spec file based on theme
-const getSpecPath = (basePath) => {
-  return designVariant === "confweb"
-    ? basePath.replace(".yaml", "-confweb.yaml")
-    : basePath;
-};
-
-// Base API specs (always included)
+// Base API specs (always included) - same specs for all variants
 const baseSpecs = [
   {
     id: "conference-api",
-    spec: getSpecPath("static/proxy/openapi.yaml"),
+    spec: "static/proxy/openapi.yaml",
     route: "/api/conference/",
-    url: getSpecPath("/proxy/openapi.yaml"),
+    url: "/proxy/openapi.yaml",
   },
 ];
 
@@ -108,15 +101,15 @@ if (showInternalAPIs) {
   baseSpecs.push(
     {
       id: "data-api",
-      spec: getSpecPath("static/data/openapi.yaml"),
+      spec: "static/data/openapi.yaml",
       route: "/api/data/",
-      url: getSpecPath("/data/openapi.yaml"),
+      url: "/data/openapi.yaml",
     },
     {
       id: "administrative-api",
-      spec: getSpecPath("static/administrative/openapi.yaml"),
+      spec: "static/administrative/openapi.yaml",
       route: "/api/administrative/",
-      url: getSpecPath("/administrative/openapi.yaml"),
+      url: "/administrative/openapi.yaml",
     },
   );
 }
