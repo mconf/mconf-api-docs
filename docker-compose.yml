@@ -33,28 +33,13 @@ services:
     profiles:
       - prod
 
-  confweb-dev:
-    build:
-      context: .
-      target: dev
-    image: mconf/mconf-api-docs:dev-confweb
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/opt/docusaurus
-    environment:
-      - NODE_ENV=development
-      - SHOW_INTERNAL_APIS=true
-      - SITE_URL=https://api.mconf.rnp.br
-      - THEME=confweb
-
-  confweb-prod:
+  confweb:
     build:
       context: .
       target: confweb
       args:
         - SHOW_INTERNAL_APIS=false
-        - SITE_URL=https://api.mconf.rnp.br
+        - SITE_URL=https://api.elos.vc
         - THEME=confweb
     image: mconf/mconf-api-docs:latest-confweb
     ports:
@@ -64,4 +49,4 @@ services:
       - SHOW_INTERNAL_APIS=false
       - THEME=confweb
     profiles:
-      - confweb-prod
+      - confweb
