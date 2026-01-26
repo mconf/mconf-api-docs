@@ -13,6 +13,7 @@ jobs:
       build-args: |
         SITE_URL=${{ vars.SITE_URL_ELOS }}
         SHOW_INTERNAL_APIS=false
+        THEME=elos
       image-suffix: ''
       runs-on: '["ubuntu-22.04"]'
     secrets: inherit
@@ -23,6 +24,7 @@ jobs:
       build-args: |
         SITE_URL=${{ vars.SITE_URL_ELOS_INTERNAL }}
         SHOW_INTERNAL_APIS=true
+        THEME=elos
       image-suffix: '-internal'
       runs-on: '["ubuntu-22.04"]'
     secrets: inherit
@@ -33,6 +35,7 @@ jobs:
       build-args: |
         SITE_URL=${{ vars.SITE_URL_CONFWEB }}
         SHOW_INTERNAL_APIS=false
+        THEME=confweb
       image-suffix: '-confweb'
       runs-on: '["ubuntu-22.04"]'
     secrets: inherit
