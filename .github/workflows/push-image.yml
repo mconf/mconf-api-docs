@@ -7,22 +7,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  push-scan-public:
+  push-scan-elos:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
     with:
       build-args: |
-        SITE_URL=${{ vars.SITE_URL }}
+        SITE_URL=${{ vars.SITE_URL_ELOS }}
         SHOW_INTERNAL_APIS=false
       image-suffix: ''
       runs-on: '["ubuntu-22.04"]'
     secrets: inherit
 
-  push-scan-internal:
+  push-scan-elos-internal:
     uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
     with:
       build-args: |
-        SITE_URL=${{ vars.SITE_URL_INTERNAL }}
+        SITE_URL=${{ vars.SITE_URL_ELOS_INTERNAL }}
         SHOW_INTERNAL_APIS=true
       image-suffix: '-internal'
+      runs-on: '["ubuntu-22.04"]'
+    secrets: inherit
+
+  push-scan-confweb:
+    uses: mconf/mconf-ci-jobs/.github/workflows/lb-push-scan-image.yml@main
+    with:
+      build-args: |
+        SITE_URL=${{ vars.SITE_URL_CONFWEB }}
+        SHOW_INTERNAL_APIS=false
+      image-suffix: '-confweb'
       runs-on: '["ubuntu-22.04"]'
     secrets: inherit
