@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.0
+- Implement Conferência Web theme customization
+- Review and update documentation for some internal endpoints
+- Remove unnecessary references to Elos in documentation
+- Changed CI/CD by switching from DockerHub builds to CI builds
+
 ## 2.6.0
 - Fixes on the docs content: text standardization and typos, footer removed, change dark mode button
 - Add Dependabot configuration for automatic dependency updates
