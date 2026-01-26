@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.7.0
+- Review and update documentation for Conferência Web endpoints
+- Implement Conferência Web theme customization
+- Remove unnecessary references to Elos in documentation
+- Optimize CI/CD pipeline by removing local build process and switching to DockerHub builds
+- Update project infrastructure to use confweb-dev and confweb-prod Docker Compose configurations
+- Clean up and remove duplicate specification files
+
 ## 2.6.0
 - Fixes on the docs content: text standardization and typos, footer removed, change dark mode button
 - Add Dependabot configuration for automatic dependency updates
