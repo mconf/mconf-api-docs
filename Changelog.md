@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.7.0
+- Review and update documentation specs
+- Remove references to Elos
+- Remove build/ directory, now building on CI and DockerHub
+- Add new API endpoints 
+- Update Conferenciaweb theme
+- Improve CI configuration for building and deployment
+
 ## 2.6.0
 - Fixes on the docs content: text standardization and typos, footer removed, change dark mode button
 - Add Dependabot configuration for automatic dependency updates
