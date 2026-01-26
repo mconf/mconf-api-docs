@@ -13,6 +13,7 @@ services:
       - NODE_ENV=development
       - SHOW_INTERNAL_APIS=true
       - SITE_URL=https://api.h.elos.dev
+      - THEME=elos
 
   prod:
     build:
@@ -21,9 +22,46 @@ services:
       args:
         - SHOW_INTERNAL_APIS=false
         - SITE_URL=https://api.elos.vc
+        - THEME=elos
     image: mconf/mconf-api-docs:latest
     ports:
-      - "80:3000"
+      - "80:80"
     environment:
       - NODE_ENV=production
       - SHOW_INTERNAL_APIS=false
+      - THEME=elos
+    profiles:
+      - prod
+
+  confweb-dev:
+    build:
+      context: .
+      target: dev
+    image: mconf/mconf-api-docs:dev-confweb
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/opt/docusaurus
+    environment:
+      - NODE_ENV=development
+      - SHOW_INTERNAL_APIS=true
+      - SITE_URL=https://api.mconf.rnp.br
+      - THEME=confweb
+
+  confweb-prod:
+    build:
+      context: .
+      target: confweb
+      args:
+        - SHOW_INTERNAL_APIS=false
+        - SITE_URL=https://api.mconf.rnp.br
+        - THEME=confweb
+    image: mconf/mconf-api-docs:latest-confweb
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+      - SHOW_INTERNAL_APIS=false
+      - THEME=confweb
+    profiles:
+      - confweb-prod

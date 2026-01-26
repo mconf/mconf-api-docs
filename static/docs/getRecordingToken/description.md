@@ -5,7 +5,7 @@
     font-size: 16px;
     border-left: 0.25rem solid #9eeaf9
     ">
-    This is a custom Elos call, which means it is not supported by the standard BigBlueButton API
+    This is a custom call, which means it is not supported by the standard BigBlueButton API
 </div>
 
 This call returns a JWT which gives access to the recording of the specified meeting.

@@ -99,6 +99,7 @@ export default function LayoutWrapper(props) {
   } = useDocusaurusContext();
   // Get the environment variable from customFields
   const showInternalAPIs = customFields.showInternalAPIs;
+  const designVariant = customFields.designVariant;
   const [searchQuery, setSearchQuery] = useState("");
   const [matchedCategories, setMatchedCategories] = useState(new Set());
 
@@ -158,12 +159,26 @@ export default function LayoutWrapper(props) {
                     </Link>
                   </li>
                   <li className="menu__list-item">
-                    <Link className="menu__link" to="/docs/pages/guide">
+                    <Link
+                      className="menu__link"
+                      to={
+                        designVariant === "confweb"
+                          ? "/docs/pages/guide-confweb"
+                          : "/docs/pages/guide"
+                      }
+                    >
                       <MaterialIcon>menu_book</MaterialIcon> English Guide
                     </Link>
                   </li>
                   <li className="menu__list-item">
-                    <Link className="menu__link" to="/docs/pages/guide-pt">
+                    <Link
+                      className="menu__link"
+                      to={
+                        designVariant === "confweb"
+                          ? "/docs/pages/guide-pt-confweb"
+                          : "/docs/pages/guide-pt"
+                      }
+                    >
                       <MaterialIcon>menu_book</MaterialIcon> Guia em Português
                     </Link>
                   </li>
@@ -179,22 +194,26 @@ export default function LayoutWrapper(props) {
                   defaultOpen={true}
                   searchQuery={searchQuery}
                 >
-                  <li className="menu__list-item">
-                    <Link
-                      className="menu__link"
-                      to="/docs/api/conference#section/Intro"
-                    >
-                      <MaterialIcon>book_4</MaterialIcon>Intro
-                    </Link>
-                  </li>
-                  <li className="menu__list-item">
-                    <Link
-                      className="menu__link"
-                      to="/docs/api/conference#section/Authentication"
-                    >
-                      <MaterialIcon>id_card</MaterialIcon>Authentication
-                    </Link>
-                  </li>
+                  {matchesSearch("intro", "Conference API") && (
+                    <li className="menu__list-item">
+                      <Link
+                        className="menu__link"
+                        to="/docs/api/conference#section/Intro"
+                      >
+                        <MaterialIcon>book_4</MaterialIcon>Intro
+                      </Link>
+                    </li>
+                  )}
+                  {matchesSearch("authentication", "Conference API") && (
+                    <li className="menu__list-item">
+                      <Link
+                        className="menu__link"
+                        to="/docs/api/conference#section/Authentication"
+                      >
+                        <MaterialIcon>id_card</MaterialIcon>Authentication
+                      </Link>
+                    </li>
+                  )}
                   <CollapsibleCategory
                     label={
                       <>
@@ -207,7 +226,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "getMeetings",
                       "Conference API",
-                      "Meeting"
+                      "Meeting",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -222,7 +241,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "getAllMeetings",
                       "Conference API",
-                      "Meeting"
+                      "Meeting",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -237,7 +256,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "isMeetingRunning",
                       "Conference API",
-                      "Meeting"
+                      "Meeting",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -252,7 +271,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "getMeetingInfo",
                       "Conference API",
-                      "Meeting"
+                      "Meeting",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -322,7 +341,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "getRecordings",
                       "Conference API",
-                      "Recording"
+                      "Recording",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -337,7 +356,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "publishRecordings",
                       "Conference API",
-                      "Recording"
+                      "Recording",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -352,7 +371,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "deleteRecordings",
                       "Conference API",
-                      "Recording"
+                      "Recording",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -367,7 +386,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "updateRecordings",
                       "Conference API",
-                      "Recording"
+                      "Recording",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -447,7 +466,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "API Version",
                       "Conference API",
-                      "Extra"
+                      "Extra",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -462,7 +481,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "API Version",
                       "Conference API",
-                      "Extra"
+                      "Extra",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -477,7 +496,7 @@ export default function LayoutWrapper(props) {
                     {matchesSearch(
                       "API Version",
                       "Conference API",
-                      "Extra"
+                      "Extra",
                     ) && (
                       <li className="menu__list-item">
                         <Link
@@ -543,7 +562,7 @@ export default function LayoutWrapper(props) {
                         {matchesSearch(
                           "engagement_report",
                           "Data API",
-                          "Artifacts"
+                          "Artifacts",
                         ) && (
                           <li className="menu__list-item">
                             <Link
@@ -558,7 +577,7 @@ export default function LayoutWrapper(props) {
                         {matchesSearch(
                           "participants_list",
                           "Data API",
-                          "Artifacts"
+                          "Artifacts",
                         ) && (
                           <li className="menu__list-item">
                             <Link
@@ -573,7 +592,7 @@ export default function LayoutWrapper(props) {
                         {matchesSearch(
                           "shared_notes",
                           "Data API",
-                          "Artifacts"
+                          "Artifacts",
                         ) && (
                           <li className="menu__list-item">
                             <Link
@@ -610,7 +629,7 @@ export default function LayoutWrapper(props) {
                         {matchesSearch(
                           "list_objects",
                           "Data API",
-                          "Artifacts"
+                          "Artifacts",
                         ) && (
                           <li className="menu__list-item">
                             <Link
@@ -630,64 +649,75 @@ export default function LayoutWrapper(props) {
                       defaultOpen={true}
                       searchQuery={searchQuery}
                     >
-                      {matchesSearch("institution", "Administrative API") && (
+                      {matchesSearch("institutions", "Administrative API") && (
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}/get"
-                          >
-                            <MethodBadge method="GET" />
-                            institution
-                          </Link>
-                        </li>
-                      )}
-                      {matchesSearch("institution", "Administrative API") && (
-                        <li className="menu__list-item">
-                          <Link
-                            className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}/put"
-                          >
-                            <MethodBadge method="PUT" />
-                            institution
-                          </Link>
-                        </li>
-                      )}
-                      {matchesSearch("institution", "Administrative API") && (
-                        <li className="menu__list-item">
-                          <Link
-                            className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1/post"
+                            to="/docs/api/administrative#/paths/~1institutions/post"
                           >
                             <MethodBadge method="POST" />
-                            institution
+                            institutions
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("institutions", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}/get"
+                          >
+                            <MethodBadge method="GET" />
+                            institutions
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("institutions", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}/put"
+                          >
+                            <MethodBadge method="PUT" />
+                            institutions
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("institutions", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}/delete"
+                          >
+                            <MethodBadge method="DEL" />
+                            institutions
                           </Link>
                         </li>
                       )}
                       {matchesSearch(
                         "meeting_settings",
-                        "Administrative API"
+                        "Administrative API",
                       ) && (
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}~1meeting_settings/get"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}~1meeting_settings/get"
                           >
                             <MethodBadge method="GET" />
-                            institution/meeting_settings
+                            meeting_settings
                           </Link>
                         </li>
                       )}
                       {matchesSearch(
                         "unsubscription",
-                        "Administrative API"
+                        "Administrative API",
                       ) && (
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}~1unsubscription/post"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}~1unsubscription/post"
                           >
                             <MethodBadge method="POST" />
-                            institution/unsubscription
+                            unsubscription
                           </Link>
                         </li>
                       )}
@@ -695,21 +725,32 @@ export default function LayoutWrapper(props) {
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1institution~1{guid}~1reactivation/post"
+                            to="/docs/api/administrative#/paths/~1institutions~1{guid}~1reactivation/post"
                           >
                             <MethodBadge method="POST" />
-                            institution/reactivation
+                            reactivation
                           </Link>
                         </li>
                       )}
-                      {matchesSearch("user", "Administrative API") && (
+                      {matchesSearch("user_anonymization", "Administrative API") && (
                         <li className="menu__list-item">
                           <Link
                             className="menu__link"
-                            to="/docs/api/administrative#/paths/~1user~1{external_user_id}/delete"
+                            to="/docs/api/administrative#/paths/~1users~1{external_user_id}~1anonymization/post"
                           >
-                            <MethodBadge method="DEL" />
-                            user
+                            <MethodBadge method="POST" />
+                            user_anonymization
+                          </Link>
+                        </li>
+                      )}
+                      {matchesSearch("room_anonymization", "Administrative API") && (
+                        <li className="menu__list-item">
+                          <Link
+                            className="menu__link"
+                            to="/docs/api/administrative#/paths/~1rooms~1{external_meeting_id}~1anonymization/post"
+                          >
+                            <MethodBadge method="POST" />
+                            room_anonymization
                           </Link>
                         </li>
                       )}
@@ -722,22 +763,52 @@ export default function LayoutWrapper(props) {
                   defaultOpen={true}
                   searchQuery={searchQuery}
                 >
-                  <li className="menu__list-item">
-                    <a
-                      className="menu__link"
-                      href="https://ajuda.elos.vc/kb/article/150995/tudo-sobre-o-elos"
-                      target="_blank"
-                    >
-                      <MaterialIcon>indeterminate_question_box</MaterialIcon>
-                      Help Center
-                    </a>
-                  </li>
-                  <li className="menu__list-item">
-                    <a className="menu__link" href="mailto:support@elos.vc">
-                      <MaterialIcon> contact_emergency </MaterialIcon> Technical
-                      Support
-                    </a>
-                  </li>
+                  {designVariant === "confweb" ? (
+                    <>
+                      <li className="menu__list-item">
+                        <a
+                          className="menu__link"
+                          href="https://ajuda.rnp.br/conferenciaweb"
+                          target="_blank"
+                        >
+                          <MaterialIcon>
+                            indeterminate_question_box
+                          </MaterialIcon>
+                          Help Center
+                        </a>
+                      </li>
+                      <li className="menu__list-item">
+                        <a
+                          className="menu__link"
+                          href="mailto:atendimento@rnp.br"
+                        >
+                          <MaterialIcon> contact_emergency </MaterialIcon>{" "}
+                          Technical Support
+                        </a>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="menu__list-item">
+                        <a
+                          className="menu__link"
+                          href="https://ajuda.elos.vc/kb/article/150995/tudo-sobre-o-elos"
+                          target="_blank"
+                        >
+                          <MaterialIcon>
+                            indeterminate_question_box
+                          </MaterialIcon>
+                          Help Center
+                        </a>
+                      </li>
+                      <li className="menu__list-item">
+                        <a className="menu__link" href="mailto:support@elos.vc">
+                          <MaterialIcon> contact_emergency </MaterialIcon>{" "}
+                          Technical Support
+                        </a>
+                      </li>
+                    </>
+                  )}
                 </CollapsibleCategory>
 
                 <CollapsibleCategory
@@ -745,24 +816,51 @@ export default function LayoutWrapper(props) {
                   defaultOpen={true}
                   searchQuery={searchQuery}
                 >
-                  <li className="menu__list-item">
-                    <a
-                      className="menu__link"
-                      href="https://elos.vc/site/"
-                      target="_blank"
-                    >
-                      <MaterialIcon>link</MaterialIcon>
-                      Elos
-                    </a>
-                  </li>
-                  <li className="menu__list-item">
-                    <a
-                      className="menu__link"
-                      href="https://elos.vc/site/sobre-a-mconf/"
-                    >
-                      <MaterialIcon> link </MaterialIcon> About Mconf
-                    </a>
-                  </li>
+                  {designVariant === "confweb" ? (
+                    <>
+                      <li className="menu__list-item">
+                        <a
+                          className="menu__link"
+                          href="https://conferenciaweb.rnp.br"
+                          target="_blank"
+                        >
+                          <MaterialIcon>link</MaterialIcon>
+                          ConferênciaWeb
+                        </a>
+                      </li>
+                      <li className="menu__list-item">
+                        <a
+                          className="menu__link"
+                          href="https://elos.vc/site/sobre-a-mconf/"
+                          target="_blank"
+                        >
+                          <MaterialIcon> link </MaterialIcon> About Mconf
+                        </a>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="menu__list-item">
+                        <a
+                          className="menu__link"
+                          href="https://elos.vc/site/"
+                          target="_blank"
+                        >
+                          <MaterialIcon>link</MaterialIcon>
+                          Elos
+                        </a>
+                      </li>
+                      <li className="menu__list-item">
+                        <a
+                          className="menu__link"
+                          href="https://elos.vc/site/sobre-a-mconf/"
+                          target="_blank"
+                        >
+                          <MaterialIcon> link </MaterialIcon> About Mconf
+                        </a>
+                      </li>
+                    </>
+                  )}
                 </CollapsibleCategory>
               </ul>
             </nav>

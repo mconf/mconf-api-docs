@@ -1,6 +1,0 @@
-#!/bin/bash -x
-
-docker build -t $IMAGE_NAME-internal --build-arg SHOW_INTERNAL_APIS=true --build-arg SITE_URL=https://api.h.elos.dev -f $DOCKERFILE_PATH .
-docker push $IMAGE_NAME-internal
-
-docker build -t $IMAGE_NAME --build-arg SHOW_INTERNAL_APIS=false --build-arg SITE_URL=https://api.elos.vc -f $DOCKERFILE_PATH .

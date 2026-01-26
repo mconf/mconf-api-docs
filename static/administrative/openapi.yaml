@@ -1,21 +1,21 @@
 openapi: 3.0.0
 info:
-  title: Elos Administrative API
+  title: Administrative API
   description: |
-    ###  Coming soon 🚨
-    Administrative API for managing Elos institutions and users
+    Internal administrative API for managing institutions and users.
   version: 0.5.0
-  servers:
-  - url: /
+servers:
+- url: /
 
 paths:
-  /institution/{guid}:
+  /institutions/{guid}:
     get:
-      summary: institution
+      summary: Get institution details
       parameters:
       - name: guid
         in: path
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
           format: uuid
@@ -32,11 +32,12 @@ paths:
           description: Internal server error
 
     put:
-      summary: institution
+      summary: Update institution
       parameters:
       - name: guid
         in: path
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
           format: uuid
@@ -58,9 +59,28 @@ paths:
         "500":
           description: Internal server error
 
-  /institution/:
+    delete:
+      summary: Delete institution
+      description: Permanently deletes an institution and all associated data
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: Institution deleted successfully
+        "404":
+          description: Institution not found
+        "500":
+          description: Internal server error
+
+  /institutions:
     post:
-      summary: institution
+      summary: Create institution
       requestBody:
         required: true
         content:
@@ -81,13 +101,15 @@ paths:
         "500":
           description: Internal server error
 
-  /institution/{guid}/meeting_settings:
+  /institutions/{guid}/meeting_settings:
     get:
-      summary: institution/meeting_settings
+      summary: Get institution meeting settings
+      description: Retrieve meeting configuration settings for an institution
       parameters:
       - name: guid
         in: path
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
           format: uuid
@@ -103,19 +125,21 @@ paths:
         "500":
           description: Internal server error
 
-  /institution/{guid}/unsubscription:
+  /institutions/{guid}/unsubscription:
     post:
-      summary: institution/unsubscription
+      summary: Unsubscribe institution
+      description: Unsubscribes an institution, expiring all its shared secrets and preventing new API access
       parameters:
       - name: guid
         in: path
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
           format: uuid
       responses:
         "200":
-          description: Institution unsubscribed
+          description: Institution unsubscribed successfully
           content:
             application/json:
               schema:
@@ -125,19 +149,21 @@ paths:
         "500":
           description: Internal server error
 
-  /institution/{guid}/reactivation:
+  /institutions/{guid}/reactivation:
     post:
-      summary: institution/reactivation
+      summary: Reactivate institution
+      description: Reactivates an unsubscribed institution, re-enabling all previously expired shared secrets
       parameters:
       - name: guid
         in: path
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
           format: uuid
       responses:
         "200":
-          description: Institution reactivated
+          description: Institution reactivated successfully
           content:
             application/json:
               schema:
@@ -147,24 +173,62 @@ paths:
         "500":
           description: Internal server error
 
-  /user/{external_user_id}:
-    delete:
-      summary: user
+  /users/{external_user_id}/anonymization:
+    post:
+      summary: Anonymize user data
+      description: Anonymizes all personal data associated with a user across meetings and recordings
       parameters:
       - name: external_user_id
         in: path
         required: true
+        description: External user identifier from the integrating system
+        schema:
+          type: string
+      - name: secret_guid
+        in: query
+        required: false
+        description: Optional secret GUID for additional validation
+        schema:
+          type: string
+          format: uuid
+      - name: hash_key
+        in: query
+        required: false
+        description: Optional secret hash used for anonymization. When provided, ensures data is anonymized using the same hash across different systems for consistency.
         schema:
           type: string
       responses:
         "200":
-          description: User data removed
+          description: User data anonymized successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RemoveUserResponse"
+                $ref: "#/components/schemas/AnonymizeUserResponse"
         "404":
           description: User not found
+        "500":
+          description: Internal server error
+
+  /rooms/{external_meeting_id}/anonymization:
+    post:
+      summary: Anonymize room data
+      description: Anonymizes all data associated with a specific room/meeting
+      parameters:
+      - name: external_meeting_id
+        in: path
+        required: true
+        description: External meeting identifier (room ID). This is any string provided by the API caller to identify a room. Unlike internal meeting IDs which identify individual meeting sessions, external IDs identify rooms where multiple meetings can occur over time.
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Room data anonymized successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnonymizeRoomResponse"
+        "404":
+          description: Room not found
         "500":
           description: Internal server error
 
@@ -202,8 +266,22 @@ components:
       properties:
         name:
           type: string
+          description: Institution name
         secret_name:
           type: string
+          description: Name identifier for the institution's shared secret
+        meeting_limit:
+          type: integer
+          minimum: 0
+          description: Maximum number of simultaneous meetings allowed for this institution (0 for unlimited)
+        participants_limit:
+          type: integer
+          minimum: 0
+          description: Maximum number of participants allowed per meeting for this institution (0 for unlimited)
+        retention_days:
+          type: integer
+          minimum: 1
+          description: Number of days recordings are stored before expiring
 
     UpdateInstitution:
       type: object
@@ -212,15 +290,19 @@ components:
       properties:
         name:
           type: string
+          description: Institution name
         participants_limit:
           type: integer
           minimum: 0
+          description: Maximum number of participants allowed per meeting for this institution (0 for unlimited)
         retention_days:
           type: integer
           minimum: 1
+          description: Number of days recordings are stored before expiring
         meeting_limit:
           type: integer
           minimum: 0
+          description: Maximum number of simultaneous meetings allowed for this institution (0 for unlimited)
 
     MeetingSettings:
       type: object
@@ -272,10 +354,22 @@ components:
           items:
             $ref: "#/components/schemas/SharedSecret"
 
-    RemoveUserResponse:
+    AnonymizeUserResponse:
       type: object
       properties:
         external_user_id:
           type: string
+          description: The anonymized user identifier
         total_anonymized_records:
           type: integer
+          description: Total number of records that were anonymized
+
+    AnonymizeRoomResponse:
+      type: object
+      properties:
+        external_meeting_id:
+          type: string
+          description: The anonymized meeting identifier
+        total_anonymized_records:
+          type: integer
+          description: Total number of records that were anonymized

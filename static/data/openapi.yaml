@@ -1,27 +1,30 @@
 openapi: 3.0.0
 info:
-  title: Elos Data API
+  title: Data API
   description: |
-    ###  Coming soon 🚨
-    Elos meeting data, reports and artifacts
+    Internal API for meeting data, reports and artifacts.
   version: 2.1.0
   servers:
   - url: /
 
 tags:
 - name: summary
+  description: Get statistical summaries of meeting usage
 - name: artifacts
+  description: Access meeting artifacts like engagement reports, shared notes, and participant lists
 
 paths:
   /institutions/{institution_guid}/reports/summary/{ref_date}:
     get:
       tags:
       - summary
-      summary: summary
+      summary: Get usage summary
+      description: Returns statistical summary of meetings, recordings, and users for a specified time period
       parameters:
       - in: path
         name: institution_guid
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
       - in: path
@@ -29,13 +32,14 @@ paths:
         required: true
         schema:
           type: string
-        description: Reference date in YYYY-MM-DD or YYYY-MM format
+        description: Reference date in YYYY-MM-DD format (for daily filter) or YYYY-MM format (for monthly filter)
       - in: query
         name: filter
         required: true
         schema:
           type: string
           enum: [ daily, monthly ]
+        description: Time granularity - daily returns data for a specific day, monthly returns aggregated data for a month
       responses:
         "200":
           description: Successful response
@@ -89,11 +93,13 @@ paths:
     get:
       tags:
       - artifacts
-      summary: report
+      summary: Get monthly report
+      description: Retrieves a generated report file for a specific month in the requested format
       parameters:
       - in: path
         name: institution_guid
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
       - in: path
@@ -108,12 +114,14 @@ paths:
         schema:
           type: string
           enum: [ pt, en ]
+        description: Report language (pt for Portuguese, en for English)
       - in: query
         name: format
         required: true
         schema:
           type: string
           enum: [ pdf, csv, xls ]
+        description: Report file format
       responses:
         "200":
           description: Successful response
@@ -174,16 +182,19 @@ paths:
     get:
       tags:
       - artifacts
-      summary: participants_list
+      summary: Get participants list
+      description: Retrieves a text file containing the list of participants who joined the meeting and session information
       parameters:
       - in: path
         name: institution_guid
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
       - in: path
         name: int_meeting_id
         required: true
+        description: Internal meeting identifier that uniquely identifies a single meeting session (format is SHA256 hash + timestamp, e.g., 8b71e71ada7fb4fe4457d449680934960f366c12-1768934598773)
         schema:
           type: string
       responses:
@@ -196,6 +207,7 @@ paths:
                 properties:
                   link:
                     type: string
+                    description: Download URL for the participants list file
         "404":
           description: Meeting not found or file not found
           content:
@@ -210,16 +222,19 @@ paths:
     get:
       tags:
       - artifacts
-      summary: shared_notes
+      summary: Get shared notes
+      description: Retrieves a text file containing shared notes created during the meeting session
       parameters:
       - in: path
         name: institution_guid
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
       - in: path
         name: int_meeting_id
         required: true
+        description: Internal meeting identifier that uniquely identifies a single meeting session (format is SHA256 hash + timestamp, e.g., 8b71e71ada7fb4fe4457d449680934960f366c12-1768934598773)
         schema:
           type: string
       responses:
@@ -232,6 +247,7 @@ paths:
                 properties:
                   link:
                     type: string
+                    description: Download URL for the shared notes file
         "404":
           description: Meeting not found or file not found
           content:
@@ -246,26 +262,25 @@ paths:
     get:
       tags:
       - artifacts
-      summary: file
+      summary: Get custom artifact file
+      description: Retrieves a custom artifact file associated with a meeting
       parameters:
       - in: path
         name: institution_guid
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
       - in: path
         name: int_meeting_id
         required: true
-        schema:
-          type: string
-      - in: path
-        name: file
-        required: true
+        description: Internal meeting identifier that uniquely identifies a single meeting session (format is SHA256 hash + timestamp, e.g., 8b71e71ada7fb4fe4457d449680934960f366c12-1768934598773)
         schema:
           type: string
       - in: query
         name: file_name
         required: true
+        description: Name of the file to retrieve
         schema:
           type: string
       responses:
@@ -278,6 +293,7 @@ paths:
                 properties:
                   link:
                     type: string
+                    description: Download URL for the requested file
         "400":
           description: Bad Request
           content:
@@ -299,26 +315,25 @@ paths:
     put:
       tags:
       - artifacts
-      summary: file
+      summary: Upload custom artifact file
+      description: Uploads a custom artifact file for a meeting
       parameters:
       - in: path
         name: institution_guid
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
       - in: path
         name: int_meeting_id
         required: true
-        schema:
-          type: string
-      - in: path
-        name: file
-        required: true
+        description: Internal meeting identifier that uniquely identifies a single meeting session (format is SHA256 hash + timestamp, e.g., 8b71e71ada7fb4fe4457d449680934960f366c12-1768934598773)
         schema:
           type: string
       - in: query
         name: file_name
         required: true
+        description: Name for the uploaded file
         schema:
           type: string
       responses:
@@ -347,25 +362,28 @@ paths:
     get:
       tags:
       - artifacts
-      summary: list_objects
+      summary: List meeting artifacts
+      description: Lists all available artifacts for a meeting. Can be filtered by artifact type.
       parameters:
       - in: path
         name: institution_guid
         required: true
+        description: Institution GUID. A UUID (Universally Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         schema:
           type: string
       - in: path
         name: int_meeting_id
         required: true
+        description: Internal meeting identifier that uniquely identifies a single meeting session (format is SHA256 hash + timestamp, e.g., 8b71e71ada7fb4fe4457d449680934960f366c12-1768934598773)
         schema:
           type: string
       - in: query
         name: filter
-        description: Comma-separated list of artifact types. If specified, only included artifacts are returned.
+        description: Comma-separated list of artifact types to include. If not specified, all available artifacts are returned.
         required: false
         schema:
           type: string
-          enum: [ shared_notes, participants_list, engagement_report ]
+          example: "shared_notes,participants_list"
       responses:
         "200":
           description: Successful response
@@ -376,21 +394,214 @@ paths:
                 properties:
                   objects:
                     type: array
+                    description: Array of available artifacts
                     items:
                       type: object
                       properties:
                         file_type:
                           type: string
+                          description: Type of artifact (e.g., shared_notes, participants_list, engagement_report)
                         file_name:
                           type: string
+                          description: Name of the artifact file
                         link:
                           type: string
+                          description: Download URL for the artifact
                       required:
                       - file_name
                       - link
 
         "404":
           description: Meeting not found or file not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /recordings/{int_meeting_id}/file:
+    get:
+      tags:
+      - artifacts
+      summary: Get recording file
+      description: Retrieves a recording file for a specific meeting
+      parameters:
+      - in: path
+        name: int_meeting_id
+        required: true
+        description: Internal meeting identifier that uniquely identifies a single meeting session (format is SHA256 hash + timestamp, e.g., 8b71e71ada7fb4fe4457d449680934960f366c12-1768934598773)
+        schema:
+          type: string
+      - in: query
+        name: file_name
+        required: true
+        description: Name of the recording file to retrieve
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  link:
+                    type: string
+                    description: Download URL for the recording file
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "404":
+          description: Recording not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      tags:
+      - artifacts
+      summary: Upload recording file
+      description: Uploads a recording file for a meeting
+      parameters:
+      - in: path
+        name: int_meeting_id
+        required: true
+        description: Internal meeting identifier that uniquely identifies a single meeting session (format is SHA256 hash + timestamp, e.g., 8b71e71ada7fb4fe4457d449680934960f366c12-1768934598773)
+        schema:
+          type: string
+      - in: query
+        name: file_name
+        required: true
+        description: Name for the uploaded recording file
+        schema:
+          type: string
+      responses:
+        "200":
+          description: File uploaded successfully
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /lti/{consumer_key}/{room_handler}/artifacts/report/{ref_month}:
+    get:
+      tags:
+      - artifacts
+      summary: Get LTI monthly report
+      description: Retrieves a generated report file for LTI consumers for a specific month in the requested format
+      parameters:
+      - in: path
+        name: consumer_key
+        required: true
+        description: LTI consumer key
+        schema:
+          type: string
+      - in: path
+        name: room_handler
+        required: true
+        description: Room handler identifier
+        schema:
+          type: string
+      - in: path
+        name: ref_month
+        required: true
+        description: Reference month in YYYY-MM format
+        schema:
+          type: string
+      - in: query
+        name: language
+        required: true
+        description: Report language (pt for Portuguese, en for English)
+        schema:
+          type: string
+          enum: [ pt, en ]
+      - in: query
+        name: format
+        required: true
+        description: Report file format
+        schema:
+          type: string
+          enum: [ pdf, csv, xls ]
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  link:
+                    type: string
+                    description: Download URL for the report file
+        "404":
+          description: File not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /lti/{consumer_key}/{room_handler}/artifacts/reports_available:
+    get:
+      tags:
+      - artifacts
+      summary: List available LTI reports
+      description: Lists all generated reports available for an LTI consumer
+      parameters:
+      - in: path
+        name: consumer_key
+        required: true
+        description: LTI consumer key
+        schema:
+          type: string
+      - in: path
+        name: room_handler
+        required: true
+        description: Room handler identifier
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reports:
+                    type: array
+                    description: Array of available reports
+                    items:
+                      type: object
+                      properties:
+                        ref_month:
+                          type: string
+                          description: Reference month in YYYY-MM format
+                        formats:
+                          type: array
+                          items:
+                            type: string
+        "400":
+          description: Bad Request
           content:
             application/json:
               schema:
