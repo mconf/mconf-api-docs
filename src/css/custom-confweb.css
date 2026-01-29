@@ -244,6 +244,52 @@ blockquote {
   display: none !important;
 }
 
+/* Override link colors light mode */
+.redocusaurus a,
+.redocusaurus a[href*="bigbluebutton.org"] {
+  color: var(--ifm-color-primary) !important;
+}
+
+.redocusaurus a:hover {
+  color: var(--ifm-color-primary-dark) !important;
+}
+
+/* Override download button colors light mode */
+.redocusaurus a[download],
+.redocusaurus a[class*="Download"] {
+  color: var(--ifm-color-primary) !important;
+  border-color: var(--ifm-color-primary) !important;
+}
+
+.redocusaurus a[download]:hover,
+.redocusaurus a[class*="Download"]:hover {
+  color: var(--ifm-color-primary-dark) !important;
+  border-color: var(--ifm-color-primary-dark) !important;
+}
+
+/* Override link colors dark mode */
+[data-theme="dark"] .redocusaurus a,
+[data-theme="dark"] .redocusaurus a[href*="bigbluebutton.org"] {
+  color: var(--ifm-color-primary) !important;
+}
+
+[data-theme="dark"] .redocusaurus a:hover {
+  color: var(--ifm-color-primary-light) !important;
+}
+
+/* Override download button colors dark mode */
+[data-theme="dark"] .redocusaurus a[download],
+[data-theme="dark"] .redocusaurus a[class*="Download"] {
+  color: var(--ifm-color-primary) !important;
+  border-color: var(--ifm-color-primary) !important;
+}
+
+[data-theme="dark"] .redocusaurus a[download]:hover,
+[data-theme="dark"] .redocusaurus a[class*="Download"]:hover {
+  color: var(--ifm-color-primary-light) !important;
+  border-color: var(--ifm-color-primary-light) !important;
+}
+
 /*---------------------------------------------------------
   Responsive Adjustments for Headings
 ---------------------------------------------------------*/
