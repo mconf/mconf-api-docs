@@ -114,10 +114,13 @@ if (showInternalAPIs) {
   );
 }
 
-// Base navbar items (always included)
+// Base navbar items
+const guideLink =
+  designVariant === "confweb" ? "/pages/guide-confweb" : "/pages/guide";
+
 const baseNavbarItems = [
   // { to: "/blog", label: "What's new", position: "left" },
-  { to: "/pages/guide", label: "Guide", position: "left" },
+  { to: guideLink, label: "Guide", position: "left" },
   { to: "/api/conference", label: "Conference API", position: "right" },
 ];
 
@@ -139,7 +142,10 @@ const config = {
       ? "ConferênciaWeb API Documentation"
       : "Elos API Documentation",
   // tagline: "API Documentation",
-  favicon: "img/favicon.svg",
+  favicon:
+    designVariant === "confweb"
+      ? "img/favicon-conf-web.svg"
+      : "img/favicon.svg",
 
   // Set the production url of your site here
   // In dev mode, use port 3000; in prod, use default port 80

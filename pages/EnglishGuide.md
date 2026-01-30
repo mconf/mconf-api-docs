@@ -5,8 +5,6 @@ title: Guide
 
 [🇧🇷 Versão em Português](/pages/guide-pt) | [🇺🇸 English version](/pages/guide)
 
-_Last update: October 17, 2024_
-
 :::note
 
 <aside>

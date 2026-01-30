@@ -5,12 +5,10 @@ title: Guide
 
 [🇧🇷 Versão em Português](/pages/guide-pt-confweb) | [🇺🇸 English version](/pages/guide-confweb)
 
-_Last update: October 17, 2024_
-
 :::note
 
 <aside>
-🗨️ Welcome and thank you for using the ConferênciaWeb API. On this page you will find all the information related to using the ConferênciaWeb API, and if you can't find what you're looking for or can't answer your question, please contact our team at **suporte@mconf.com** - we'll be happy to help.
+🗨️ Welcome and thank you for using the ConferênciaWeb API. On this page you will find all the information related to using the ConferênciaWeb API, and if you can't find what you're looking for or can't answer your question, please contact our team at **atendimento@rnp.br** - we'll be happy to help.
 </aside>
 :::
 
@@ -19,7 +17,7 @@ Before you read any further, bear in mind that there are several ready-made inte
 ### Summary of what you'll find here:
 
 1. [Tips for using API integration and essential documentation](#tips-for-using-api-integration-and-essential-documentation)
-2. [Difference between ConferênciaWeb Portal rooms and those created using API](#difference-between-elos-portal-rooms-and-those-created-using-api)
+2. [Difference between ConferênciaWeb Portal rooms and those created using API](#difference-between-conferênciaweb-portal-rooms-and-those-created-using-api)
 3. [Data storage](#data-storage)
 4. [Customizations defined from business rules](#customizations-defined-from-business-rules)
 5. [Permissions and opening the room](#permissions-and-opening-the-room)
@@ -154,7 +152,7 @@ There are four ways in which a session can be closed:
 - When a moderator selects the “End session” option within the room. Any moderator has this option, and after confirmation, all users are logged out, and the room is closed. Because of this, it's important to consider who should join the session as a moderator and who should join as a participant. It is not good practice for all participants to log in as moderator, as this increases the chance of someone accidentally closing the session.
 - When all participants log out. After everyone leaves, the room remains active for 5 minutes and is then closed automatically.
 - By API via the `end` method. There is no confirmation for this method, i.e. when it is called for a room that is running, the session is closed immediately. This option usually appears in integrations in some room management location, where the user who owns the room can see the status of the running room and has the option of ending it by clicking on the integration interface.
-- For inactivity. If a session remains idle for an hour, it is automatically terminated. All user entry and exit actions, microphone and camera activation, the beginning and end of a participant's speech, notes on the whiteboard, etc. are considered activity. This condition exists to avoid the scenario of a session running indefinitely by mistake. See more at: https://ajuda.rnp.br/conferenciaweb/kb/article/152226/fechamento-de-sala-por-inatividade.
+- For inactivity. If a session remains idle for an hour, it is automatically terminated. All user entry and exit actions, microphone and camera activation, the beginning and end of a participant's speech, notes on the whiteboard, etc. are considered activity. This condition exists to avoid the scenario of a session running indefinitely by mistake.
 
 ## Recordings
 
@@ -674,7 +672,7 @@ jwt.verify(token, shared_secret, { algorithms: [ algorithm ] });
 
 ## News and improvements
 
-We are constantly working to improve our solution, offering customers and users the best possible videoconferencing experience. News and improvements are continually being released, and you can follow the updates [here](https://ajuda.rnp.br/conferenciaweb/kb/article/150995/tudo-sobre-o-elos).
+We are constantly working to improve our solution, offering customers and users the best possible videoconferencing experience. News and improvements are continually being released, and you can follow the updates [here](https://ajuda.rnp.br/conferenciaweb/ultimas-atualizacoes).
 
 Suggestions are very welcome at any time. Feel free to contact us whenever you want to share feedback or suggestions, or even to ask for help.
 
@@ -695,11 +693,3 @@ Suggestions are very welcome at any time. Feel free to contact us whenever you w
 - On `CREATE`, pass `record=true` so that the session can be recorded.
 - On `CREATE` you will define the parameters `moderatorPW` and `attendeePW`. They can be anything, as long as they are different, for example, `mp` and `ap` respectively. When the `JOIN` is generated, `mp` is passed so that the user connects as a moderator, and `ap` is passed so that the user connects as an attendee;
 - On `CREATE`, pass `record=true` so that the session can be saved.
-
-### Can I replace the ConferênciaWeb logo in the top left corner?
-
-Yes, you can replace it by passing the parameter `logo=URL` in the `CREATE` method, where `URL` is the public link where the image with your organization's logo resides. We recommend that the image be in SVG format, with a transparent background, and a height of 28px. Do a test to make sure that the layout of the logo is appropriate.
-
-In addition, ConferênciaWeb has a dark mode, and it is possible to pass a version of the logo to be applied in dark mode. In this case, the parameter to be passed in `CREATE` is `darklogo=URL`. `logo` and `darklogo` can be passed simultaneously in `CREATE`, and if `darklogo` is not passed, `logo` will also be used in dark mode.
-
-Despite allowing customization of the logo, ConferênciaWeb does not white label - read more in [White label in ConferênciaWeb](https://www.notion.so/White-label-no-ConferênciaWeb-fd9b0d69d2d945eca16f09838b35e407?pvs=21).

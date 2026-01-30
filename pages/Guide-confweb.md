@@ -5,12 +5,10 @@ title: Guia
 
 [🇧🇷 Versão em Português](/pages/guide-pt-confweb) | [🇺🇸 English version](/pages/guide-confweb)
 
-_Última atualização: October 17, 2024_
-
 :::note
 
 <aside>
-🗨️ Bem-vindo e obrigado por utilizar a API do ConferênciaWeb. Nessa página você encontrará todas as informações relacionadas ao uso do ConferênciaWeb por API, e caso não encontre o que procura ou não consiga resposta para sua dúvida, entre em contato com nosso time através do **suporte@mconf.com** - será um prazer ajudar.
+🗨️ Bem-vindo e obrigado por utilizar a API do ConferênciaWeb. Nessa página você encontrará todas as informações relacionadas ao uso do ConferênciaWeb por API, e caso não encontre o que procura ou não consiga resposta para sua dúvida, entre em contato com nosso time através do **atendimento@rnp.br** - será um prazer ajudar.
 </aside>
 :::
 
@@ -19,7 +17,7 @@ Antes de seguir adiante com a leitura da documentação, tenha em mente que já 
 ### Resumo do que você vai encontrar por aqui:
 
 1. [Indicações de uso da integração via API e documentação essencial](#indicações-de-uso-da-integração-via-api-e-documentação-essencial)
-2. [Diferença entre salas do Portal ConferênciaWeb e criadas usando API](#diferença-entre-salas-do-portal-elos-e-criadas-usando-api)
+2. [Diferença entre salas do Portal ConferênciaWeb e criadas usando API](#diferença-entre-salas-do-portal-conferênciaweb-e-criadas-usando-api)
 3. [Armazenamento de dados](#armazenamento-de-dados)
 4. [Customizações definidas a partir de regras de negócio](#customizações-definidas-a-partir-de-regras-de-negócio)
 5. [Permissões e abertura da sala](#permissões-e-abertura-da-sala)
@@ -154,7 +152,7 @@ Existem quatro hipóteses para uma sessão ser encerrada:
 - Quando um moderador seleciona a opção "Encerrar a sessão" dentro da sala. Qualquer moderador possui esta opção, e após confirmação, todos os usuários são desconectados, e a sala é fechada. Por conta disso, é importante ponderar sobre quem na sessão deve entrar como moderador, e quem deve entrar como participante. Não é uma boa prática que todos os participantes conectem como moderador, pois aumenta a chance de, por acidente, alguém encerrar a sessão.
 - Quando todos os participantes desconectarem. Após todos saírem, a sala ainda permanece ativa por 5 minutos e depois é encerrada automaticamente.
 - Por API através do método `end`. Não há confirmação para este método, ou seja, quando ele é chamado para uma sala rodando, essa sessão é encerrada imediatamente. Esta opção normalmente aparece nas integrações em algum local de gerência da sala, em que o usuário dono da sala consegue enxergar o status da sala rodando e tem a opção de encerrá-la clicando na interface da integração.
-- Por inatividade. Caso uma sessão permaneça por uma hora sem nenhuma atividade, ela é encerrada automaticamente. É considerado atividade todas as ações de entrada e saída de usuários, ativação de microfone e câmera, início e fim de fala de um participante, anotações no quadro branco, entre outros. Esta condição existe para evitar o cenário de uma sessão rodando por tempo indeterminado por engano. Veja mais em: https://ajuda.rnp.br/conferenciaweb/kb/article/152226/fechamento-de-sala-por-inatividade.
+- Por inatividade. Caso uma sessão permaneça por uma hora sem nenhuma atividade, ela é encerrada automaticamente. É considerado atividade todas as ações de entrada e saída de usuários, ativação de microfone e câmera, início e fim de fala de um participante, anotações no quadro branco, entre outros. Esta condição existe para evitar o cenário de uma sessão rodando por tempo indeterminado por engano.
 
 ## Gravações
 
@@ -670,7 +668,7 @@ jwt.verify(token, shared_secret, { algorithms: [ algorithm ] });
 
 ## Novidades e melhorias
 
-Estamos constantemente trabalhando para aprimorar nossa solução, oferecendo aos clientes e usuários a melhor experiência possível em videoconferência. Novidades e melhorias são continuamente lançadas, e você pode acompanhar as atualizações [aqui](https://ajuda.rnp.br/conferenciaweb/kb/article/150995/tudo-sobre-o-elos).
+Estamos constantemente trabalhando para aprimorar nossa solução, oferecendo aos clientes e usuários a melhor experiência possível em videoconferência. Novidades e melhorias são continuamente lançadas, e você pode acompanhar as atualizações [aqui](https://ajuda.rnp.br/conferenciaweb/ultimas-atualizacoes).
 
 Sugestões são muito bem-vindas, a qualquer momento. Sinta-se à vontade para contatar-nos sempre que quiser compartilhar conosco um feedback ou sugestão ou mesmo para pedir ajuda.
 
@@ -689,11 +687,3 @@ Sugestões são muito bem-vindas, a qualquer momento. Sinta-se à vontade para c
 - O _shared secret_ utilizado para assinar as chamadas da API deve ser conhecido somente pelo seu backend e em hipótese nenhuma deve ser passado para o frontend ou exposto para o usuário de alguma forma;
 - No `CREATE` você irá definir os parâmetros `moderatorPW` e `attendeePW`. Eles podem ser qualquer coisa, desde que sejam diferentes, por exemplo, `mp` e `ap` respectivamente. Quando o `JOIN` for gerado, o `mp` é passado para que o usuário conecte como moderador, e o `ap` é passado para que o usuário conecte como participante;
 - No `CREATE`, passe `record=true` para que a sessão possa ser gravada.
-
-### Posso substituir o logo do ConferênciaWeb do canto superior esquerdo?
-
-Sim, pode substituir passando o parâmetro `logo=URL` no método `CREATE`, sendo `URL` o link público onde a imagem com o logo da sua organização reside. Nós recomendamos que a imagem seja no formato SVG, com fundo transparente, e altura de 28px. Faça um teste para garantir que a disposição do logo fique adequada.
-
-Além disso, o ConferênciaWeb possui modo escuro, e é possível passar uma versão do logo para aplicação no modo escuro. Nesse caso, o parâmetro a ser passado no `CREATE` é `darklogo=URL`. `logo` e `darklogo` podem ser passados simultaneamente no `CREATE`, e caso `darklogo` não seja passado, `logo` será utilizado também no modo escuro.
-
-Apesar de permitir a personalização do logo, o ConferênciaWeb não faz white label - leia mais em [White label no ConferênciaWeb](https://www.notion.so/White-label-no-ConferênciaWeb-fd9b0d69d2d945eca16f09838b35e407?pvs=21).
