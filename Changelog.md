@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.1
+- Fix Conferência Web theme: update favicon and correct theme links
+- Improve guides documentation with text corrections and link updates
+
 ## 2.7.0
 - Implement Conferência Web theme customization
 - Review and update documentation for some internal endpoints
